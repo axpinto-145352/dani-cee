@@ -174,42 +174,142 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 ## Proposal A — Philosophy
 
-Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for workflow automation. Layer AI agents (SDR, BDR, Admin) on top via API integrations.
+Build a split-architecture system: Notion handles all non-PHI CRM operations (pipeline, tasks, contacts, SOPs). Self-hosted n8n on AWS handles all HIPAA/PHI workflows in an encrypted, BAA-covered environment. AI agents layer on top of both via n8n orchestration.
 
-**Flexible. Low-code. AI-powered. You own the data.**
+**Two layers. Clear boundary. No PHI in Notion. Full compliance on AWS.**
 
 ---
 
-## Proposal A — Architecture
+## Proposal A — Architecture (Split: Non-PHI / PHI)
 
-**Notion (CRM & Operations Hub)**
-- Contacts database with relations, rollups, and custom properties
+### Layer 1: Notion (Non-PHI CRM & Operations Hub)
+- Contact records: name, email, phone, agent assignment, lead source, deal stage
 - Pipeline tracking with Kanban boards and timeline views
-- Policy lifecycle management
-- Department wikis and process documentation
+- Task management, follow-up scheduling, activity logs
+- Department wikis, SOPs, and process documentation
 - Templates for repeatable workflows
+- Reporting dashboards (non-PHI metrics: conversion rates, pipeline velocity, agent activity)
 
-**n8n (Automation Engine — Self-Hosted)**
-- Replaces Zapier with unlimited executions
-- Triggers workflows between Notion, SendGrid, AI agents, and external tools
-- Handles lead routing, follow-up sequences, enrollment alerts, reporting
+**What NEVER goes in Notion:** SSNs, DOBs linked to health data, Medicare/Medicaid IDs, policy numbers, health plan selections, enrollment details, medical conditions, coverage information, signed health documents
 
-**AI Agents (via API)**
+### Layer 2: n8n + AWS (PHI/HIPAA-Compliant Environment)
+- Self-hosted n8n on AWS (standard regions — not GovCloud; BAA signed with AWS)
+- Encrypted PostgreSQL (RDS) for structured PHI: enrollment data, policy details, Medicare IDs, health plan selections
+- Encrypted S3 for PHI documents: signed enrollment forms, compliance paperwork, health-related correspondence
+- All PHI processing happens exclusively in this layer
+- n8n workflows bridge Notion and the PHI layer — reading non-PHI context from Notion, processing PHI on AWS, writing back only non-PHI status updates (e.g., "enrollment complete" without enrollment details)
+
+### Layer 3: AI Agents (Orchestrated by n8n)
 - AI SDR: Lead qualification, email/SMS outreach, follow-up, meeting booking
 - AI BDR: Outbound prospecting, list building, personalized outreach
 - AI Admin: Data entry, scheduling, compliance document tracking, reporting
-- Built on LLM APIs (Claude, GPT) with n8n orchestrating the workflows
+- Built on LLM APIs (Claude, GPT) — all PHI-touching agent workflows execute within the AWS environment
+- Non-PHI agent tasks (outreach copy, scheduling) can reference Notion data directly
+
+---
+
+## Proposal A — PHI Leakage Prevention Plan
+
+The #1 risk in this architecture is PHI accidentally entering Notion. This section defines the technical, procedural, and organizational controls to prevent that.
+
+### Technical Controls (Automated Enforcement)
+
+**1. Notion Property Restrictions**
+- Pre-define all allowed database properties in Notion during CRM setup
+- Lock database schemas so only admins can add new properties/columns
+- Use Notion's Business plan permission controls: restrict who can modify database structures
+- No free-text "notes" fields on contact records — use structured dropdowns, selects, and status fields that cannot contain PHI
+
+**2. n8n Workflow Guardrails**
+- All data flowing FROM the PHI layer TO Notion passes through a sanitization workflow in n8n
+- This workflow strips any PHI fields before writing to Notion — only non-PHI status fields (e.g., "stage: enrolled", "next action: renewal review") get written back
+- Build a PHI detection step into the sanitization workflow: use regex patterns to flag SSN formats (XXX-XX-XXXX), Medicare ID patterns, DOB patterns, and health-related keywords before any Notion write
+- If PHI is detected in a Notion-bound payload, the workflow halts and sends an alert to the compliance officer
+- All n8n workflows that touch PHI are tagged and documented separately; they run only within the AWS environment
+
+**3. n8n-Powered PHI Scanner (Scheduled)**
+- Build a recurring n8n workflow (daily or weekly) that reads all Notion database records via the Notion API
+- The scanner checks every text field, comment, and property for PHI patterns: SSN, Medicare ID, DOB + health keywords, policy numbers
+- Uses an AI classification step (Claude Haiku — fast and cheap) to evaluate ambiguous content
+- If PHI is found: immediately flag the record, notify the compliance officer, and log the incident in the AWS audit trail
+- This acts as a safety net — even if a human manually enters PHI in Notion, it gets caught and remediated
+
+**4. Notion API as the Only Write Path**
+- Configure n8n as the primary mechanism for updating Notion databases programmatically
+- Human users can view and update non-PHI fields manually, but all automated data flows go through n8n's sanitization layer
+- Disable or restrict Notion integrations/embeds that could pull PHI from external sources without going through n8n
+
+**5. AWS-Side Access Controls**
+- PHI database (RDS) and document storage (S3) are in a private VPC subnet — no public internet access
+- Access only through n8n workflows or authorized admin via VPN/bastion host
+- IAM roles follow least-privilege: only the n8n service account and a small number of named admins can read/write PHI
+- All access is logged via CloudTrail; anomalous access patterns trigger CloudWatch alarms
+- n8n execution data saving is disabled — workflow logs do not persist PHI
+
+### Procedural Controls (Human Behavior)
+
+**6. Data Classification Guide**
+- Create a one-page reference document (laminated desk card or Notion wiki page) that clearly defines:
+  - **GREEN (Notion-safe):** Name, email, phone, mailing address, agent name, lead source, deal stage, task status, activity dates, dollar amounts, general notes about preferences
+  - **RED (AWS/n8n only):** SSN, DOB linked to health info, Medicare/Medicaid ID, policy number, health plan name/selection, enrollment details, medical conditions, prescription info, signed health documents, any communication content referencing health status
+- The guide includes real examples specific to the brokerage's daily work
+
+**7. Mandatory Onboarding Training**
+- Every user who accesses Notion completes a 30-minute training on the PHI boundary
+- Training covers: what PHI is, where it goes (AWS), where it doesn't go (Notion), how to use the system correctly, and what to do if they accidentally enter PHI
+- Training is tracked in the LMS (LearnDash) with completion certificates
+- Annual refresher required — tied to compliance calendar
+
+**8. Incident Response Procedure**
+- If PHI is found in Notion (via the automated scanner or human report):
+  1. Immediately delete/redact the PHI from Notion
+  2. Log the incident in the AWS audit trail with timestamp, user, and data involved
+  3. Notify the compliance officer within 24 hours
+  4. Assess whether the exposure constitutes a HIPAA breach (was the data accessed by unauthorized parties?)
+  5. If breach threshold is met, follow HIPAA Breach Notification Rule (notify affected individuals within 60 days, report to HHS)
+  6. Conduct root cause analysis and update controls to prevent recurrence
+
+### Organizational Controls (Culture)
+
+**9. Compliance Officer Ownership**
+- Designate a compliance officer (or assign the role to an existing leader) who owns the PHI boundary
+- This person reviews the weekly PHI scanner reports, approves new Notion database properties, and conducts quarterly access audits
+
+**10. Quarterly PHI Boundary Audits**
+- Every quarter, review: Notion database schemas for new fields, n8n workflow configurations, AWS access logs, PHI scanner findings
+- Document findings and remediation actions
+- Include in board/leadership reporting
+
+**11. "PHI-Free Zone" Branding**
+- Brand Notion internally as the "PHI-Free Zone" — make it part of the culture
+- Add a visible banner or callout on the Notion CRM homepage: "This workspace does not contain Protected Health Information. All PHI is stored securely in our HIPAA-compliant environment."
+- Reinforce the boundary in every department meeting during rollout
+
+### Cost of PHI Prevention Controls
+
+| Item | Estimated Cost | Type |
+|------|---------------|------|
+| n8n sanitization workflow build | Included in integration layer build | One-time |
+| n8n PHI scanner workflow build | $1,000–$3,000 | One-time |
+| AI classification step (Claude Haiku API) | $5–$20/mo | Ongoing (minimal token usage) |
+| Data classification guide creation | $500–$1,000 | One-time |
+| Training module development (LearnDash) | $1,000–$2,000 | One-time |
+| Compliance officer time (partial role) | $0–$500/mo | Ongoing (existing employee) |
+| **PHI prevention total (one-time)** | **$2,500–$6,000** | |
+| **PHI prevention total (ongoing)** | **$5–$520/mo** | |
 
 ---
 
 ## Proposal A — What Gets Built
 
-1. **Notion CRM** — Contacts, pipeline, policy tracking, department hubs, SOPs
-2. **n8n Automation Layer** — Self-hosted on AWS; replaces Zapier; connects all systems
-3. **AI SDR Agent** — n8n workflows calling LLM APIs for lead qualification and outreach
-4. **AI BDR Agent** — Prospecting automation, list enrichment, personalized messaging
-5. **AI Admin Agent** — Data entry automation, scheduling, compliance checks, reporting
-6. **Integration Layer** — n8n connects Notion to Medicare Pro, E123, SendGrid, and retained tools
+1. **Notion CRM (Non-PHI Layer)** — Contacts, pipeline, tasks, department hubs, SOPs — no PHI
+2. **AWS PHI Environment** — Encrypted RDS + S3 with BAA, private VPC, audit logging — all PHI lives here
+3. **n8n Automation Layer** — Self-hosted on AWS; bridges Notion and PHI layer; includes sanitization and PHI scanning workflows
+4. **AI SDR Agent** — n8n workflows calling LLM APIs for lead qualification and outreach
+5. **AI BDR Agent** — Prospecting automation, list enrichment, personalized messaging
+6. **AI Admin Agent** — Data entry automation, scheduling, compliance checks, reporting
+7. **Integration Layer** — n8n connects Notion, AWS PHI layer, Medicare Pro, E123, SendGrid, and retained tools
+8. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner, incident response procedures
 
 ---
 
@@ -254,25 +354,41 @@ Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for 
 
 ## Proposal A — New Costs (Detailed Breakdown)
 
-### Notion
+### Notion (Non-PHI CRM Layer)
 
 | Line Item | Cost | Pricing Basis |
 |-----------|------|---------------|
-| Notion Business plan | $20/user/mo (annual) or $24/user/mo (monthly) | Per-seat; Business tier needed for SAML SSO, private teamspaces, advanced permissions |
+| Notion Business plan | $20/user/mo (annual) or $24/user/mo (monthly) | Per-seat; Business tier needed for SAML SSO, private teamspaces, advanced permissions, locked database schemas |
 | Estimated seats (10 users) | $200–$240/mo | Scales linearly per user added |
 | Estimated seats (25 users) | $500–$600/mo | Scales linearly per user added |
 
-*Notion pricing is per-seat. The cost scales directly with how many people need access. Free guests can view shared pages but can't edit databases.*
+*Notion Business plan (not Enterprise) is sufficient here because PHI is not stored in Notion — no BAA required from Notion. Business tier provides the permission controls needed to lock database schemas and enforce the PHI-free boundary.*
 
-### n8n (Self-Hosted)
+### n8n (Self-Hosted on AWS)
 
 | Line Item | Cost | Pricing Basis |
 |-----------|------|---------------|
 | n8n Community Edition license | $0 | Free and open-source for self-hosting |
-| AWS server for n8n (t3.medium or similar) | $30–$80/mo | EC2 instance + storage; varies by workload |
-| DevOps/maintenance time | $0–$500/mo | Internal time or contractor for updates, monitoring |
+| AWS EC2 for n8n (t3.medium or similar) | $30–$80/mo | Instance + EBS storage; handles automation workloads |
+| DevOps/maintenance time | $0–$500/mo | Internal time or contractor for updates, monitoring, security patches |
 
-*n8n self-hosted is free software. You only pay for the server it runs on. Cloud-hosted n8n would be $20–$50/mo but limits executions. Self-hosting gives unlimited executions.*
+*n8n self-hosted is free software with unlimited executions. You pay only for the AWS server. Execution data saving is disabled to prevent PHI persistence in workflow logs.*
+
+### AWS PHI Environment (HIPAA-Compliant Layer)
+
+| Line Item | Cost | Pricing Basis |
+|-----------|------|---------------|
+| AWS BAA (Business Associate Agreement) | $0 | Free — requested through AWS Artifact |
+| RDS PostgreSQL (encrypted, PHI database) | $25–$75/mo | db.t3.medium with Multi-AZ for reliability; KMS encryption at rest |
+| S3 (encrypted, PHI documents) | $5–$20/mo | Server-side encryption (SSE-KMS); versioning enabled; lifecycle policies |
+| EC2 for AI agent services | $50–$150/mo | t3.large or equivalent; runs within private VPC subnet |
+| VPC + NAT Gateway | $35–$50/mo | Private subnet isolation; NAT for outbound-only internet access |
+| CloudTrail + CloudWatch | $10–$30/mo | Audit logging (required for HIPAA); alarms for anomalous access |
+| KMS (Key Management Service) | $1–$5/mo | Encryption key management for RDS and S3 |
+| Data transfer | $5–$30/mo | API calls between n8n, PHI database, and external services |
+| **AWS PHI subtotal** | **$131–$360/mo** | |
+
+*This is the HIPAA-compliant layer. AWS signs a BAA at no cost. The compliance burden is on configuring the environment correctly: encryption, private networking, access controls, and audit logging. This replaces the need for any third-party HIPAA add-on.*
 
 ### AI Agent Development
 
@@ -284,30 +400,27 @@ Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for 
 | Notion CRM setup & configuration | $3,000–$8,000 | One-time: database architecture, relations, views, templates, migration |
 | Integration layer (n8n to Medicare Pro, E123, etc.) | $5,000–$15,000 | One-time: API connections, data sync, error handling |
 
+### PHI Prevention System
+
+| Line Item | Estimated Cost | Pricing Basis |
+|-----------|---------------|---------------|
+| n8n sanitization workflows | Included in integration layer | One-time: built as part of the Notion-to-AWS data bridge |
+| n8n PHI scanner workflow | $1,000–$3,000 | One-time: scheduled scan of all Notion databases for PHI patterns |
+| Data classification guide | $500–$1,000 | One-time: one-page reference for all staff |
+| HIPAA/PHI boundary training module | $1,000–$2,000 | One-time: built in LearnDash with completion tracking |
+| **PHI prevention subtotal (one-time)** | **$2,500–$6,000** | |
+
 ### AI/LLM API Costs (Ongoing)
 
 | Provider / Model | Cost per 1M Tokens | Estimated Monthly Usage | Est. Monthly Cost |
 |-----------------|--------------------|-----------------------|-------------------|
-| Claude Haiku 4.5 (fast tasks) | $1 input / $5 output | ~2M input + 500K output | $4.50 |
-| Claude Sonnet 4.5 (complex tasks) | $3 input / $15 output | ~1M input + 300K output | $7.50 |
-| GPT-4.1 (alternative) | $2 input / $8 output | ~1M input + 300K output | $4.40 |
-| GPT-4.1-mini (high-volume) | $0.40 input / $1.60 output | ~5M input + 1M output | $3.60 |
+| Claude Haiku 4.5 (fast tasks: PHI scanning, classification, outreach drafts) | $1 input / $5 output | ~2M input + 500K output | $4.50 |
+| Claude Sonnet 4.5 (complex tasks: lead qualification, enrollment analysis) | $3 input / $15 output | ~1M input + 300K output | $7.50 |
+| GPT-4.1 (alternative for variety/redundancy) | $2 input / $8 output | ~1M input + 300K output | $4.40 |
+| GPT-4.1-mini (high-volume: bulk classification, simple responses) | $0.40 input / $1.60 output | ~5M input + 1M output | $3.60 |
 | **Blended estimate** | | | **$50–$300/mo** |
 
-*AI API costs depend heavily on volume. A small brokerage doing 500 outreach/day might spend $50–$100/mo. High-volume operations with complex reasoning could reach $300+/mo. Batch API discounts (50% off) and prompt caching (90% off reads) reduce this significantly.*
-
-### AWS Infrastructure (Expanded)
-
-| Line Item | Cost | Pricing Basis |
-|-----------|------|---------------|
-| EC2 for n8n | $30–$80/mo | t3.medium instance |
-| EC2 for AI agent services | $50–$150/mo | t3.large or equivalent for agent runtime |
-| S3 storage | $5–$20/mo | Document storage, backups |
-| Data transfer | $5–$30/mo | API calls, email attachments, etc. |
-| RDS (if database needed) | $15–$50/mo | Small PostgreSQL instance for agent state/logs |
-| **AWS subtotal** | **$105–$330/mo** | |
-
-*Note: This is incremental AWS cost for the new systems. Existing AWS spend for current workloads is separate and included in "retained tools."*
+*AI API costs depend heavily on volume. The PHI scanner adds minimal cost (~$5–$20/mo using Haiku). Batch API discounts (50% off) and prompt caching (90% off cached reads) reduce costs significantly for repetitive workflows.*
 
 ---
 
@@ -322,9 +435,11 @@ Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for 
 | AI BDR agent build | $5,000 | $15,000 |
 | AI Admin agent build | $5,000 | $15,000 |
 | Integration layer (n8n workflows) | $5,000 | $15,000 |
+| PHI prevention system (scanner, training, guide) | $2,500 | $6,000 |
 | Data migration (from Airtable, Active Campaign, etc.) | $2,000 | $5,000 |
+| AWS PHI environment setup (VPC, encryption, IAM, logging) | $1,500 | $4,000 |
 | Training & change management | $1,000 | $3,000 |
-| **TOTAL ONE-TIME** | **$29,000** | **$81,000** |
+| **TOTAL ONE-TIME** | **$33,000** | **$91,000** |
 
 ### Monthly Ongoing Costs
 
@@ -332,12 +447,12 @@ Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for 
 |------|----------------|-----------------|
 | Notion Business | $200 | $600 |
 | n8n self-hosted (AWS server) | $30 | $80 |
-| AI/LLM API costs | $50 | $300 |
-| AWS infrastructure (new) | $105 | $330 |
+| AWS PHI environment (RDS, S3, VPC, logging) | $131 | $360 |
+| AI/LLM API costs (agents + PHI scanner) | $55 | $320 |
 | n8n maintenance/DevOps | $0 | $500 |
 | Retained tools (see above) | $354 | $1,624 |
-| **TOTAL MONTHLY ONGOING** | **$739** | **$3,434** |
-| **TOTAL ANNUAL ONGOING** | **$8,868** | **$41,208** |
+| **TOTAL MONTHLY ONGOING** | **$770** | **$3,484** |
+| **TOTAL ANNUAL ONGOING** | **$9,240** | **$41,808** |
 
 ---
 
@@ -345,17 +460,21 @@ Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for 
 
 | Phase | Description | Duration | Milestone |
 |-------|-------------|----------|-----------|
-| Phase 0 | Process discovery & requirements | Weeks 1–3 | Process map complete |
-| Phase 1 | Notion CRM build (databases, relations, views, templates) | Weeks 4–7 | CRM operational |
-| Phase 2 | n8n setup + core automations (lead routing, notifications) | Weeks 5–8 | n8n live, replacing Zapier |
-| Phase 3 | AI SDR agent (email + SMS outreach sequences via n8n) | Weeks 7–11 | SDR agent in testing |
-| Phase 4 | AI BDR agent (prospecting + list building) | Weeks 9–13 | BDR agent in testing |
-| Phase 5 | AI Admin agent (scheduling, data entry, compliance) | Weeks 11–15 | Admin agent in testing |
-| Phase 6 | Integration layer (Medicare Pro, E123, retained tools) | Weeks 12–16 | All integrations live |
-| Phase 7 | Migration & legacy tool decommission (dept by dept) | Weeks 14–20 | Redundant tools canceled |
-| Phase 8 | Training, change management, stabilization | Weeks 16–22 | Full rollout |
+| Phase 0 | Process discovery & requirements; data classification (PHI vs. non-PHI) | Weeks 1–3 | Process map + data classification guide complete |
+| Phase 1 | AWS PHI environment setup (VPC, RDS, S3, encryption, IAM, CloudTrail, BAA) | Weeks 4–6 | HIPAA-compliant infrastructure live |
+| Phase 2 | Notion CRM build (databases, relations, views, templates, locked schemas) | Weeks 4–7 | CRM operational (non-PHI) |
+| Phase 3 | n8n setup + core automations (lead routing, notifications, Notion-AWS bridge, sanitization workflows) | Weeks 5–9 | n8n live; PHI boundary enforced |
+| Phase 4 | PHI scanner workflow + incident response procedures | Weeks 7–9 | Automated PHI detection active |
+| Phase 5 | AI SDR agent (email + SMS outreach sequences via n8n) | Weeks 8–12 | SDR agent in testing |
+| Phase 6 | AI BDR agent (prospecting + list building) | Weeks 10–14 | BDR agent in testing |
+| Phase 7 | AI Admin agent (scheduling, data entry, compliance) | Weeks 12–16 | Admin agent in testing |
+| Phase 8 | Integration layer (Medicare Pro, E123, retained tools) | Weeks 13–17 | All integrations live |
+| Phase 9 | Migration & legacy tool decommission (dept by dept) | Weeks 15–21 | Redundant tools canceled |
+| Phase 10 | Training (including PHI boundary training), change management, stabilization | Weeks 17–24 | Full rollout; all staff trained |
 
-**Total: ~5.5 months to full deployment**
+**Total: ~6 months to full deployment**
+
+*Note: Phases 1 and 2 run in parallel (AWS setup + Notion CRM build). The extra time vs. the previous estimate accounts for the PHI prevention system build and mandatory compliance training.*
 
 ---
 
@@ -367,14 +486,18 @@ Build an integrated CRM on Notion as the central hub. Use n8n (self-hosted) for 
 - AI agents tuned to insurance sales workflows — competitive differentiator
 - No per-seat SaaS fees for automation (n8n) — only Notion scales per seat
 - You own all data — no vendor lock-in on the automation layer
-- Significantly cheaper than a fully custom-coded CRM ($29K–$81K vs. $75K–$205K)
+- HIPAA compliance handled via AWS BAA (free) + self-managed encryption — no $297/mo add-on fee
+- PHI prevention system provides automated, continuous compliance monitoring
+- Clear separation of concerns: business users work in Notion, PHI stays locked in AWS
 
 **Cons**
+- Split architecture adds complexity — two systems to maintain instead of one
+- PHI boundary requires ongoing vigilance (mitigated by automated scanner + training)
 - Notion is not a purpose-built CRM — has limitations on relational data, reporting, and scale (10K+ records can slow down)
 - n8n self-hosted requires some DevOps knowledge to maintain
 - AI agents require upfront build investment and ongoing prompt tuning
-- HIPAA compliance: Notion's BAA availability must be verified for PHI storage
-- Not as turnkey as GoHighLevel — requires more initial configuration
+- Longer deployment timeline (~6 months vs. ~3.5 months for GHL)
+- Compliance responsibility is on the organization, not a vendor
 
 ---
 
@@ -568,19 +691,21 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 
 | Factor | Proposal A (Notion + n8n + AI) | Proposal B (GoHighLevel) |
 |--------|-------------------------------|--------------------------|
-| **One-time cost** | $29,000–$81,000 | $7,000–$20,000 |
-| **Monthly ongoing (10 seats)** | $739–$1,510 | $1,018–$1,870 |
-| **Monthly ongoing (25 seats)** | $1,339–$3,434 | $1,018–$2,765 |
-| **Annual ongoing (10 seats)** | $8,868–$18,120 | $12,216–$22,440 |
-| **Annual ongoing (25 seats)** | $16,068–$41,208 | $12,216–$33,180 |
-| **Time to full deployment** | ~5.5 months | ~3.5 months |
+| **One-time cost** | $33,000–$91,000 | $7,000–$20,000 |
+| **Monthly ongoing (10 seats)** | $770–$1,560 | $1,018–$1,870 |
+| **Monthly ongoing (25 seats)** | $1,370–$3,484 | $1,018–$2,765 |
+| **Annual ongoing (10 seats)** | $9,240–$18,720 | $12,216–$22,440 |
+| **Annual ongoing (25 seats)** | $16,440–$41,808 | $12,216–$33,180 |
+| **Time to full deployment** | ~6 months | ~3.5 months |
 | **Tools eliminated** | ~11 | ~11 |
 | **CRM flexibility** | High (Notion is infinitely customizable) | Moderate (GHL is opinionated) |
 | **Automation cost at scale** | Near-zero (n8n self-hosted) | Usage-based fees grow with volume |
 | **AI capabilities** | Custom agents — full control | GHL AI Employee add-on ($97/mo) |
-| **Engineering required** | Some (n8n maintenance, AI tuning) | Minimal |
+| **Engineering required** | Some (n8n + AWS maintenance, AI tuning) | Minimal |
 | **Vendor lock-in** | Low (Notion export + open-source n8n) | High (GHL is proprietary) |
-| **HIPAA compliance** | Must verify Notion BAA; HIPAA Vault for PHI | $297/mo add-on |
+| **HIPAA compliance** | Split architecture: no PHI in Notion; AWS BAA (free) + self-managed encryption | $297/mo add-on (non-cancelable) |
+| **HIPAA ongoing cost** | $0 (BAA free; infra cost already in AWS line) | $297/mo ($3,564/yr) |
+| **PHI leakage risk** | Mitigated: automated scanner, sanitization workflows, training, incident response | Low (single platform handles PHI natively) |
 | **Scalability (seats)** | Notion cost grows per seat | GHL unlimited contacts, flat subscription |
 | **Scalability (volume)** | n8n unlimited executions | GHL usage fees grow with volume |
 
@@ -593,7 +718,7 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 | Scenario | 10 Seats | 25 Seats |
 |----------|----------|----------|
 | **Current state (estimated)** | $17,784–$60,996 | $17,784–$60,996 |
-| **Proposal A (Notion + n8n + AI)** | $37,868–$99,120 | $45,068–$122,208 |
+| **Proposal A (Notion + n8n + AI)** | $42,240–$109,720 | $49,440–$132,808 |
 | **Proposal B (GoHighLevel)** | $19,216–$42,440 | $19,216–$53,180 |
 
 ## Year 2+ (Ongoing Only)
@@ -601,10 +726,10 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 | Scenario | 10 Seats | 25 Seats |
 |----------|----------|----------|
 | **Current state (estimated)** | $17,784–$60,996 | $17,784–$60,996 |
-| **Proposal A (Notion + n8n + AI)** | $8,868–$18,120 | $16,068–$41,208 |
+| **Proposal A (Notion + n8n + AI)** | $9,240–$18,720 | $16,440–$41,808 |
 | **Proposal B (GoHighLevel)** | $12,216–$22,440 | $12,216–$33,180 |
 
-**Key insight:** Proposal A has higher Year 1 costs due to the AI agent build investment, but lower ongoing costs — especially at scale, because n8n has no per-execution fees and Notion per-seat pricing is predictable. Proposal B is cheaper to start but the HIPAA add-on ($3,564/yr) and usage-based fees make it more expensive than it first appears.
+**Key insight:** Proposal A has higher Year 1 costs due to the AI agent build + PHI infrastructure investment, but lower ongoing costs from Year 2 onward — especially at scale. The AWS BAA is free vs. GHL's non-cancelable $3,564/yr HIPAA add-on. n8n has no per-execution fees. Proposal B is cheaper to start but the mandatory HIPAA add-on and usage-based fees narrow the gap significantly over time. At the 10-seat level, Proposal A becomes cheaper than Proposal B partway through Year 2.
 
 ---
 
@@ -650,9 +775,10 @@ Given the number of departments and verticals, change management is critical.
 # Next Steps
 
 1. Schedule Monday discussion to review this plan
-2. Complete Phase 0 process discovery (Weeks 1–3)
-3. Audit every tool for active usage, contract terms, and renewal dates
-4. Confirm seat count across departments (directly impacts Proposal A vs. B economics)
-5. Verify HIPAA compliance: Notion BAA availability and GHL HIPAA add-on scope
-6. Present refined proposals with validated cost projections
-7. Select approach and begin department-by-department rollout
+2. **Immediate:** Verify whether Active Campaign is currently on an Enterprise plan with a signed BAA — if not, there is an existing HIPAA compliance gap
+3. Complete Phase 0 process discovery (Weeks 1–3), including PHI data classification across all workflows
+4. Audit every tool for active usage, contract terms, and renewal dates
+5. Confirm seat count across departments (directly impacts Proposal A vs. B economics)
+6. If Proposal A is selected: sign AWS BAA via AWS Artifact; begin VPC + encryption setup in parallel with Notion CRM build
+7. Present refined proposals with validated cost projections
+8. Select approach and begin department-by-department rollout
