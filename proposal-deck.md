@@ -111,6 +111,31 @@ We combine three proven platforms into one integrated system:
 
 ---
 
+# Technical Deep Dive (Reference Slide)
+
+*This slide is here if you want the specifics — feel free to skip it.*
+
+## The Technology Behind Each Layer
+
+| Layer | Technology | What It Is | Why We Chose It |
+|-------|-----------|-----------|-----------------|
+| **CRM & Operations** | Notion (Business Plan) | Cloud-based workspace with databases, wikis, and dashboards | $20/user/mo. Replaces Airtable, Active Campaign CRM, and scattered docs. Fully exportable — low lock-in. |
+| **Automation Engine** | n8n (self-hosted, Community Edition) | Open-source workflow automation platform | Free and unlimited. Self-hosted on AWS so data never leaves your environment. Replaces Zapier ($20–$100/mo). |
+| **Patient Data Store** | AWS RDS (PostgreSQL) + S3 | Encrypted relational database + encrypted file storage | HIPAA-eligible services. Data encrypted at rest (AES-256) and in transit (TLS 1.2+). Inside a private VPC — no public internet access. |
+| **AI Processing** | AWS Bedrock | Managed AI service from Amazon (runs Claude, Titan, and other models) | HIPAA-eligible. Covered by AWS BAA (free via AWS Artifact). Your data is never used to train models. All inference stays in-region. |
+| **AI Agents** | n8n workflows + Bedrock API | Orchestration layer that chains AI calls with CRM actions | n8n triggers → Bedrock processes → results written back to Notion (sanitized) or AWS (PHI). No third-party AI APIs needed. |
+| **Compliance Agreement** | AWS Business Associate Agreement (BAA) | Federal HIPAA compliance contract covering all AWS services used | Free. Covers RDS, S3, EC2, Bedrock, and 100+ other services. Signed digitally via AWS Artifact — no negotiation required. |
+| **Infrastructure** | AWS (us-east-1 or us-west-2) | Standard AWS region (not GovCloud) | GovCloud is only required for federal/ITAR workloads. Standard AWS with BAA is sufficient for HIPAA. Lower cost, same compliance. |
+
+## Key Technical Decisions
+
+- **Why not GovCloud?** GovCloud adds cost and complexity. It's required for federal contracts (ITAR, FedRAMP), not for commercial HIPAA. Standard AWS + BAA meets all requirements.
+- **Why self-hosted n8n instead of cloud n8n?** Self-hosted = free, unlimited executions, and PHI never leaves your AWS environment. Cloud n8n would require a separate BAA.
+- **Why Bedrock instead of direct OpenAI/Anthropic APIs?** Direct API calls with PHI require separate BAAs from each AI vendor (Anthropic offers one; OpenAI's is limited). Bedrock keeps everything under one AWS BAA with no data leaving your environment.
+- **Why Notion Business instead of Enterprise?** Enterprise requires 100+ seats and starts ~$25/user/mo. Since PHI never enters Notion, you don't need Notion's BAA — Business plan at $20/user/mo is sufficient.
+
+---
+
 # What Notion Replaces
 
 Notion becomes the one place your team goes for everything non-medical:
