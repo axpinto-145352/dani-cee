@@ -556,19 +556,82 @@ Active Campaign only signs BAAs on their Enterprise plan. If The Brokerage Inc. 
 
 ---
 
-## 10. Risk Register
+## 10. Risk Assessment & Mitigation Plan
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-| PHI enters Notion | Medium | High | 11-control prevention plan (technical + procedural + organizational) |
-| Notion performance degrades at scale (10K+ records) | Medium | Medium | Archive old records, use filtered views, consider database splitting |
-| n8n self-hosted goes down | Low | High | AWS auto-recovery, CloudWatch alarms, documented restart procedures |
-| AWS Bedrock model availability changes | Low | Medium | Architecture supports model switching; not locked to one model |
-| Staff resistance to new systems | High | Medium | Change champions, parallel systems, department-by-department rollout |
-| Active Campaign has no BAA (existing gap) | Medium | High | Verify immediately — remediate before or during migration |
-| Five9 replacement doesn't match capability | Medium | Medium | Evaluate during Phase 0 — may retain Five9 for complex calls |
-| Scope creep during build | Medium | Medium | Fixed milestone structure with go/no-go gates |
-| Key person dependency (VV consultant) | Medium | Medium | Complete handoff documentation at Milestone 4; retainer for ongoing support |
+### Risk Scoring
+
+- **Likelihood:** Low (unlikely, <20%), Medium (possible, 20–60%), High (probable, >60%)
+- **Impact:** Low (minor inconvenience), Medium (delays or added cost), High (significant disruption), Critical (compliance violation, data breach, or project failure)
+- **Risk Level:** Likelihood × Impact → color-coded priority
+
+---
+
+### Category 1: Compliance & HIPAA Risks
+
+| # | Risk | Likelihood | Impact | Risk Level | Detailed Mitigation |
+|---|------|-----------|--------|-----------|-------------------|
+| C1 | **PHI leaks into Notion** — A user manually enters PHI (Medicare ID, SSN, health plan info) into a Notion database field | Medium | Critical | **HIGH** | **11-control prevention plan:** (1) Locked database schemas — only admins add properties, (2) No free-text notes fields — structured dropdowns only, (3) n8n sanitization workflows strip PHI from all automated Notion writes, (4) PHI detection regex halts workflows if PHI detected in Notion-bound payloads, (5) Daily automated PHI scanner via Bedrock AI scans all Notion records, (6) n8n as only automated write path, (7) Data classification guide (GREEN/RED) distributed to all staff, (8) Mandatory 30-min onboarding training with annual refresher, (9) Documented incident response procedure, (10) Compliance officer reviews scanner reports weekly, (11) "PHI-Free Zone" branding on Notion. **If PHI is found:** immediate deletion, incident logging, breach assessment, HHS notification if threshold met. |
+| C2 | **Active Campaign currently has no BAA** — If the current plan is not Enterprise tier, PHI may already be flowing through a non-compliant platform | Medium | Critical | **HIGH** | **Verify immediately** — this is an existing compliance gap that predates this project. Check plan tier and BAA status with Active Campaign account admin. If no BAA: (1) stop sending PHI through AC immediately, (2) escalate to compliance/legal, (3) accelerate migration off AC as part of this project. |
+| C3 | **SendGrid/Twilio BAA not configured** — If email/SMS workflows route PHI-adjacent content through SendGrid without a BAA | Medium | High | **HIGH** | Verify SendGrid plan tier supports BAA (Pro plan and above). Sign BAA before any PHI-adjacent communications route through SendGrid. If lower tier, upgrade or evaluate alternative transactional email provider with BAA. |
+| C4 | **AWS PHI environment misconfigured** — Encryption not enabled, public subnet exposure, IAM over-permissioned, CloudTrail not active | Low | Critical | **MEDIUM** | Infrastructure-as-code (IaC) templates for reproducible, auditable setup. Security review gate at Milestone 2 before any PHI enters the environment. CloudTrail enabled from day one. Quarterly security audits post-launch. VPC configuration reviewed by AWS-certified professional. |
+| C5 | **HIPAA breach notification failure** — PHI breach occurs but incident response is not followed correctly | Low | Critical | **MEDIUM** | Documented incident response procedure included in training. Compliance officer designated before go-live. Procedure tested with tabletop exercise during Milestone 4 training phase. Clear escalation path: detect → delete → log → assess → notify (60-day window for affected individuals per HIPAA Breach Notification Rule). |
+
+---
+
+### Category 2: Operational & Technical Risks
+
+| # | Risk | Likelihood | Impact | Risk Level | Detailed Mitigation |
+|---|------|-----------|--------|-----------|-------------------|
+| O1 | **Staff resistance to new systems** — Departments push back on changing tools they're familiar with | High | Medium | **HIGH** | Change champions assigned per department — someone who owns the transition for their team. "Why" communicated before "what" in kickoff presentation. Parallel systems during every migration — no cold cutovers. Department-by-department rollout (not all at once). Quick wins first — eliminate obviously orphaned/unused tools early to build momentum and credibility. Weekly check-ins during active migration phases. |
+| O2 | **n8n self-hosted goes down** — Server crash, out-of-memory, or failed update takes automation offline | Low | High | **MEDIUM** | AWS Auto Scaling Group or auto-recovery on the n8n EC2 instance. CloudWatch alarms trigger on CPU, memory, disk, and process health — notify admin immediately. Documented restart/recovery playbook. n8n Docker deployment for clean restarts. If extended downtime: manual fallback procedures documented for critical workflows (lead routing, enrollment notifications). |
+| O3 | **Notion performance degrades at scale** — Databases with 10K+ records become slow to load and filter | Medium | Medium | **MEDIUM** | Proactive mitigation: archive records older than 12–18 months to a separate "archive" database. Use filtered views (not full-database views) for daily operations. Split large databases by year, department, or pipeline if needed. Notion's API performance is unaffected by database size — only the UI slows down. Monitor during Phase 9 migration as data volume increases. |
+| O4 | **Five9 replacement doesn't match capability** — AI dialer or Twilio-based solution can't handle complex call center scenarios (transfers, queues, supervisor monitoring) | Medium | Medium | **MEDIUM** | Evaluate Five9 usage thoroughly during Phase 0. If Five9 handles complex multi-agent call routing, supervisor barge/whisper, or regulatory call recording — retain it. Only replace if usage is simple outbound dialing. Phase 0 deliverable includes Five9 capability assessment. |
+| O5 | **AI agent output quality issues** — Bedrock-powered agents produce inaccurate, inappropriate, or off-brand communications | Medium | Medium | **MEDIUM** | All agent outputs go through approval workflows during initial deployment (human-in-the-loop). Prompt engineering includes brand voice guidelines, compliance guardrails, and output validation rules. Agent performance reviewed weekly during Months 2–4. Gradual autonomy — start with AI-assisted (human reviews), move to AI-automated only after confidence is established. |
+| O6 | **Integration failures with Medicare Pro / E123** — APIs are limited, undocumented, or require vendor cooperation | Medium | Medium | **MEDIUM** | Research API availability during Phase 0. If no API exists: evaluate CSV export/import via n8n scheduled workflows, or screen scraping as last resort. Engage Medicare Pro / E123 vendor support early. Integration layer build (Phase 8) has 4-week window to accommodate complexity. Worst case: manual processes continue for these tools with Notion as the coordination layer. |
+| O7 | **Data migration errors** — Contacts, tags, pipeline data lost or corrupted during migration from Active Campaign / Airtable | Low | High | **MEDIUM** | Full export backups before any migration begins. Migration runs in staging/test environment first. Validation checks: record counts, field mapping spot checks, duplicate detection. Parallel systems — old tools stay active until new system is validated. Rollback plan: restore from backup if critical issues found within 7 days of migration. |
+
+---
+
+### Category 3: Project & Engagement Risks
+
+| # | Risk | Likelihood | Impact | Risk Level | Detailed Mitigation |
+|---|------|-----------|--------|-----------|-------------------|
+| P1 | **Scope creep during build** — New requirements surface after Phase 0, expanding the build beyond original estimate | Medium | Medium | **MEDIUM** | Fixed 4-milestone structure with go/no-go gates. Scope is locked at Milestone 1 (end of discovery). New requests after scope lock go into a backlog for retainer phase or a separate engagement. VV engagement fee is fixed — scope creep doesn't change the base fee, but may extend the retainer. |
+| P2 | **Key person dependency (VV consultant)** — If VV becomes unavailable, institutional knowledge is lost | Medium | Medium | **MEDIUM** | All architecture decisions documented in Notion (meta: the CRM documents its own build). Complete handoff documentation delivered at Milestone 4. n8n workflows are self-documenting (visual flowcharts). Retainer provides ongoing access. If VV is unavailable: another n8n/Notion specialist can pick up from documentation. |
+| P3 | **Longer timeline than estimated** — Build takes 5–6 months instead of 4 | Medium | Medium | **MEDIUM** | MVP at Milestone 2 (Month 2) delivers functional value even if later phases delay. Team can use Notion CRM + basic automations while AI agents are still in development. Go/no-go gates prevent sunk cost spiral — if Milestone 1 reveals the project is larger than expected, scope is adjusted before major build investment. |
+| P4 | **Budget overrun on one-time costs** — Build costs exceed the $33K–$91K range | Low | Medium | **LOW** | VV engagement is fixed fee ($13K for 4 months). Infrastructure costs (AWS) are usage-based and monitored monthly. Agent build costs are the main variable — mitigated by building SDR first (Milestone 2) and validating cost/effort before committing to BDR and Admin agents. Go/no-go gate at Milestone 2 specifically addresses this. |
+| P5 | **Stakeholder alignment breaks down** — Different departments have conflicting requirements that can't be reconciled | Medium | Medium | **MEDIUM** | Phase 0 gives every department a voice before any changes happen. Process map is reviewed and approved by all department leads at Milestone 1. Change champions serve as feedback conduits throughout the build. Executive sponsor resolves conflicts that change champions can't. |
+
+---
+
+### Category 4: Strategic & External Risks
+
+| # | Risk | Likelihood | Impact | Risk Level | Detailed Mitigation |
+|---|------|-----------|--------|-----------|-------------------|
+| S1 | **AWS Bedrock model availability or pricing changes** — Anthropic or Amazon changes pricing, deprecates a model, or limits availability | Low | Medium | **LOW** | Architecture supports model switching — n8n workflows reference model IDs that can be changed without rebuilding. Bedrock offers Claude, Llama, Mistral, Titan — not locked to one provider. Intelligent prompt routing already routes between models. Pricing changes are gradual and announced in advance. |
+| S2 | **Notion changes pricing or feature set** — Notion raises prices, removes features, or changes API limits | Low | Medium | **LOW** | Notion data is fully exportable (CSV, API, Markdown). n8n is open-source and portable. The architecture has low vendor lock-in by design. If Notion becomes unviable: CRM layer can migrate to another database (Airtable, custom app) while n8n and AWS layers remain unchanged. |
+| S3 | **Competitor adopts similar AI stack** — Another brokerage builds comparable AI agents | Medium | Low | **LOW** | First-mover advantage. Custom agent training on brokerage-specific data, workflows, and compliance requirements creates differentiation that generic tools can't replicate. The institutional knowledge embedded in the prompts, workflows, and PHI handling is proprietary. |
+| S4 | **Regulatory changes to HIPAA requirements** — New rules expand the definition of PHI or add compliance requirements | Low | High | **MEDIUM** | Split architecture is inherently conservative — PHI is already isolated in the most controlled environment possible (encrypted AWS with BAA, private VPC, audit logging). Easier to adapt than a single-vendor platform where compliance is a black box. Compliance officer role includes regulatory monitoring. |
+| S5 | **AWS region outage** — US-East-1 or selected region experiences extended downtime | Low | High | **MEDIUM** | Multi-AZ deployment for RDS (high-end configuration). S3 has 99.999999999% durability by design. n8n can be redeployed to alternate region from Docker image + database backup. For critical workflows: document manual fallback procedures. AWS region outages >1 hour are rare but have occurred historically. |
+
+---
+
+### Risk Summary Matrix
+
+| Risk Level | Count | Examples |
+|-----------|-------|---------|
+| **HIGH** (address immediately) | 3 | PHI in Notion (C1), Active Campaign BAA gap (C2), staff resistance (O1) |
+| **MEDIUM** (active mitigation plan) | 11 | AWS misconfiguration (C4), n8n downtime (O2), Notion scale (O3), AI quality (O5), scope creep (P1), timeline (P3), regulatory change (S4) |
+| **LOW** (monitor) | 4 | Bedrock pricing (S1), Notion pricing (S2), competitor (S3), budget overrun (P4) |
+
+### Key Takeaway
+
+The three HIGH risks all have concrete mitigation plans:
+1. **PHI in Notion** → 11-control prevention plan (the most detailed mitigation in this project)
+2. **Active Campaign BAA** → Verify this week, before the project even starts
+3. **Staff resistance** → Change management plan with champions, parallel systems, and department-by-department rollout
+
+The architecture itself is designed to contain risk: the split design means a failure in one layer (Notion) doesn't compromise the other (AWS/PHI). Go/no-go gates at Milestones 1 and 2 limit financial exposure if the project proves unfeasible.
 
 ---
 

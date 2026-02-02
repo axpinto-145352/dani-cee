@@ -266,6 +266,52 @@ All AI runs through **AWS Bedrock** (HIPAA-eligible, covered by AWS BAA).
 
 ---
 
+# Risk Assessment: What Could Go Wrong
+
+## Compliance Risks
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| PHI leaks into Notion | Medium | **Critical** | 11-control prevention plan: locked schemas, sanitization workflows, daily AI-powered PHI scanner, mandatory training, incident response, compliance officer |
+| Active Campaign currently has no BAA | Medium | **Critical** | Verify immediately — existing gap that predates this project. Remediate before or during migration. |
+| SendGrid/Twilio BAA not in place | Medium | High | Verify plan tier supports BAA before routing PHI-adjacent communications through it |
+| AWS environment misconfigured | Low | **Critical** | Infrastructure-as-code templates, security review at Milestone 2, CloudTrail audit logging from day one |
+
+## Operational Risks
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| Staff resistance to new systems | **High** | Medium | Change champions per department, parallel systems (no cold cutovers), department-by-department rollout, quick wins first |
+| n8n self-hosted goes down | Low | High | AWS auto-recovery groups, CloudWatch alarms, documented restart procedures, failover playbook |
+| Notion performance at scale (10K+ records) | Medium | Medium | Archive old records quarterly, use filtered views, split databases by year/department if needed |
+| Five9 replacement doesn't match capability | Medium | Medium | Evaluate during Phase 0 — retain Five9 for complex calls if AI dialer falls short |
+
+---
+
+# Risk Assessment: Project & Strategic Risks
+
+## Project Risks
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| Scope creep during build | Medium | Medium | Fixed 4-milestone structure with go/no-go gates. Scope locked at Milestone 1. |
+| Key person dependency (VV) | Medium | Medium | Full handoff documentation at Milestone 4. Retainer for ongoing support. All architecture decisions documented. |
+| Migration data loss or corruption | Low | High | Pre-migration backups, parallel systems during transition, validation checks before legacy tool decommission |
+| Longer timeline than estimated | Medium | Medium | MVP at Milestone 2 delivers value even if later phases delay. Go/no-go gates prevent sunk cost spiral. |
+
+## Strategic Risks
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| AWS Bedrock model changes or pricing increases | Low | Medium | Architecture supports model switching — not locked to one provider. Bedrock offers multiple model families. |
+| Notion changes pricing or feature set | Low | Medium | Notion data is exportable (CSV, API). n8n is open-source. Low vendor lock-in by design. |
+| Competitor adopts similar AI stack | Medium | Low | First-mover advantage. Custom agent training on brokerage-specific data creates defensible differentiation. |
+| Regulatory changes to HIPAA requirements | Low | High | Split architecture is inherently conservative — PHI is isolated in a controlled environment. Easier to adapt than a single-vendor platform. |
+
+**Risk mitigation is built into the architecture and engagement structure. Go/no-go gates at Milestones 1 and 2 limit downside exposure.**
+
+---
+
 # Proposal B: GoHighLevel (Alternative)
 
 For comparison — the faster, simpler path:
