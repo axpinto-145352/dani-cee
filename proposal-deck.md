@@ -1,450 +1,577 @@
 # Tech Stack Consolidation
-## The Brokerage Inc. — Proposal Deck
+## The Brokerage Inc. — Presented by VV
 
 ---
 
-# The Challenge
+# What This Presentation Covers
 
-The Brokerage Inc. operates 45+ tools across siloed departments. The previous tech lead departed without documentation. The result:
+We looked at every tool your company uses — all 46 of them.
 
-- Redundant tools doing the same job across different teams
-- Estimated current spend: **$17,784–$60,996/year** (before headcount scaling)
-- No single source of truth for contacts, pipelines, or processes
-- Unknown HIPAA compliance gaps across multiple platforms
-- No documentation of what tools are active, orphaned, or redundant
-
-**It's time to consolidate.**
-
----
-
-# The Approach: Foundation First
-
-We don't start with tools. We start with process.
-
-**Phase 0: Process Discovery (Weeks 1–3)**
-- Map every department's core workflows
-- Classify all data as PHI or non-PHI
-- Audit every tool for active usage, contracts, and renewal dates
-- Deliver a process map that becomes the single source of truth
-
-**Then we build back up — on a solid foundation.**
+This deck explains:
+- What's broken and what it's costing you
+- How we fix it (two options)
+- What it costs and what you save
+- How we keep patient data safe
+- The timeline and what happens each month
+- How to get started
 
 ---
 
-# Current Tool Landscape
+# The Problem in One Sentence
 
-**45+ tools across 7 categories:**
-
-| Category | Tool Count | Est. Monthly Spend |
-|----------|-----------|-------------------|
-| CRM / Sales / Outreach | 7 tools | $475–$1,395 |
-| Marketing / Content / SEO | 9 tools | $487–$1,413 |
-| Website / Web Infrastructure | 10 tools | $66–$186 |
-| Data / Automation / Backend | 10 tools | $210–$1,425 |
-| Industry / Enrollment | 3 tools | $150–$500 |
-| Learning / Training | 2 tools | $53–$85 |
-| Compliance / Finance / Other | 5 tools | $41–$79 |
-| **TOTAL** | **46 tools** | **$1,482–$5,083/mo** |
-
-**Annual: $17,784–$60,996** — and that's before per-seat scaling.
+Your company pays for 46 different software tools, many of them do the same thing, and nobody knows which ones are actually needed.
 
 ---
 
-# Where the Redundancies Are
+# How Did We Get Here?
 
-**Multiple tools doing the same job:**
+- The previous tech lead left without any documentation
+- Different departments bought their own tools independently
+- Nobody has a complete picture of what's active, what's redundant, or what's safe
+- There's no single place where all your contacts, leads, and deals live
+- Some of these tools may not meet healthcare privacy requirements
 
-- **Email:** Active Campaign + GMass + SendGrid (3 tools)
-- **SMS:** EZ Texting + slydial (2 tools)
-- **Databases:** Airtable Admin + Airtable + Airtable OTP (3 instances)
-- **Forms:** Gravity Forms + Fluent Forms + Forgravity (3 tools)
-- **Websites:** WordPress + Squarespace (2 platforms)
-- **LMS:** Cloud Academy + LearnDash (2 platforms)
-- **Landing Pages:** Unbounce + Elementor (2 tools)
-- **Analytics:** Fathom + BrightFire (2 tools)
-
-**~11 tools can be eliminated immediately.**
+**This isn't unusual — but it needs to be fixed before it gets more expensive.**
 
 ---
 
-# Proposal A: Notion + n8n + AI Agents
+# What "46 Tools" Actually Looks Like
+
+Your teams use tools across every part of the business:
+
+| Area | How Many Tools | What They Do |
+|------|---------------|-------------|
+| Sales & Outreach | 7 tools | CRM, email campaigns, texting, calls |
+| Marketing & Content | 9 tools | SEO, social media, content creation |
+| Websites | 10 tools | Hosting, landing pages, forms, analytics |
+| Data & Automation | 10 tools | Databases, integrations, workflow tools |
+| Insurance-Specific | 3 tools | Medicare enrollment, carrier platforms |
+| Training | 2 tools | Online courses for agents |
+| Finance & Compliance | 5 tools | Billing, compliance tracking |
+
+**Total estimated spend: $17,784–$60,996/year** — and that grows as you add people.
+
+---
+
+# The Real Cost Isn't Just the Software
+
+Beyond the subscription fees, you're paying in:
+
+- **Wasted time** — staff switching between tools, re-entering the same data in multiple places
+- **Missed leads** — no single view of your pipeline means things fall through the cracks
+- **Compliance risk** — patient health data may be sitting in tools that aren't designed to protect it
+- **Training overhead** — new hires have to learn a dozen tools instead of one system
+
+**The hidden costs are bigger than the software bills.**
+
+---
+
+# Where the Overlap Is
+
+You're paying for multiple tools that do the same job:
+
+| Job to Be Done | Tools You're Paying For | How Many |
+|----------------|------------------------|----------|
+| Send emails | Active Campaign, GMass, SendGrid | 3 |
+| Send texts | EZ Texting, slydial | 2 |
+| Store data | Airtable (3 separate accounts) | 3 |
+| Collect form responses | Gravity Forms, Fluent Forms, Forgravity | 3 |
+| Host websites | WordPress, Squarespace | 2 |
+| Train agents | Cloud Academy, LearnDash | 2 |
+| Build landing pages | Unbounce, Elementor | 2 |
+| Track analytics | Fathom, BrightFire | 2 |
+
+**At least 11 tools can be cut right away.**
+
+---
+
+# Two Options to Fix This
+
+We're presenting two approaches. Both solve the problem — they differ in how much control you get.
+
+| | **Option A: Custom Build** | **Option B: All-in-One Platform** |
+|--|---------------------------|----------------------------------|
+| What it is | We build your system using best-in-class pieces | We move everything into GoHighLevel |
+| Best for | Maximum flexibility and long-term savings | Speed and simplicity |
+| Analogy | Building a custom home | Buying a condo |
+
+**Let's walk through each one.**
+
+---
+
+# Option A: The Custom Build
 
 ## The Recommended Approach
 
-Build a split-architecture system purpose-designed for a HIPAA-regulated insurance brokerage:
+We combine three proven platforms into one integrated system:
 
-- **Notion** — Non-PHI CRM & operations hub
-- **n8n (self-hosted on AWS)** — Automation engine with unlimited workflows
-- **AWS Bedrock** — HIPAA-compliant AI (Claude, Titan) — PHI never leaves AWS
-- **AI Agents** — SDR, BDR, and Admin agents for sales and ops automation
-
----
-
-# How It Works: Split Architecture
-
-## Two layers. Clear boundary. Full compliance.
-
-**Layer 1 — Notion (Non-PHI)**
-- Contacts, pipeline stages, tasks, agent assignments
-- Department wikis, SOPs, reporting dashboards
-- No PHI ever touches Notion
-
-**Layer 2 — AWS (PHI/HIPAA)**
-- Encrypted database (RDS) for enrollment, Medicare IDs, policy data
-- Encrypted document storage (S3) for signed forms
-- n8n automation engine + AI agents via AWS Bedrock
-- Covered by free AWS BAA — no $297/mo HIPAA add-on
-
-**n8n bridges both layers** — reads non-PHI from Notion, processes PHI on AWS, writes back only sanitized status updates.
+- **Notion** — Your new CRM and operations hub (think: the command center where your team lives every day)
+- **n8n** — The automation engine that connects everything behind the scenes (replaces Zapier and manual data entry)
+- **AI Assistants** — Digital workers that handle lead outreach, follow-ups, and admin tasks 24/7
 
 ---
 
-# AI Agents: What They Do
+# What Notion Replaces
 
-All AI runs through **AWS Bedrock** (HIPAA-eligible, covered by AWS BAA).
+Notion becomes the one place your team goes for everything non-medical:
 
-**AI SDR Agent**
-- Lead qualification and scoring
-- Email/SMS outreach sequences
-- Automated follow-up and meeting booking
+| Currently Using | Notion Replaces It With |
+|----------------|------------------------|
+| Active Campaign (CRM features) | Contact database + pipeline view |
+| Airtable (3 accounts) | Structured databases with views |
+| Scattered Google Docs / wikis | Department wikis and SOPs |
+| Manual spreadsheet reports | Auto-updating dashboards |
+| Crisp (chat/support) | Intake forms + automated routing |
 
-**AI BDR Agent**
-- Outbound prospecting and list building
-- Personalized outreach at scale
-- Lead enrichment
-
-**AI Admin Agent**
-- Data entry automation
-- Appointment scheduling
-- Compliance document tracking and reporting
+**One login. One system. Everyone on the same page.**
 
 ---
 
-# PHI Protection: 11 Controls
+# What the Automation Engine Does
 
-## Technical (Automated)
-1. Locked Notion database schemas — admin-only changes
-2. n8n sanitization workflows strip PHI before any Notion write
-3. Automated PHI scanner — daily scan of all Notion records via Bedrock AI
-4. n8n as the only automated write path to Notion
-5. AWS private VPC — PHI database not publicly accessible
+n8n is the "invisible assistant" that runs behind the scenes:
 
-## Procedural (Human)
-6. Data classification guide — GREEN (Notion) vs RED (AWS)
-7. Mandatory onboarding training + annual refresher
-8. Documented incident response procedure
+- When a new lead comes in → it automatically gets scored and routed to the right agent
+- When an appointment is booked → it sends confirmation texts and calendar invites
+- When a form is submitted → the data flows to the right database without anyone typing it in
+- When a deal moves to a new stage → the next follow-up sequence starts automatically
 
-## Organizational (Culture)
-9. Designated compliance officer owns the PHI boundary
-10. Quarterly PHI boundary audits
-11. "PHI-Free Zone" branding on Notion workspace
+**This replaces Zapier (which charges per task) with unlimited automations at no per-use cost.**
 
 ---
 
-# What Gets Eliminated (11 Tools)
+# What the AI Assistants Do
 
-| Eliminated | Replaced By | Monthly Savings |
-|-----------|-------------|-----------------|
-| Active Campaign | Notion + n8n + SendGrid | $150–$500 |
-| EZ Texting | n8n SMS via Twilio | $50–$200 |
-| slydial | AI voicemail via n8n | $30–$100 |
-| GMass | n8n bulk email | $20–$50 |
-| Crisp | Notion intake + n8n | $25–$95 |
-| Quo | AI SDR agent | $50–$150 |
-| Airtable (×3) | Notion databases | $60–$135 |
-| Zapier | n8n (free self-hosted) | $20–$100 |
+Think of these as digital employees that handle repetitive work so your people can focus on selling:
+
+**AI Sales Development Rep (SDR)**
+- Reaches out to new leads via email and text
+- Follows up automatically if someone doesn't respond
+- Qualifies leads and books meetings for your human agents
+
+**AI Business Development Rep (BDR)**
+- Builds prospecting lists from your target markets
+- Sends personalized outreach at scale
+- Enriches lead records with relevant data
+
+**AI Admin Assistant**
+- Enters data into your systems automatically
+- Manages appointment scheduling and reminders
+- Tracks compliance documents and flags what's missing
+
+---
+
+# How Much Time This Saves
+
+Here's where your team's hours currently go — and what gets automated:
+
+| Task | Hours/Week Today | Hours/Week After | Time Saved |
+|------|-----------------|-----------------|------------|
+| Qualifying and scoring leads | 10–15 hrs | 1–2 hrs | **9–13 hrs** |
+| Sending outreach emails & texts | 8–12 hrs | 1–2 hrs | **7–10 hrs** |
+| Data entry (contacts, pipeline) | 10–15 hrs | 2–3 hrs | **8–12 hrs** |
+| Scheduling appointments | 5–8 hrs | 0.5–1 hr | **4.5–7 hrs** |
+| Building reports | 5–8 hrs | 1–2 hrs | **4–6 hrs** |
+| Switching between tools | 5–10 hrs | 0.5–1 hr | **4.5–9 hrs** |
+| Compliance tracking | 3–5 hrs | 0.5–1 hr | **2.5–4 hrs** |
+| Voicemail drops & call logging | 3–5 hrs | 0.5 hr | **2.5–4.5 hrs** |
+| **TOTAL** | **49–78 hrs/wk** | **7–12.5 hrs/wk** | **42–65.5 hrs/wk** |
+
+**That's 1 to 1.6 full-time employees' worth of time — returned to revenue-generating work every single week.**
+
+---
+
+# The Healthcare Privacy Question
+
+As a Medicare brokerage, you handle protected health information (PHI) — things like Medicare IDs, policy numbers, and enrollment data.
+
+**Federal law (HIPAA) requires this data to be stored and processed in specific, secure ways.**
+
+This is the single biggest consideration in choosing your tech stack.
+
+Here's how we handle it →
+
+---
+
+# How We Keep Patient Data Safe
+
+We use a "split" design — think of it like having two filing cabinets:
+
+**Filing Cabinet #1 — Notion (Day-to-Day Work)**
+- Contact names, phone numbers, email addresses
+- Deal stages, task lists, meeting notes
+- Department wikis and training materials
+- **No patient health data ever goes here**
+
+**Filing Cabinet #2 — AWS Secure Environment (Patient Data Only)**
+- Medicare IDs, policy numbers, enrollment records
+- Signed documents and health-related forms
+- All data encrypted and access-controlled
+- Covered by a free federal compliance agreement (BAA)
+
+**The automation engine (n8n) is the only bridge between the two — and it strips out any sensitive data before updating Notion.**
+
+---
+
+# What About the AI? Is That Safe?
+
+Great question. All AI processing runs through **AWS Bedrock** — Amazon's enterprise AI service.
+
+Why this matters:
+
+| Concern | How It's Addressed |
+|---------|-------------------|
+| Does patient data leave our systems? | **No.** All AI processing happens inside your secure AWS environment. |
+| Do we need a separate privacy agreement with the AI company? | **No.** It's covered by your existing AWS agreement. |
+| Can the AI "learn" from our patient data? | **No.** AWS Bedrock does not use your data to train models. |
+| What AI models are available? | Claude (Anthropic), Amazon Titan, and others — you're not locked into one. |
+
+**Bottom line: the AI never sees data outside your secure environment.**
+
+---
+
+# 11 Safeguards to Prevent Data Leaks
+
+We don't just separate the data — we build a system of checks:
+
+**Automated Protections (Always Running)**
+1. Database fields in Notion are locked — only admins can change the structure
+2. Automation workflows automatically strip patient data before updating Notion
+3. An AI scanner checks Notion every night for any patient data that shouldn't be there
+4. Only the automation engine can write data to Notion (no manual copy-paste gaps)
+5. The patient data environment is in a private network — not accessible from the internet
+
+**Team Rules & Training**
+6. Simple color-coded guide: GREEN data goes to Notion, RED data stays in AWS
+7. Every employee gets privacy training at onboarding and annually
+8. Written plan for what to do if patient data ends up in the wrong place
+
+**Organizational Accountability**
+9. A designated compliance officer owns the data boundary
+10. Quarterly audits to verify the separation is holding
+11. Notion workspace is branded "PHI-Free Zone" so nobody forgets
+
+---
+
+# What Gets Cut (11 Tools)
+
+| Tool Being Removed | What Replaces It | Monthly Savings |
+|-------------------|-----------------|----------------|
+| Active Campaign | Notion + automations + SendGrid | $150–$500 |
+| EZ Texting | Automated texting via Twilio | $50–$200 |
+| slydial | AI voicemail via automation | $30–$100 |
+| GMass | Automated bulk email | $20–$50 |
+| Crisp | Notion intake + routing | $25–$95 |
+| Quo | AI sales assistant | $50–$150 |
+| Airtable (×3 accounts) | Notion databases | $60–$135 |
+| Zapier | n8n (free, unlimited) | $20–$100 |
 | Unbounce | WordPress + Elementor | $90–$225 |
-| Squarespace | WordPress | $16–$49 |
+| Squarespace | WordPress (consolidate to one site platform) | $16–$49 |
 
-**Total savings: $661–$1,904/mo ($7,932–$22,848/yr)**
-
----
-
-# Investment & Cost Structure
-
-## One-Time Build
-
-| Item | Investment |
-|------|-----------|
-| Notion CRM setup & configuration | $3,000–$8,000 |
-| AI SDR agent build | $8,000–$20,000 |
-| AI BDR agent build | $5,000–$15,000 |
-| AI Admin agent build | $5,000–$15,000 |
-| Integration layer (n8n workflows) | $5,000–$15,000 |
-| PHI prevention system | $2,500–$6,000 |
-| AWS PHI environment setup | $1,500–$4,000 |
-| Data migration + training | $3,000–$8,000 |
-| **TOTAL** | **$33,000–$91,000** |
+**Total tool savings: $7,932–$22,848/year**
 
 ---
 
-# Ongoing Monthly Costs
+# Option A: What It Costs to Build
 
-| Item | Low (10 seats) | High (25 seats) |
-|------|----------------|-----------------|
-| Notion Business | $200 | $600 |
-| n8n self-hosted (AWS) | $30 | $80 |
-| AWS PHI environment | $131 | $360 |
-| AWS Bedrock AI | $55 | $350 |
-| DevOps/maintenance | $0 | $500 |
-| Retained tools | $354 | $1,624 |
-| **TOTAL MONTHLY** | **$770** | **$3,514** |
-| **TOTAL ANNUAL** | **$9,240** | **$42,168** |
+## One-Time Investment
 
----
+| What You're Paying For | Cost Range |
+|-----------------------|-----------|
+| Setting up Notion as your CRM | $3,000–$8,000 |
+| Building the AI Sales Rep | $8,000–$20,000 |
+| Building the AI Business Dev Rep | $5,000–$15,000 |
+| Building the AI Admin Assistant | $5,000–$15,000 |
+| Connecting everything (automation workflows) | $5,000–$15,000 |
+| Patient data protection system | $2,500–$6,000 |
+| Secure AWS environment setup | $1,500–$4,000 |
+| Moving your data + training your team | $3,000–$8,000 |
+| **TOTAL ONE-TIME** | **$33,000–$91,000** |
 
-# Engagement Structure
-
-## VV Consulting Fee
-
-| Component | Detail |
-|-----------|--------|
-| **Base engagement fee** | $10,000 |
-| **Engagement duration** | 4 months |
-| **Retainer (begins Month 3)** | 15% of base ($1,500/mo) |
-| **Month 1–2 total** | $10,000 (base fee covers full discovery + build kickoff) |
-| **Month 3** | $1,500 (retainer) |
-| **Month 4** | $1,500 (retainer) |
-| **Total 4-month engagement** | **$13,000** |
-
-**What the engagement covers:**
-- Phase 0 process discovery and PHI data classification
-- Notion CRM architecture and build
-- n8n automation setup and core workflow buildout
-- AWS PHI environment configuration
-- AI agent design, prompt engineering, and testing
-- PHI prevention system implementation
-- Migration planning and execution support
-- Training and change management across all departments
-
-**Post-engagement:** Retainer continues at $1,500/mo for ongoing optimization, AI agent tuning, and support — cancelable with 30 days notice.
+*The range depends on complexity discovered during Phase 0 and how many custom workflows are needed.*
 
 ---
 
-# Project Milestones
+# Option A: What It Costs Monthly
 
-## 4-Month Engagement Roadmap
+## Ongoing After Build is Complete
 
-### Milestone 1: Foundation (Weeks 1–3) — End of Month 1
-- Process discovery complete across all departments
-- PHI vs. non-PHI data classification finalized
-- Tool audit with contract terms and renewal dates
-- Architecture plan approved
+| Item | Small Team (10 people) | Larger Team (25 people) |
+|------|----------------------|------------------------|
+| Notion Business plan | $200/mo | $600/mo |
+| Automation engine hosting (AWS) | $30/mo | $80/mo |
+| Secure patient data environment | $131/mo | $360/mo |
+| AI processing costs | $55/mo | $350/mo |
+| Maintenance & updates | $0–$500/mo | $0–$500/mo |
+| Tools you keep (SendGrid, Twilio, etc.) | $354/mo | $1,624/mo |
+| **TOTAL MONTHLY** | **$770–$1,560** | **$1,414–$3,514** |
+| **TOTAL ANNUAL** | **$9,240–$18,720** | **$16,968–$42,168** |
 
-**Deliverable:** Process map + data classification guide
-**Go/no-go decision point**
-
-### Milestone 2: MVP / Prototype (Weeks 4–8) — End of Month 2
-- Notion CRM live with core databases, pipeline, and locked schemas
-- n8n self-hosted and operational on AWS
-- AWS PHI environment configured (VPC, RDS, S3, encryption, BAA signed)
-- Core automations running: lead routing, notifications, Notion-AWS bridge
-- PHI sanitization workflows active
-- **One AI agent (SDR) in prototype/testing**
-
-**Deliverable:** Working MVP — team can begin using Notion CRM + n8n for daily operations
-**Go/no-go decision point — retainer begins**
-
-### Milestone 3: AI Expansion (Weeks 9–14) — End of Month 3
-- AI SDR agent live in production
-- AI BDR agent built and in testing
-- AI Admin agent built and in testing
-- PHI scanner workflow active (daily Notion scans via Bedrock)
-- Medicare Pro + E123 integrations live
-- First department migrated off legacy tools
-
-**Deliverable:** Full AI agent suite in testing; first legacy tools decommissioned
-
-### Milestone 4: Full Rollout (Weeks 15–18) — End of Month 4
-- All AI agents in production
-- All departments migrated and trained (including PHI boundary training)
-- Legacy tools fully decommissioned
-- Quarterly audit process established
-- Handoff documentation complete
-
-**Deliverable:** Fully operational system; engagement transitions to retainer-only
+**Compare to current spend: $17,784–$60,996/year**
 
 ---
 
-# Risk Assessment: What Could Go Wrong
+# Return on Investment
+
+## When Does Option A Pay for Itself?
+
+| | Conservative | Optimistic |
+|--|-------------|-----------|
+| Value of time saved per year | $50,232 | $78,338 |
+| Tool cost savings per year | $7,932 | $22,848 |
+| **Total annual value** | **$58,164** | **$101,186** |
+| Year 1 total cost (build + consulting + monthly) | $55,240 | $55,240 |
+| **Year 1 net return** | **+$2,924 (5%)** | **+$45,946 (83%)** |
+| Year 2 cost (monthly + retainer only) | $27,240 | $27,240 |
+| **Year 2 net return** | **+$30,924 (114%)** | **+$73,946 (271%)** |
+
+**Payback period: 7–12 months**
+
+*This does not include the revenue upside from your agents spending more time actually selling — which is the real multiplier.*
+
+---
+
+# Option B: The All-in-One Platform
+
+## GoHighLevel — For Comparison
+
+Instead of building custom, you move everything into one vendor platform:
+
+| | Detail |
+|--|--------|
+| **What it is** | GoHighLevel — an all-in-one CRM and marketing platform |
+| **One-time setup cost** | $7,000–$20,000 |
+| **Monthly cost** | $1,018–$2,765 (includes $297/mo HIPAA add-on) |
+| **Annual cost** | $12,216–$33,180 |
+| **Timeline** | ~3.5 months |
+| **AI features** | Basic — $97/mo add-on per account |
+| **Customization** | Limited to what the platform offers |
+| **Switching later** | Difficult — high vendor lock-in |
+
+**GoHighLevel is simpler and faster to deploy, but you're renting — not owning.**
+
+---
+
+# Side-by-Side: Option A vs Option B
+
+| | **Option A (Custom Build)** | **Option B (GoHighLevel)** |
+|--|---------------------------|--------------------------|
+| **Upfront cost** | $33K–$91K | $7K–$20K |
+| **Monthly cost (10 people)** | $770–$1,560 | $1,018–$1,870 |
+| **Annual cost (10 people)** | $9,240–$18,720 | $12,216–$22,440 |
+| **HIPAA compliance cost** | $0 (included in AWS) | $297/mo ($3,564/yr) |
+| **AI capabilities** | Full custom AI assistants | Basic platform AI |
+| **Hours saved/week** | 42–65.5 hrs | ~21–33 hrs |
+| **Customization** | Unlimited | Platform-limited |
+| **Vendor lock-in** | Low (you own it) | High (you're renting) |
+| **Payback period** | 7–12 months | ~6 months |
+| **Best for** | Long-term competitive advantage | Quick wins, simpler needs |
+
+---
+
+# Three-Year Cost Comparison
+
+## What Each Path Costs Over Time
+
+| | Year 1 | Year 2 | Year 3 | **3-Year Total** |
+|--|--------|--------|--------|-----------------|
+| **Do nothing** (current state) | $18K–$61K | $18K–$61K | $18K–$61K | **$53K–$183K** |
+| **Option A** (10 seats + VV engagement) | $55K–$123K | $27K–$37K | $27K–$37K | **$109K–$197K** |
+| **Option A value created** | $58K–$101K | $58K–$101K | $58K–$101K | **$174K–$303K** |
+| **Option A net gain (3-year)** | | | | **+$65K–$106K** |
+| **Option B** | $19K–$42K | $12K–$22K | $12K–$22K | **$43K–$86K** |
+| **Option B value created** | $36K–$61K | $36K–$61K | $36K–$61K | **$108K–$183K** |
+| **Option B net gain (3-year)** | | | | **+$65K–$97K** |
+
+**Option A costs more upfront but creates more value. By Year 3, both options are net positive — but Option A pulls ahead on capabilities and savings.**
+
+---
+
+# What Could Go Wrong (And How We Prevent It)
 
 ## Compliance Risks
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-| PHI leaks into Notion | Medium | **Critical** | 11-control prevention plan: locked schemas, sanitization workflows, daily AI-powered PHI scanner, mandatory training, incident response, compliance officer |
-| Active Campaign currently has no BAA | Medium | **Critical** | Verify immediately — existing gap that predates this project. Remediate before or during migration. |
-| SendGrid/Twilio BAA not in place | Medium | High | Verify plan tier supports BAA before routing PHI-adjacent communications through it |
-| AWS environment misconfigured | Low | **Critical** | Infrastructure-as-code templates, security review at Milestone 2, CloudTrail audit logging from day one |
+| What Could Happen | How Likely | How Bad | How We Prevent It |
+|-------------------|-----------|---------|------------------|
+| Patient data accidentally gets into Notion | Medium | Very Bad | 11-layer protection system (automated scanners, locked fields, training, audits) |
+| Current tools already have a compliance gap | Medium | Very Bad | We check this in the very first week — before building anything |
+| Secure environment set up incorrectly | Low | Very Bad | We use pre-built security templates, review at every milestone, and log everything |
+
+---
+
+# What Could Go Wrong (Continued)
 
 ## Operational Risks
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-| Staff resistance to new systems | **High** | Medium | Change champions per department, parallel systems (no cold cutovers), department-by-department rollout, quick wins first |
-| n8n self-hosted goes down | Low | High | AWS auto-recovery groups, CloudWatch alarms, documented restart procedures, failover playbook |
-| Notion performance at scale (10K+ records) | Medium | Medium | Archive old records quarterly, use filtered views, split databases by year/department if needed |
-| Five9 replacement doesn't match capability | Medium | Medium | Evaluate during Phase 0 — retain Five9 for complex calls if AI dialer falls short |
+| What Could Happen | How Likely | How Bad | How We Prevent It |
+|-------------------|-----------|---------|------------------|
+| Staff resist the change | High | Medium | We assign change champions per department, roll out gradually, and show quick wins early |
+| Automation system goes down | Low | High | Automatic recovery, monitoring alerts, restart procedures documented |
+| Notion slows down with lots of data | Medium | Medium | We archive old records quarterly and structure databases to stay fast |
+| Current phone system (Five9) is hard to replace | Medium | Medium | We evaluate this during discovery — we may keep Five9 if the replacement isn't ready |
 
 ---
 
-# Risk Assessment: Project & Strategic Risks
+# What Could Go Wrong (Continued)
 
-## Project Risks
+## Project & Strategic Risks
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-| Scope creep during build | Medium | Medium | Fixed 4-milestone structure with go/no-go gates. Scope locked at Milestone 1. |
-| Key person dependency (VV) | Medium | Medium | Full handoff documentation at Milestone 4. Retainer for ongoing support. All architecture decisions documented. |
-| Migration data loss or corruption | Low | High | Pre-migration backups, parallel systems during transition, validation checks before legacy tool decommission |
-| Longer timeline than estimated | Medium | Medium | MVP at Milestone 2 delivers value even if later phases delay. Go/no-go gates prevent sunk cost spiral. |
+| What Could Happen | How Likely | How Bad | How We Prevent It |
+|-------------------|-----------|---------|------------------|
+| Project scope grows beyond budget | Medium | Medium | Fixed milestones with approval gates — scope is locked after Month 1 |
+| Too dependent on VV | Medium | Medium | Full documentation and training at handoff. Everything is yours. |
+| Data gets lost during migration | Low | High | We back everything up, run systems in parallel, and validate before cutting over |
+| AI pricing goes up | Low | Medium | We're not locked into one AI provider — the system can switch models |
+| Notion changes their pricing | Low | Medium | Your data is exportable. Low lock-in by design. |
+| Regulations change | Low | High | The split architecture is built to be conservative — easier to adapt than a single-vendor system |
 
-## Strategic Risks
-
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|------------|
-| AWS Bedrock model changes or pricing increases | Low | Medium | Architecture supports model switching — not locked to one provider. Bedrock offers multiple model families. |
-| Notion changes pricing or feature set | Low | Medium | Notion data is exportable (CSV, API). n8n is open-source. Low vendor lock-in by design. |
-| Competitor adopts similar AI stack | Medium | Low | First-mover advantage. Custom agent training on brokerage-specific data creates defensible differentiation. |
-| Regulatory changes to HIPAA requirements | Low | High | Split architecture is inherently conservative — PHI is isolated in a controlled environment. Easier to adapt than a single-vendor platform. |
-
-**Risk mitigation is built into the architecture and engagement structure. Go/no-go gates at Milestones 1 and 2 limit downside exposure.**
+**Every risk has a mitigation. And the go/no-go gates at Milestones 1 and 2 mean you're never over-committed.**
 
 ---
 
-# Proposal B: GoHighLevel (Alternative)
+# The VV Engagement
 
-For comparison — the faster, simpler path:
+## What You Pay Us
 
-| Factor | Detail |
-|--------|--------|
-| Platform | GoHighLevel (all-in-one CRM) |
-| One-time cost | $7,000–$20,000 |
-| Monthly ongoing | $1,018–$2,765 |
-| HIPAA add-on | $297/mo (non-cancelable) |
-| AI features | $97/mo extra per sub-account |
-| Deployment | ~3.5 months |
-| Customization | Platform-constrained |
-| Vendor lock-in | High |
+| | Detail |
+|--|--------|
+| **Base fee** | $10,000 |
+| **Duration** | 4 months |
+| **Months 1–2** | Covered by the base fee (discovery + build kickoff) |
+| **Month 3 retainer** | $1,500 |
+| **Month 4 retainer** | $1,500 |
+| **Total engagement** | **$13,000** |
 
-**GHL is a good choice if speed matters most and you want a vendor-managed HIPAA solution. But it costs more monthly and gives you less control.**
+## What's Included
 
----
+- Full discovery of every process and tool across all departments
+- Classification of all data (what's sensitive, what's not)
+- Complete Notion CRM build and configuration
+- Automation setup and workflow building
+- Secure AWS environment for patient data
+- AI assistant design, building, and testing
+- Data migration from old tools
+- Training for every department
+- Full handoff documentation
 
-# Hours Saved: Where Time Goes Back
-
-## Estimated Weekly Hours Recaptured by Role
-
-| Task Currently Done Manually | Hours/Week (Current) | Hours/Week (After) | Hours Saved/Week | Who Benefits |
-|------------------------------|---------------------|-------------------|-----------------|-------------|
-| Lead qualification & scoring | 10–15 hrs | 1–2 hrs | **9–13 hrs** | Sales agents |
-| Outreach emails & SMS follow-ups | 8–12 hrs | 1–2 hrs | **7–10 hrs** | Sales agents |
-| Data entry (contacts, enrollment, pipeline updates) | 10–15 hrs | 2–3 hrs | **8–12 hrs** | Admin staff |
-| Appointment scheduling & reminders | 5–8 hrs | 0.5–1 hr | **4.5–7 hrs** | Admin staff |
-| Report building & pipeline tracking | 5–8 hrs | 1–2 hrs | **4–6 hrs** | Managers |
-| Tool switching & duplicate data across platforms | 5–10 hrs | 0.5–1 hr | **4.5–9 hrs** | Everyone |
-| Compliance document tracking | 3–5 hrs | 0.5–1 hr | **2.5–4 hrs** | Compliance / Admin |
-| Manual voicemail drops & call logging | 3–5 hrs | 0.5 hr | **2.5–4.5 hrs** | Sales agents |
-| **TOTAL** | **49–78 hrs/wk** | **7–12.5 hrs/wk** | **42–65.5 hrs/wk** | |
-
-That's **1–1.6 FTEs returned to revenue-generating work every week.**
+**After the engagement:** Retainer continues at $1,500/mo for optimization and support — cancelable with 30 days notice.
 
 ---
 
-# ROI: Return on Investment
+# The 4-Month Roadmap
 
-## Proposal A — Payback Analysis
+## Month 1 → Discovery & Planning
 
-**Assumptions:**
-- Blended hourly cost: $28/hr (agents) to $16/hr (admin) → weighted average **~$23/hr**
-- Hours saved: 42–65.5 hrs/week → **~2,184–3,406 hrs/year**
-- Value of recovered hours: **$50,232–$78,338/year**
-- Tool savings from eliminations: **$7,932–$22,848/year**
+**What happens:**
+- We map every department's workflows
+- We classify all data (sensitive vs. non-sensitive)
+- We audit every tool (who uses it, what it costs, when the contract renews)
+- We deliver the architecture plan
 
-| Metric | Conservative | Optimistic |
-|--------|-------------|-----------|
-| Annual labor value recovered | $50,232 | $78,338 |
-| Annual tool cost savings | $7,932 | $22,848 |
-| **Total annual value** | **$58,164** | **$101,186** |
-| Year 1 investment (build + engagement + ongoing) | $55,240 | $55,240 |
-| **Year 1 net ROI** | **+$2,924 (5%)** | **+$45,946 (83%)** |
-| Year 2 ongoing cost (10 seats + retainer) | $27,240 | $27,240 |
-| **Year 2 net ROI** | **+$30,924 (114%)** | **+$73,946 (271%)** |
+**What you get:** A complete picture of your current state and an approved plan to move forward
 
-**Payback period: 7–12 months** (depending on actual hours saved and tool costs confirmed in Phase 0)
-
-*Note: This does not include revenue upside from agents spending more time selling instead of doing admin work — which is the real multiplier.*
+**Decision point: Go or no-go.** You've spent $10K. If you don't like the plan, you stop here with a full process map in hand.
 
 ---
 
-# Side-by-Side: Proposal A vs. B
+# The 4-Month Roadmap
 
-| Factor | Proposal A (Notion + n8n) | Proposal B (GHL) |
-|--------|--------------------------|-------------------|
-| **One-time cost** | $33K–$91K | $7K–$20K |
-| **Monthly (10 seats)** | $770–$1,560 | $1,018–$1,870 |
-| **Annual (10 seats)** | $9,240–$18,720 | $12,216–$22,440 |
-| **HIPAA cost** | $0 (AWS BAA free) | $297/mo ($3,564/yr) |
-| **AI HIPAA** | Bedrock (covered by BAA) | $97/mo add-on |
-| **Customization** | Unlimited | Platform-limited |
-| **Vendor lock-in** | Low | High |
-| **Deployment** | ~6 months (4-mo engagement) | ~3.5 months |
+## Month 2 → Build the Foundation (MVP)
+
+**What happens:**
+- Notion CRM goes live with your contacts, pipeline, and dashboards
+- Automation engine is running on AWS
+- Secure patient data environment is configured
+- Core automations are active (lead routing, notifications, data syncing)
+- Patient data safeguards are in place
+- **First AI assistant (Sales Rep) is in prototype**
+
+**What you get:** A working system your team can start using for daily operations
+
+**Decision point: Go or no-go.** If the MVP is working, you approve continued build. Retainer ($1,500/mo) begins.
 
 ---
 
-# Year-Over-Year Cost Comparison
+# The 4-Month Roadmap
 
-## Year 1 (Including Setup + Engagement)
+## Month 3 → Expand the AI
 
-| Scenario | 10 Seats | 25 Seats |
-|----------|----------|----------|
-| Current state | $17,784–$60,996 | $17,784–$60,996 |
-| Proposal A + VV engagement | $55,240–$122,720 | $62,440–$146,168 |
-| Proposal B | $19,216–$42,440 | $19,216–$53,180 |
+**What happens:**
+- AI Sales Rep goes live in production
+- AI Business Dev Rep built and in testing
+- AI Admin Assistant built and in testing
+- Nightly data scanner is active (checking for patient data leaks)
+- Insurance platform integrations go live
+- First department migrated off old tools
 
-## Year 2+ (Ongoing Only)
+**What you get:** Full AI assistant suite in testing; legacy tools starting to shut down
 
-| Scenario | 10 Seats | 25 Seats |
-|----------|----------|----------|
-| Current state | $17,784–$60,996 | $17,784–$60,996 |
-| Proposal A + retainer | $27,240–$36,720 | $34,440–$60,168 |
-| Proposal B | $12,216–$22,440 | $12,216–$33,180 |
+---
 
-*Proposal A Year 2+ includes $18,000/yr retainer. Without retainer: $9,240–$18,720 (10 seats).*
+# The 4-Month Roadmap
+
+## Month 4 → Full Rollout & Handoff
+
+**What happens:**
+- All AI assistants live in production
+- All departments migrated and trained
+- Old tools fully decommissioned
+- Quarterly audit process established
+- Complete handoff documentation delivered
+
+**What you get:** A fully operational system that you own. VV transitions to optional retainer support.
 
 ---
 
 # The Hybrid Option
 
-**Don't choose — phase it:**
+**You don't have to choose one path forever.**
 
-1. **Now (Months 1–4):** Build Proposal A (Notion + n8n + AI) via VV engagement
-2. **If timeline pressure exists:** Deploy GHL in parallel for immediate tool consolidation
-3. **Months 5–8:** Stabilize on Notion + n8n; evaluate if GHL adds value or creates redundancy
-4. **Year 2:** Full AI agent optimization; GHL either supplements or gets decommissioned
+A phased approach:
 
----
+1. **Months 1–4:** Build Option A (Notion + AI) with VV
+2. **If you need something working immediately:** Deploy GoHighLevel in parallel for basic CRM consolidation
+3. **Months 5–8:** Stabilize the custom build; evaluate if GoHighLevel adds value or is redundant
+4. **Year 2:** Full AI optimization; GoHighLevel either stays as a supplement or gets cut
 
-# Recommendation
-
-**Start with Phase 0 — regardless of direction.**
-
-The process discovery will:
-- Reveal which tools are truly redundant vs. serving unique needs
-- Surface HIPAA compliance gaps (starting with Active Campaign's BAA status)
-- Give every department a voice before changes happen
-- Produce the requirements to validate cost projections with real data
-
-**Proposed next step:** Approve VV engagement and begin Phase 0 discovery.
+**This gives you the speed of Option B with the long-term upside of Option A.**
 
 ---
 
-# Next Steps
+# Our Recommendation
 
-1. **This week:** Approve engagement and schedule kickoff
-2. **Immediate:** Verify Active Campaign BAA status (potential existing compliance gap)
-3. **Weeks 1–3:** Phase 0 process discovery + PHI classification
-4. **Week 3:** Milestone 1 review — go/no-go on full build
-5. **Weeks 4–8:** MVP build — Notion CRM + n8n + AWS + first AI agent
-6. **Week 8:** Milestone 2 review — go/no-go on AI expansion (retainer begins)
-7. **Weeks 9–18:** Full AI rollout, migration, training, and stabilization
+**Start with Phase 0 — no matter which direction you choose.**
+
+The discovery phase will:
+- Show you exactly which tools are needed and which aren't
+- Uncover any existing compliance gaps (before they become a problem)
+- Give every department input before changes happen
+- Replace estimates with real numbers
+
+**You can't make a confident decision without this information. Phase 0 gives it to you.**
+
+---
+
+# What Happens Next
+
+1. **This week** → Approve the engagement and schedule kickoff
+2. **Immediately** → We check your current tools for compliance gaps
+3. **Weeks 1–3** → Full discovery across every department
+4. **End of Week 3** → Milestone 1 review — you decide if we proceed
+5. **Weeks 4–8** → Build the MVP (Notion CRM + automations + first AI assistant)
+6. **End of Week 8** → Milestone 2 review — you decide if we expand
+7. **Weeks 9–18** → Full AI rollout, migration, training, and stabilization
+
+**Every major decision point requires your approval. You're never locked in past the next milestone.**
+
+---
+
+# Thank You
+
+## VV — The Brokerage Inc. Tech Stack Consolidation
+
+**Total engagement: $13,000 over 4 months**
+**Projected annual value: $58,000–$101,000**
+**Payback period: 7–12 months**
+
+Ready to get started? Let's schedule Phase 0.
