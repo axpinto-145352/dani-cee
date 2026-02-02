@@ -199,12 +199,19 @@ Build a split-architecture system: Notion handles all non-PHI CRM operations (pi
 - All PHI processing happens exclusively in this layer
 - n8n workflows bridge Notion and the PHI layer — reading non-PHI context from Notion, processing PHI on AWS, writing back only non-PHI status updates (e.g., "enrollment complete" without enrollment details)
 
-### Layer 3: AI Agents (Orchestrated by n8n)
+### Layer 3: AI via AWS Bedrock (HIPAA-Compliant LLM Access)
+- **All LLM usage routes through AWS Bedrock** — a HIPAA-eligible service covered by the AWS BAA
+- PHI never leaves the AWS environment; Bedrock processes LLM requests within the same compliant perimeter as your data
+- No separate BAA needed with Anthropic or OpenAI — the AWS BAA covers Bedrock usage
+- Available models on Bedrock: Claude (Haiku, Sonnet, Opus), Llama, Mistral, Amazon Titan, and others
+- n8n calls Bedrock APIs directly from within the VPC — same network as PHI database and document storage
+
+### Layer 4: AI Agents (Orchestrated by n8n via Bedrock)
 - AI SDR: Lead qualification, email/SMS outreach, follow-up, meeting booking
 - AI BDR: Outbound prospecting, list building, personalized outreach
 - AI Admin: Data entry, scheduling, compliance document tracking, reporting
-- Built on LLM APIs (Claude, GPT) — all PHI-touching agent workflows execute within the AWS environment
-- Non-PHI agent tasks (outreach copy, scheduling) can reference Notion data directly
+- All agent workflows call AWS Bedrock for LLM inference — PHI-touching and non-PHI tasks alike
+- Single LLM access path eliminates the risk of accidentally routing PHI to a non-compliant API endpoint
 
 ---
 
@@ -230,7 +237,7 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 **3. n8n-Powered PHI Scanner (Scheduled)**
 - Build a recurring n8n workflow (daily or weekly) that reads all Notion database records via the Notion API
 - The scanner checks every text field, comment, and property for PHI patterns: SSN, Medicare ID, DOB + health keywords, policy numbers
-- Uses an AI classification step (Claude Haiku — fast and cheap) to evaluate ambiguous content
+- Uses an AI classification step (Claude Haiku via AWS Bedrock — fast, cheap, and HIPAA-compliant) to evaluate ambiguous content
 - If PHI is found: immediately flag the record, notify the compliance officer, and log the incident in the AWS audit trail
 - This acts as a safety net — even if a human manually enters PHI in Notion, it gets caught and remediated
 
@@ -291,7 +298,7 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 |------|---------------|------|
 | n8n sanitization workflow build | Included in integration layer build | One-time |
 | n8n PHI scanner workflow build | $1,000–$3,000 | One-time |
-| AI classification step (Claude Haiku API) | $5–$20/mo | Ongoing (minimal token usage) |
+| AI classification step (Claude Haiku via Bedrock) | $5–$20/mo | Ongoing (minimal token usage; HIPAA-compliant via AWS BAA) |
 | Data classification guide creation | $500–$1,000 | One-time |
 | Training module development (LearnDash) | $1,000–$2,000 | One-time |
 | Compliance officer time (partial role) | $0–$500/mo | Ongoing (existing employee) |
@@ -304,12 +311,13 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 
 1. **Notion CRM (Non-PHI Layer)** — Contacts, pipeline, tasks, department hubs, SOPs — no PHI
 2. **AWS PHI Environment** — Encrypted RDS + S3 with BAA, private VPC, audit logging — all PHI lives here
-3. **n8n Automation Layer** — Self-hosted on AWS; bridges Notion and PHI layer; includes sanitization and PHI scanning workflows
-4. **AI SDR Agent** — n8n workflows calling LLM APIs for lead qualification and outreach
-5. **AI BDR Agent** — Prospecting automation, list enrichment, personalized messaging
-6. **AI Admin Agent** — Data entry automation, scheduling, compliance checks, reporting
-7. **Integration Layer** — n8n connects Notion, AWS PHI layer, Medicare Pro, E123, SendGrid, and retained tools
-8. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner, incident response procedures
+3. **AWS Bedrock (HIPAA-Compliant AI)** — All LLM inference runs through Bedrock within AWS; covered by same BAA; no separate AI vendor agreements needed
+4. **n8n Automation Layer** — Self-hosted on AWS; bridges Notion and PHI layer; calls Bedrock for AI; includes sanitization and PHI scanning workflows
+5. **AI SDR Agent** — n8n workflows calling Bedrock (Claude Haiku/Sonnet) for lead qualification and outreach
+6. **AI BDR Agent** — Prospecting automation, list enrichment, personalized messaging via Bedrock
+7. **AI Admin Agent** — Data entry automation, scheduling, compliance checks, reporting via Bedrock
+8. **Integration Layer** — n8n connects Notion, AWS PHI layer, Bedrock, Medicare Pro, E123, SendGrid, and retained tools
+9. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner (Bedrock-powered), incident response procedures
 
 ---
 
@@ -394,7 +402,7 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 
 | Line Item | Estimated Cost | Pricing Basis |
 |-----------|---------------|---------------|
-| AI SDR agent build (n8n workflows + LLM integration) | $8,000–$20,000 | One-time: workflow design, prompt engineering, testing, SMS/email integration |
+| AI SDR agent build (n8n workflows + Bedrock integration) | $8,000–$20,000 | One-time: workflow design, prompt engineering, testing, SMS/email integration |
 | AI BDR agent build | $5,000–$15,000 | One-time: prospecting logic, list enrichment, outreach sequences |
 | AI Admin agent build | $5,000–$15,000 | One-time: data entry automation, scheduling, compliance checks |
 | Notion CRM setup & configuration | $3,000–$8,000 | One-time: database architecture, relations, views, templates, migration |
@@ -410,17 +418,31 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 | HIPAA/PHI boundary training module | $1,000–$2,000 | One-time: built in LearnDash with completion tracking |
 | **PHI prevention subtotal (one-time)** | **$2,500–$6,000** | |
 
-### AI/LLM API Costs (Ongoing)
+### AWS Bedrock — AI/LLM Costs (Ongoing)
 
-| Provider / Model | Cost per 1M Tokens | Estimated Monthly Usage | Est. Monthly Cost |
-|-----------------|--------------------|-----------------------|-------------------|
-| Claude Haiku 4.5 (fast tasks: PHI scanning, classification, outreach drafts) | $1 input / $5 output | ~2M input + 500K output | $4.50 |
-| Claude Sonnet 4.5 (complex tasks: lead qualification, enrollment analysis) | $3 input / $15 output | ~1M input + 300K output | $7.50 |
-| GPT-4.1 (alternative for variety/redundancy) | $2 input / $8 output | ~1M input + 300K output | $4.40 |
-| GPT-4.1-mini (high-volume: bulk classification, simple responses) | $0.40 input / $1.60 output | ~5M input + 1M output | $3.60 |
-| **Blended estimate** | | | **$50–$300/mo** |
+All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service covered by the AWS BAA. PHI never leaves the AWS environment — no separate BAA with Anthropic or OpenAI is needed.
 
-*AI API costs depend heavily on volume. The PHI scanner adds minimal cost (~$5–$20/mo using Haiku). Batch API discounts (50% off) and prompt caching (90% off cached reads) reduce costs significantly for repetitive workflows.*
+**Why Bedrock instead of direct API calls:**
+- Bedrock is already covered by your AWS BAA — no additional compliance agreements
+- LLM requests stay inside the same VPC as your PHI database and n8n instance
+- Eliminates the risk of accidentally sending PHI to a non-compliant external API
+- One access path for all AI = simpler architecture, simpler audit trail
+
+| Model (via Bedrock) | Cost per 1M Tokens | Use Case | Est. Monthly Usage | Est. Monthly Cost |
+|--------------------|--------------------|---------|--------------------|-------------------|
+| Claude 3.5 Haiku | $1 input / $5 output | PHI scanning, classification, outreach drafts, simple responses | ~3M input + 800K output | $7.00 |
+| Claude 3.5 Sonnet | $3 input / $15 output | Lead qualification, enrollment analysis, complex reasoning | ~1M input + 300K output | $7.50 |
+| Claude 4.1 Opus | $15 input / $75 output | High-stakes decisions, compliance review (low volume) | ~100K input + 50K output | $5.25 |
+| Amazon Titan (text) | $0.20 input / $0.60 output | Embeddings, lightweight text tasks | ~2M input + 500K output | $0.70 |
+| **Blended estimate** | | | | **$50–$350/mo** |
+
+**Bedrock cost optimization options:**
+- **Batch inference** — 50% discount for non-time-sensitive jobs (e.g., nightly PHI scans, bulk classification)
+- **Intelligent prompt routing** — Bedrock auto-routes between Sonnet and Haiku based on prompt complexity, reducing costs up to 30%
+- **Provisioned throughput** — For predictable high-volume workloads, purchase dedicated model units for consistent per-token pricing
+- **Prompt caching** — 90% discount on cached input tokens for repetitive workflows (e.g., same system prompt across all SDR outreach)
+
+*Bedrock pricing is on-demand per-token with no upfront commitment. A brokerage doing 500 outreach actions/day with AI-assisted PHI processing might spend $50–$150/mo. High-volume operations with complex multi-step reasoning could reach $250–$350/mo.*
 
 ---
 
@@ -448,11 +470,11 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 | Notion Business | $200 | $600 |
 | n8n self-hosted (AWS server) | $30 | $80 |
 | AWS PHI environment (RDS, S3, VPC, logging) | $131 | $360 |
-| AI/LLM API costs (agents + PHI scanner) | $55 | $320 |
+| AWS Bedrock AI costs (agents + PHI scanner) | $55 | $350 |
 | n8n maintenance/DevOps | $0 | $500 |
 | Retained tools (see above) | $354 | $1,624 |
-| **TOTAL MONTHLY ONGOING** | **$770** | **$3,484** |
-| **TOTAL ANNUAL ONGOING** | **$9,240** | **$41,808** |
+| **TOTAL MONTHLY ONGOING** | **$770** | **$3,514** |
+| **TOTAL ANNUAL ONGOING** | **$9,240** | **$42,168** |
 
 ---
 
@@ -487,6 +509,7 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 - No per-seat SaaS fees for automation (n8n) — only Notion scales per seat
 - You own all data — no vendor lock-in on the automation layer
 - HIPAA compliance handled via AWS BAA (free) + self-managed encryption — no $297/mo add-on fee
+- All AI runs through AWS Bedrock (HIPAA-eligible) — no separate BAA with Anthropic/OpenAI needed; PHI never leaves AWS
 - PHI prevention system provides automated, continuous compliance monitoring
 - Clear separation of concerns: business users work in Notion, PHI stays locked in AWS
 
@@ -693,14 +716,15 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 |--------|-------------------------------|--------------------------|
 | **One-time cost** | $33,000–$91,000 | $7,000–$20,000 |
 | **Monthly ongoing (10 seats)** | $770–$1,560 | $1,018–$1,870 |
-| **Monthly ongoing (25 seats)** | $1,370–$3,484 | $1,018–$2,765 |
+| **Monthly ongoing (25 seats)** | $1,370–$3,514 | $1,018–$2,765 |
 | **Annual ongoing (10 seats)** | $9,240–$18,720 | $12,216–$22,440 |
-| **Annual ongoing (25 seats)** | $16,440–$41,808 | $12,216–$33,180 |
+| **Annual ongoing (25 seats)** | $16,440–$42,168 | $12,216–$33,180 |
 | **Time to full deployment** | ~6 months | ~3.5 months |
 | **Tools eliminated** | ~11 | ~11 |
 | **CRM flexibility** | High (Notion is infinitely customizable) | Moderate (GHL is opinionated) |
 | **Automation cost at scale** | Near-zero (n8n self-hosted) | Usage-based fees grow with volume |
-| **AI capabilities** | Custom agents — full control | GHL AI Employee add-on ($97/mo) |
+| **AI capabilities** | Custom agents via AWS Bedrock — full control, HIPAA-compliant | GHL AI Employee add-on ($97/mo) |
+| **AI HIPAA compliance** | Covered by AWS BAA — no separate AI vendor agreement | Covered by GHL HIPAA add-on ($297/mo) |
 | **Engineering required** | Some (n8n + AWS maintenance, AI tuning) | Minimal |
 | **Vendor lock-in** | Low (Notion export + open-source n8n) | High (GHL is proprietary) |
 | **HIPAA compliance** | Split architecture: no PHI in Notion; AWS BAA (free) + self-managed encryption | $297/mo add-on (non-cancelable) |
@@ -718,7 +742,7 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 | Scenario | 10 Seats | 25 Seats |
 |----------|----------|----------|
 | **Current state (estimated)** | $17,784–$60,996 | $17,784–$60,996 |
-| **Proposal A (Notion + n8n + AI)** | $42,240–$109,720 | $49,440–$132,808 |
+| **Proposal A (Notion + n8n + AI)** | $42,240–$109,720 | $49,440–$133,168 |
 | **Proposal B (GoHighLevel)** | $19,216–$42,440 | $19,216–$53,180 |
 
 ## Year 2+ (Ongoing Only)
@@ -726,10 +750,10 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 | Scenario | 10 Seats | 25 Seats |
 |----------|----------|----------|
 | **Current state (estimated)** | $17,784–$60,996 | $17,784–$60,996 |
-| **Proposal A (Notion + n8n + AI)** | $9,240–$18,720 | $16,440–$41,808 |
+| **Proposal A (Notion + n8n + AI)** | $9,240–$18,720 | $16,440–$42,168 |
 | **Proposal B (GoHighLevel)** | $12,216–$22,440 | $12,216–$33,180 |
 
-**Key insight:** Proposal A has higher Year 1 costs due to the AI agent build + PHI infrastructure investment, but lower ongoing costs from Year 2 onward — especially at scale. The AWS BAA is free vs. GHL's non-cancelable $3,564/yr HIPAA add-on. n8n has no per-execution fees. Proposal B is cheaper to start but the mandatory HIPAA add-on and usage-based fees narrow the gap significantly over time. At the 10-seat level, Proposal A becomes cheaper than Proposal B partway through Year 2.
+**Key insight:** Proposal A has higher Year 1 costs due to the AI agent build + PHI infrastructure investment, but lower ongoing costs from Year 2 onward — especially at scale. The AWS BAA is free vs. GHL's non-cancelable $3,564/yr HIPAA add-on. All AI runs through AWS Bedrock (HIPAA-eligible) at per-token pricing with no platform fee — vs. GHL's $97/mo AI Employee add-on. n8n has no per-execution fees. Proposal B is cheaper to start but the mandatory HIPAA add-on and usage-based fees narrow the gap significantly over time. At the 10-seat level, Proposal A becomes cheaper than Proposal B partway through Year 2.
 
 ---
 
