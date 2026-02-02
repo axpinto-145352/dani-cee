@@ -346,7 +346,207 @@
 
 ---
 
-## 5. Side-by-Side Financial Analysis
+## 5. Hours Saved, Labor Value Recovery & ROI Analysis
+
+### Methodology
+
+Hours-saved estimates are based on:
+- Published industry data on insurance agent administrative burden
+- Average hourly labor costs from Salary.com and PayScale (January 2026)
+- Conservative assumptions — actual savings may be higher during peak enrollment periods (AEP/OEP)
+
+### Labor Cost Assumptions
+
+| Role | Avg. Hourly Rate (Fully Loaded) | Source |
+|------|-------------------------------|--------|
+| Insurance Agent / Broker | $28–$31/hr | Salary.com, ZipRecruiter (Jan 2026) |
+| Administrative / Agent Assistant | $15–$17/hr | PayScale (2025) |
+| Sales Manager / Team Lead | $35–$45/hr | Salary.com (Insurance Broker avg) |
+| Compliance / Operations | $25–$35/hr | Industry estimate |
+| **Blended weighted average** | **~$23/hr** | Weighted toward agents (60%) + admin (30%) + management (10%) |
+
+*"Fully loaded" includes salary only. Adding benefits (20–30%) would increase the effective rate to ~$28–$30/hr, making the ROI even stronger. We use the conservative $23/hr base.*
+
+---
+
+### Hours Saved by Task Category
+
+#### AI SDR Agent — Sales Outreach Automation
+
+| Task | Current Hours/Week | Post-Automation Hours/Week | Hours Saved/Week | How It's Automated |
+|------|-------------------|--------------------------|-----------------|-------------------|
+| Lead qualification & scoring | 10–15 | 1–2 | **9–13** | Bedrock AI scores inbound leads based on fit criteria, demographic data, and engagement signals. Agent reviews AI recommendations rather than manually researching each lead. |
+| Outreach email drafting & sending | 5–8 | 0.5–1 | **4.5–7** | n8n workflows generate personalized outreach emails via Bedrock, queue through SendGrid. Agent approves batch sends rather than writing individual emails. |
+| SMS follow-up sequences | 3–5 | 0.5 | **2.5–4.5** | Automated SMS follow-up triggered by pipeline stage changes in Notion. n8n sends via Twilio based on configurable timing rules. |
+| Voicemail drops | 3–5 | 0.5 | **2.5–4.5** | Automated voicemail delivery via n8n workflow replaces manual slydial usage. |
+| Meeting scheduling & reminders | 3–5 | 0.5 | **2.5–4.5** | Calendar integration via n8n — AI agent proposes times, sends confirmations, handles rescheduling. |
+| **SDR subtotal** | **24–38** | **3–4.5** | **21–33.5** | |
+
+#### AI BDR Agent — Prospecting Automation
+
+| Task | Current Hours/Week | Post-Automation Hours/Week | Hours Saved/Week | How It's Automated |
+|------|-------------------|--------------------------|-----------------|-------------------|
+| Prospect list building | 5–8 | 0.5–1 | **4.5–7** | Bedrock AI identifies prospects from data sources matching ideal customer profile. n8n enriches records and pushes to Notion pipeline. |
+| Prospect research | 3–5 | 0.5 | **2.5–4.5** | AI agent summarizes prospect background, identifies talking points, flags relevant Medicare enrollment windows. |
+| Personalized outreach at scale | 3–5 | 0.5 | **2.5–4.5** | Bedrock generates personalized messaging based on prospect data. Agent reviews and approves rather than writing from scratch. |
+| **BDR subtotal** | **11–18** | **1.5–2** | **9.5–16** | |
+
+#### AI Admin Agent — Operations Automation
+
+| Task | Current Hours/Week | Post-Automation Hours/Week | Hours Saved/Week | How It's Automated |
+|------|-------------------|--------------------------|-----------------|-------------------|
+| Data entry (contacts, enrollment updates) | 6–10 | 1–2 | **5–8** | n8n workflows auto-populate Notion CRM and AWS PHI database from form submissions, email parsing, and enrollment platform data. |
+| Pipeline status updates | 3–5 | 0.5 | **2.5–4.5** | Automated stage progression based on triggers (email opened, form submitted, enrollment confirmed). n8n updates Notion pipeline in real-time. |
+| Compliance document tracking | 3–5 | 0.5–1 | **2.5–4** | n8n workflows monitor document submissions, flag missing items, send automated reminders. Bedrock AI classifies document types. |
+| Appointment scheduling | 2–3 | 0.5 | **1.5–2.5** | Automated via calendar integration. AI Admin handles booking, confirmation, and rescheduling. |
+| Report building | 3–5 | 0.5–1 | **2.5–4** | Notion dashboards auto-update. n8n aggregates data from AWS PHI layer for compliance reporting. No manual spreadsheet compilation. |
+| **Admin subtotal** | **17–28** | **3–5** | **14–23** | |
+
+#### Tool Consolidation — Reduced Context Switching
+
+| Task | Current Hours/Week | Post-Automation Hours/Week | Hours Saved/Week | How It's Improved |
+|------|-------------------|--------------------------|-----------------|-------------------|
+| Switching between tools (5–10 platforms daily) | 3–5 | 0.5 | **2.5–4.5** | Notion is the single non-PHI interface. Agents work in one platform instead of 5–10. |
+| Duplicate data entry across platforms | 2–5 | 0 | **2–5** | n8n syncs data between systems. Enter once, propagate everywhere. |
+| Searching for information across tools | 2–3 | 0.5 | **1.5–2.5** | Centralized in Notion with linked databases. PHI accessed via controlled n8n interfaces. |
+| **Context switching subtotal** | **7–13** | **1–1** | **6–12** | |
+
+---
+
+### Total Hours Saved — Summary
+
+| Category | Hours Saved/Week | Hours Saved/Month | Hours Saved/Year |
+|----------|-----------------|-------------------|-----------------|
+| AI SDR (outreach & follow-up) | 21–33.5 | 84–134 | 1,092–1,742 |
+| AI BDR (prospecting) | 9.5–16 | 38–64 | 494–832 |
+| AI Admin (operations) | 14–23 | 56–92 | 728–1,196 |
+| Tool consolidation (context switching) | 6–12 | 24–48 | 312–624 |
+| **TOTAL** | **50.5–84.5 hrs/wk** | **202–338 hrs/mo** | **2,626–4,394 hrs/yr** |
+
+**That's equivalent to 1.3–2.1 full-time employees** (based on 2,080 working hours/year).
+
+*During Medicare Annual Enrollment Period (AEP) and Open Enrollment Period (OEP), agents routinely work 50–70+ hour weeks. Automation savings are amplified during these peak periods — potentially preventing burnout and reducing seasonal staffing needs.*
+
+---
+
+### Financial Value of Hours Saved
+
+| Metric | Conservative | Optimistic |
+|--------|-------------|-----------|
+| Hours saved per year | 2,626 | 4,394 |
+| Blended hourly rate | $23 | $23 |
+| **Annual labor value recovered** | **$60,398** | **$101,062** |
+
+### Annual Tool Cost Savings
+
+| Source | Conservative | Optimistic |
+|--------|-------------|-----------|
+| Eliminated tools (11 tools) | $7,932 | $22,848 |
+| Reduced Zapier usage (replaced by n8n) | $240 | $1,200 |
+| Potential Five9 reduction (if applicable) | $0 | $3,600 |
+| **Annual tool savings** | **$8,172** | **$27,648** |
+
+### Total Annual Value Created
+
+| Category | Conservative | Optimistic |
+|----------|-------------|-----------|
+| Labor value recovered | $60,398 | $101,062 |
+| Tool cost savings | $8,172 | $27,648 |
+| **Total annual value** | **$68,570** | **$128,710** |
+
+---
+
+### ROI Calculation — Proposal A (Notion + n8n + AI)
+
+#### Year 1 ROI (10-Seat Scenario)
+
+| Line Item | Conservative | Optimistic |
+|-----------|-------------|-----------|
+| Total annual value created | $68,570 | $128,710 |
+| One-time build investment | ($33,000) | ($33,000) |
+| VV engagement fee | ($13,000) | ($13,000) |
+| Ongoing costs (10 seats, 12 months) | ($9,240) | ($9,240) |
+| **Year 1 total investment** | **($55,240)** | **($55,240)** |
+| **Year 1 net value** | **+$13,330** | **+$73,470** |
+| **Year 1 ROI** | **24%** | **133%** |
+
+#### Year 2 ROI (10-Seat Scenario, with retainer)
+
+| Line Item | Conservative | Optimistic |
+|-----------|-------------|-----------|
+| Total annual value created | $68,570 | $128,710 |
+| Ongoing costs (10 seats, 12 months) | ($9,240) | ($9,240) |
+| VV retainer (12 months) | ($18,000) | ($18,000) |
+| **Year 2 total cost** | **($27,240)** | **($27,240)** |
+| **Year 2 net value** | **+$41,330** | **+$101,470** |
+| **Year 2 ROI** | **152%** | **373%** |
+
+#### Year 2 ROI (10-Seat Scenario, without retainer)
+
+| Line Item | Conservative | Optimistic |
+|-----------|-------------|-----------|
+| Total annual value created | $68,570 | $128,710 |
+| Ongoing costs only | ($9,240) | ($9,240) |
+| **Year 2 net value** | **+$59,330** | **+$119,470** |
+| **Year 2 ROI** | **642%** | **1,293%** |
+
+#### Payback Period
+
+| Scenario | Payback Period |
+|----------|---------------|
+| Conservative (low hours saved, low tool savings) | **~10 months** |
+| Optimistic (high hours saved, high tool savings) | **~5 months** |
+
+---
+
+### ROI Calculation — Proposal B (GoHighLevel)
+
+GHL automates fewer tasks than Proposal A (no custom AI agents), so hours saved are lower.
+
+| Metric | Proposal B Estimate |
+|--------|-------------------|
+| Hours saved/year (tool consolidation + basic automation) | 1,040–1,820 |
+| Labor value recovered | $23,920–$41,860 |
+| Tool cost savings | $7,812–$22,008 |
+| **Total annual value** | **$31,732–$63,868** |
+| Year 1 investment (setup + ongoing) | $19,216–$42,440 |
+| **Year 1 net value** | **+$12,516–$21,428** |
+| Year 2 ongoing | $12,216–$33,180 |
+| **Year 2 net value** | **+$19,516–$30,688** |
+
+**Proposal B delivers positive ROI but roughly half the value of Proposal A** — because GHL doesn't include custom AI agents for lead qualification, prospecting, or admin automation. The hours saved come primarily from tool consolidation and GHL's built-in workflow automation.
+
+---
+
+### ROI Comparison: A vs. B
+
+| Metric | Proposal A (Conservative) | Proposal A (Optimistic) | Proposal B (Mid-Range) |
+|--------|--------------------------|------------------------|----------------------|
+| Annual value created | $68,570 | $128,710 | $47,800 |
+| Year 1 ROI | 24% | 133% | 35% |
+| Year 2 ROI (with retainer) | 152% | 373% | 88% |
+| 3-Year cumulative net value | +$95,990 | +$248,410 | +$62,216 |
+| Payback period | ~10 months | ~5 months | ~6 months |
+
+**Key insight:** Proposal A creates 1.4–2.7x more value than Proposal B annually. The higher upfront investment is recovered by Month 5–10. By Year 3, Proposal A has generated $96K–$248K in cumulative net value vs. $62K for Proposal B.
+
+---
+
+### Revenue Upside (Not Modeled, But Real)
+
+The above ROI only captures cost savings and labor efficiency. It does not model the revenue upside from:
+- **Agents spending 20+ more hours/week selling** instead of doing admin
+- **Faster lead response times** (AI SDR responds in minutes, not hours/days)
+- **Higher contact rates** from automated multi-channel outreach (email + SMS + voicemail)
+- **Reduced lead leakage** — no more leads falling through cracks between 5+ disconnected tools
+- **Better enrollment conversion** from more consistent, timely follow-up
+- **Reduced AEP/OEP seasonal staffing needs** due to AI handling volume spikes
+
+If even 10% of the recovered agent hours convert to additional enrollments, the revenue impact dwarfs the cost savings.
+
+---
+
+## 6. Side-by-Side Financial Analysis
 
 ### Monthly Comparison
 

@@ -331,6 +331,52 @@ For comparison — the faster, simpler path:
 
 ---
 
+# Hours Saved: Where Time Goes Back
+
+## Estimated Weekly Hours Recaptured by Role
+
+| Task Currently Done Manually | Hours/Week (Current) | Hours/Week (After) | Hours Saved/Week | Who Benefits |
+|------------------------------|---------------------|-------------------|-----------------|-------------|
+| Lead qualification & scoring | 10–15 hrs | 1–2 hrs | **9–13 hrs** | Sales agents |
+| Outreach emails & SMS follow-ups | 8–12 hrs | 1–2 hrs | **7–10 hrs** | Sales agents |
+| Data entry (contacts, enrollment, pipeline updates) | 10–15 hrs | 2–3 hrs | **8–12 hrs** | Admin staff |
+| Appointment scheduling & reminders | 5–8 hrs | 0.5–1 hr | **4.5–7 hrs** | Admin staff |
+| Report building & pipeline tracking | 5–8 hrs | 1–2 hrs | **4–6 hrs** | Managers |
+| Tool switching & duplicate data across platforms | 5–10 hrs | 0.5–1 hr | **4.5–9 hrs** | Everyone |
+| Compliance document tracking | 3–5 hrs | 0.5–1 hr | **2.5–4 hrs** | Compliance / Admin |
+| Manual voicemail drops & call logging | 3–5 hrs | 0.5 hr | **2.5–4.5 hrs** | Sales agents |
+| **TOTAL** | **49–78 hrs/wk** | **7–12.5 hrs/wk** | **42–65.5 hrs/wk** | |
+
+That's **1–1.6 FTEs returned to revenue-generating work every week.**
+
+---
+
+# ROI: Return on Investment
+
+## Proposal A — Payback Analysis
+
+**Assumptions:**
+- Blended hourly cost: $28/hr (agents) to $16/hr (admin) → weighted average **~$23/hr**
+- Hours saved: 42–65.5 hrs/week → **~2,184–3,406 hrs/year**
+- Value of recovered hours: **$50,232–$78,338/year**
+- Tool savings from eliminations: **$7,932–$22,848/year**
+
+| Metric | Conservative | Optimistic |
+|--------|-------------|-----------|
+| Annual labor value recovered | $50,232 | $78,338 |
+| Annual tool cost savings | $7,932 | $22,848 |
+| **Total annual value** | **$58,164** | **$101,186** |
+| Year 1 investment (build + engagement + ongoing) | $55,240 | $55,240 |
+| **Year 1 net ROI** | **+$2,924 (5%)** | **+$45,946 (83%)** |
+| Year 2 ongoing cost (10 seats + retainer) | $27,240 | $27,240 |
+| **Year 2 net ROI** | **+$30,924 (114%)** | **+$73,946 (271%)** |
+
+**Payback period: 7–12 months** (depending on actual hours saved and tool costs confirmed in Phase 0)
+
+*Note: This does not include revenue upside from agents spending more time selling instead of doing admin work — which is the real multiplier.*
+
+---
+
 # Side-by-Side: Proposal A vs. B
 
 | Factor | Proposal A (Notion + n8n) | Proposal B (GHL) |
