@@ -227,9 +227,49 @@ All costs below are estimates based on typical published plan pricing. Actual am
 - AI Admin: Data entry, scheduling, compliance document tracking, reporting
 - All agent workflows call AWS Bedrock for LLM inference
 
-### Layer 6: Data Hygiene System
-- **Initial cleanup:** Deceased record identification (death registry cross-reference), duplicate detection across both systems, data standardization, missing data audit
-- **Ongoing hygiene:** New record validation, monthly death registry checks, weekly duplicate scans, data quality dashboard in Notion
+### Layer 6: Data Hygiene System (AI-Powered)
+
+**Why AI for Data Hygiene?**
+
+Traditional rules-based cleanup tools fail when:
+- Names have common variations (Jon/John, Bill/William)
+- Addresses use different formats (St/Street, Apt/Unit)
+- Deceased status isn't in a death registry (recent deaths, out-of-state deaths)
+
+**AI (Claude Haiku via AWS Bedrock) provides:**
+- Fuzzy matching that catches what rules miss
+- Pattern recognition for deceased detection beyond death registries
+- Context understanding for PHI in free-text fields
+- Confidence scoring for automated vs. human-review routing
+
+**Initial Cleanup (Phase 1):**
+- **Duplicate detection:** AI compares all records using fuzzy matching on name, address, DOB, phone, Medicare ID
+- **Deceased identification:** Cross-references death registries + AI pattern analysis (age, inactivity, communication failures)
+- **Data standardization:** Normalizes phone (E.164), address (USPS), name (proper case)
+- **Quality scoring:** Rates each record's completeness and flags critical gaps
+
+**Ongoing Hygiene (Phase 2):**
+- **New record validation:** Real-time duplicate check before save (n8n workflow + Haiku)
+- **Weekly duplicate scan:** AI reviews new records for duplicates created since last scan
+- **Monthly death registry check:** Automated batch query against DMF with AI pattern analysis
+- **Data quality dashboard:** Notion dashboard showing health metrics in real-time
+
+**Confidence-Based Automation:**
+
+| Confidence | Action | Example |
+|------------|--------|---------|
+| **90%+** (High) | Auto-applied with audit trail | "Jon Smith" and "John Smith" at same address, same DOB |
+| **70–90%** (Medium) | Queued for human review | "J. Smith" at same address — needs confirmation |
+| **<70%** (Low) | Flagged only, no action | Similar names at different addresses |
+
+**AI Cost Estimates (Claude Haiku via Bedrock):**
+
+| Task | Volume | Cost |
+|------|--------|------|
+| Initial cleanup | 10,000 records | $41–$72 |
+| Ongoing monthly | All new records + scans | $22–$40/mo |
+
+*Compare to manual review: $2,500–$5,000 for initial cleanup at $25/hr*
 
 ---
 
@@ -477,7 +517,7 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 | AI Admin agent build | $5,000 | $15,000 |
 | Integration layer (n8n → AgencyBlock, AgencyIntegrator, Notion, etc.) | $6,000 | $18,000 |
 | PHI prevention system (scanner, training, guide) | $2,500 | $6,000 |
-| **Data hygiene: initial cleanup** | $4,000 | $10,000 |
+| **Data hygiene: initial cleanup (AI-powered)** | $4,000 | $10,000 |
 | Data migration (from Airtable, Active Campaign, etc.) | $2,000 | $5,000 |
 | Training & change management | $1,000 | $3,000 |
 | **TOTAL ONE-TIME** | **$36,500** | **$100,000** |
@@ -491,7 +531,7 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 | Notion Business | $200 | $600 |
 | n8n self-hosted (AWS server) | $30 | $80 |
 | AWS Bedrock AI costs (agents + data hygiene) | $55 | $350 |
-| **Data hygiene automation** | $50 | $100 |
+| **Data hygiene automation (AI-powered)** | $50 | $100 |
 | n8n maintenance/DevOps | $0 | $500 |
 | Retained tools (see above) | $354 | $1,624 |
 | **TOTAL MONTHLY ONGOING** | **$689** | **$3,254** |

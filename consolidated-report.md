@@ -413,6 +413,228 @@ Based on management feedback, AgencyBlock and AgencyIntegrator contain:
 
 ---
 
+### AI-Powered Data Hygiene: Technical Implementation
+
+#### Why AI Instead of Rules-Based Matching?
+
+Traditional data cleanup tools rely on exact matches or simple fuzzy rules. They fail when:
+- Names have common variations (Jon/John, Bill/William, Cathy/Catherine)
+- Addresses use different formats (St/Street, Apt/Unit/#)
+- Records are incomplete (missing DOB, partial phone numbers)
+- Deceased status isn't in a death registry (recent deaths, out-of-state deaths)
+
+**AI-powered hygiene using Claude Haiku via AWS Bedrock provides:**
+
+| Capability | Technical Implementation | Advantage Over Rules |
+|-----------|------------------------|---------------------|
+| **Fuzzy name matching** | Embedding similarity + LLM verification | Catches variations rules miss (Jon/John) |
+| **Address normalization** | USPS standardization + LLM interpretation | Handles "123 Main" vs "123 Main Street Apt 2" |
+| **Deceased pattern detection** | Multi-factor scoring via LLM | Finds deceased records not in death registries |
+| **Context-aware PHI detection** | LLM classification of free-text fields | Catches Medicare IDs in notes fields |
+| **Confidence scoring** | LLM probability assessment | Enables automated vs. human-review routing |
+
+#### Confidence-Based Automation Workflow
+
+All AI decisions are routed based on confidence level:
+
+```
+┌─────────────────┐
+│  Record Pair    │
+│  for Analysis   │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│   AI Analysis   │
+│  (Claude Haiku) │
+└────────┬────────┘
+         │
+    ┌────┴────┐
+    │Confidence│
+    │  Score   │
+    └────┬────┘
+         │
+    ┌────┼────────────────┐
+    │    │                │
+    ▼    ▼                ▼
+┌──────┐ ┌──────┐    ┌──────┐
+│ 90%+ │ │70-90%│    │ <70% │
+│ HIGH │ │MEDIUM│    │ LOW  │
+└──┬───┘ └──┬───┘    └──┬───┘
+   │        │           │
+   ▼        ▼           ▼
+┌──────┐ ┌──────┐    ┌──────┐
+│ Auto │ │Human │    │ Flag │
+│Apply │ │Review│    │ Only │
+│+Audit│ │Queue │    │      │
+└──────┘ └──────┘    └──────┘
+```
+
+**Routing rules:**
+- **High confidence (90%+):** Auto-applied with full audit trail. Human notified but no action required.
+- **Medium confidence (70–90%):** Queued for human review. AI provides recommendation + reasoning.
+- **Low confidence (<70%):** Flagged for awareness. No action taken. Available for manual investigation.
+
+#### Sample Prompts: Duplicate Detection
+
+**System prompt for duplicate detection:**
+
+```
+You are a data quality analyst for a Medicare insurance brokerage. Your task is to
+determine if two patient records represent the same person.
+
+Consider these factors:
+1. Name similarity (account for common nicknames: Bill/William, Jon/John, etc.)
+2. Address similarity (normalize: St=Street, Apt=Unit, etc.)
+3. Phone number (ignore formatting differences)
+4. Date of birth (exact match is strong signal)
+5. Medicare ID (if available, even partial matches are significant)
+6. Last contact date and activity patterns
+
+Return a JSON response with:
+- match_confidence: 0-100 (probability these are the same person)
+- reasoning: Brief explanation of your assessment
+- recommended_action: "merge", "review", or "flag_only"
+- primary_record: Which record should be kept as primary (more complete/recent)
+```
+
+**Example input:**
+
+```
+Record A:
+- Name: Jon Smith
+- Address: 123 Main St, Springfield, IL 62701
+- Phone: 217-555-1234
+- DOB: 05/15/1945
+- Medicare ID: 1EG4-TE5-MK72
+- Last contact: 2023-06-15
+
+Record B:
+- Name: John Smith
+- Address: 123 Main Street, Apt 2, Springfield, IL 62701
+- Phone: (217) 555-1234
+- DOB: 5/15/1945
+- Medicare ID: [not recorded]
+- Last contact: 2024-02-20
+```
+
+**Example AI response:**
+
+```json
+{
+  "match_confidence": 94,
+  "reasoning": "Strong match based on: (1) Name 'Jon' is common variant of 'John' - 95% name similarity, (2) Same base address with unit added - likely moved within building or data entry variation, (3) Identical phone number after normalization, (4) Identical DOB, (5) Activity in both records suggests same active enrollee. The only uncertainty is the apartment number difference, which could indicate a move or data entry inconsistency.",
+  "recommended_action": "merge",
+  "primary_record": "B",
+  "merge_notes": "Keep Record B as primary (more recent contact, has apartment number). Archive Record A. Copy Medicare ID from A to B."
+}
+```
+
+#### Sample Prompts: Deceased Detection
+
+**System prompt for deceased detection:**
+
+```
+You are a compliance analyst for a Medicare insurance brokerage. Your task is to
+assess whether a patient record may represent a deceased individual, even if no
+death record is available.
+
+Consider these signals:
+1. Age (patients 85+ have higher mortality rates)
+2. Last contact date (no activity in 2+ years is unusual for Medicare enrollees)
+3. Communication failures (disconnected phones, returned mail)
+4. Policy status (no renewal, lapsed coverage)
+5. Activity patterns in AgencyIntegrator (no claims, no inquiries)
+
+Be conservative: false positives (flagging living patients) are more harmful than
+false negatives (missing deceased patients).
+
+Return a JSON response with:
+- deceased_probability: 0-100
+- signals_present: List of signals that suggest deceased status
+- signals_absent: List of signals that suggest the patient is still living
+- recommended_action: "flag_for_review", "attempt_contact", or "no_action"
+- reasoning: Brief explanation
+```
+
+**Example input:**
+
+```
+Record:
+- Name: Mary Johnson
+- DOB: 03/12/1932
+- Age: 93
+- Last contact: 2021-01-15
+- Phone status: Disconnected (last 2 outreach attempts failed)
+- Address: 456 Oak Lane, Springfield, IL 62702
+- Policy status: Not renewed since 2021
+- AgencyIntegrator activity: No claims since December 2020
+- Death registry match: None found
+```
+
+**Example AI response:**
+
+```json
+{
+  "deceased_probability": 78,
+  "signals_present": [
+    "Age 93 - high mortality probability for Medicare population",
+    "No contact in 3+ years - unusual for active enrollee",
+    "Phone disconnected - communication channel lost",
+    "Policy not renewed since 2021",
+    "No claims activity in 3+ years"
+  ],
+  "signals_absent": [
+    "No death registry match found",
+    "No returned mail indicator",
+    "Address still valid (no forwarding notice)"
+  ],
+  "recommended_action": "flag_for_review",
+  "reasoning": "Multiple signals are consistent with deceased status (age, inactivity, disconnected phone, no claims). However, absence of death registry match and valid address suggest some uncertainty. Recommend: (1) Attempt one certified mail contact, (2) Check with local Social Security office if no response, (3) Add to compliance review queue. Do NOT auto-archive without human confirmation.",
+  "next_steps": [
+    "Send certified letter to address on file",
+    "Wait 30 days for response",
+    "If no response, escalate to compliance officer for final determination"
+  ]
+}
+```
+
+#### AI Data Hygiene: Detailed Cost Model
+
+**Token usage estimates based on record complexity:**
+
+| Operation | Tokens per Record | Records | Total Tokens | Cost (Haiku) |
+|-----------|------------------|---------|--------------|--------------|
+| **Duplicate comparison** | 800–1,200 | 10,000 comparisons | 10M | $15–$25 |
+| **Deceased detection** | 600–900 | 10,000 records | 8M | $12–$20 |
+| **Data standardization** | 300–500 | 10,000 records | 4M | $6–$12 |
+| **Quality scoring** | 400–600 | 10,000 records | 5M | $8–$15 |
+| **Initial cleanup total** | | | ~27M tokens | **$41–$72** |
+
+*Note: Haiku pricing is $0.25/1M input tokens + $1.25/1M output tokens. Estimates assume 70% input, 30% output.*
+
+**Ongoing monthly costs:**
+
+| Operation | Frequency | Records/Month | Tokens | Monthly Cost |
+|-----------|-----------|---------------|--------|--------------|
+| New record validation | Real-time | 500 new records | 500K | $2–$4 |
+| Duplicate scan | Weekly | 2,000 scans | 2M | $5–$10 |
+| Deceased check | Monthly | 10,000 records | 8M | $12–$20 |
+| Quality monitoring | Weekly | 1,000 samples | 800K | $3–$6 |
+| **Monthly total** | | | ~11M tokens | **$22–$40** |
+
+**Cost comparison:**
+
+| Method | Initial Cleanup (10K records) | Ongoing (monthly) |
+|--------|------------------------------|-------------------|
+| Manual review ($25/hr) | $2,500–$5,000 | $500–$1,000 |
+| Traditional dedup software | $500–$2,000 + license | $100–$300 |
+| **AI-powered (Haiku)** | **$41–$72** | **$22–$40** |
+
+AI-powered hygiene is 10–50x cheaper than manual review and provides better accuracy than rules-based tools.
+
+---
+
 ## 5. Tool-by-Tool Disposition Plan
 
 ### Summary

@@ -211,6 +211,138 @@ Your patient databases have accumulated years of messy data:
 
 ---
 
+# Why AI for Data Cleanup?
+
+Traditional data cleanup relies on exact matches and manual review. That doesn't work when:
+
+- "John Smith" and "Jon Smith" are the same person
+- "123 Main St" and "123 Main Street, Apt 2" need to be linked
+- A deceased person's record has no death flag — just no activity for 3 years
+
+**AI can do what rules-based systems can't:**
+
+| Challenge | How AI Solves It |
+|-----------|-----------------|
+| **Fuzzy matching** | Recognizes "John" and "Jon" as likely duplicates even without exact match |
+| **Pattern recognition** | Identifies deceased records by activity patterns, not just death registry matches |
+| **Context understanding** | Knows that "Medicare ID: 1EG4-TE5-MK72" in a notes field is PHI, even if it's not in a labeled column |
+| **Confidence scoring** | Says "85% confident these are duplicates" — so you know what to auto-merge vs. what needs human review |
+
+---
+
+# AI-Powered Data Hygiene: How It Works
+
+## The Two-Phase Approach
+
+**Phase 1: Initial Cleanup (One-Time)**
+
+AI reviews every record in AgencyBlock and AgencyIntegrator:
+1. **Duplicate detection** — Fuzzy matches names, addresses, DOB, phone numbers across both systems
+2. **Deceased identification** — Cross-references death registries + flags inactive records with death-like patterns
+3. **Data standardization** — Normalizes phone formats, addresses, name capitalization
+4. **Quality scoring** — Rates each record's completeness and flags critical gaps
+
+**Phase 2: Ongoing Hygiene (Automated)**
+
+AI monitors data quality continuously:
+1. **New record validation** — Checks every new entry for duplicates before it's saved
+2. **Weekly duplicate scans** — Catches duplicates that slip through
+3. **Monthly death registry checks** — Automated cross-reference against updated death records
+4. **Real-time alerts** — Flags data quality issues as they happen
+
+---
+
+# Confidence-Based Automation
+
+**Not all AI decisions are equal. We handle that with confidence scoring:**
+
+| Confidence Level | What Happens | Example |
+|-----------------|-------------|---------|
+| **High (90%+)** | Auto-applied, logged for audit | "John Smith, 123 Main St, DOB 5/15/1945" matches "John Smith, 123 Main Street, DOB 05/15/1945" |
+| **Medium (70–90%)** | Queued for human review | "J. Smith" at same address — probably the same person, but needs confirmation |
+| **Low (<70%)** | Flagged but no action | "John Smith" and "John Smythe" at different addresses — might be related, might not |
+
+**The human-in-the-loop principle:**
+- AI does the heavy lifting (scanning thousands of records)
+- Humans make the judgment calls (reviewing medium-confidence matches)
+- Nothing gets deleted without review — only flagged and archived
+
+---
+
+# Sample AI Analysis: Duplicate Detection
+
+Here's what the AI actually sees when comparing records:
+
+```
+Record A: "Jon Smith, 123 Main St, Medicare ID ending 7K42, last contact 2023"
+Record B: "John Smith, 123 Main Street Apt 2, Medicare ID ending 7K42, last contact 2024"
+
+AI Analysis:
+- Name similarity: 92% (Jon/John is a common variation)
+- Address similarity: 95% (same base address, unit added)
+- Medicare ID: Match on last 4 digits
+- Activity: Both active within 18 months
+
+Recommendation: MERGE (High confidence: 94%)
+- Keep Record B as primary (more recent contact)
+- Archive Record A
+- Flag for compliance review before merge
+```
+
+**This would take a human 5–10 minutes per record. AI does it in seconds.**
+
+---
+
+# Sample AI Analysis: Deceased Detection
+
+When the death registry doesn't have a match, AI looks for patterns:
+
+```
+Record: "Mary Johnson, DOB 3/12/1932, last contact: January 2021"
+
+AI Analysis:
+- Age: 93 (high mortality probability for Medicare population)
+- Last contact: 3+ years ago (unusual for active enrollee)
+- No policy renewal since 2021
+- Phone disconnected on last 2 outreach attempts
+- No recent claims activity in AgencyIntegrator
+
+Pattern match: Consistent with deceased enrollee
+Confidence: 78%
+
+Recommendation: FLAG FOR REVIEW (Medium confidence)
+- Do NOT auto-archive
+- Add to compliance review queue
+- Attempt one more contact before status change
+```
+
+**Result:** Catches deceased records that slip through death registries — without accidentally flagging someone who just moved.
+
+---
+
+# AI Data Hygiene: Cost Breakdown
+
+**We use Claude Haiku via AWS Bedrock — fast, cheap, and HIPAA-compliant.**
+
+| Task | Volume | Token Usage | Estimated Cost |
+|------|--------|-------------|----------------|
+| **Initial duplicate scan** | 10,000 records | ~500K tokens | $15–$30 |
+| **Initial deceased detection** | 10,000 records | ~800K tokens | $25–$50 |
+| **Initial standardization** | 10,000 records | ~300K tokens | $10–$20 |
+| **Initial quality scoring** | 10,000 records | ~400K tokens | $15–$25 |
+| **TOTAL INITIAL CLEANUP** | | | **$65–$125** |
+
+| Ongoing Task | Frequency | Monthly Cost |
+|--------------|-----------|--------------|
+| New record validation | Real-time | $5–$10 |
+| Weekly duplicate scan | Weekly | $5–$15 |
+| Monthly death registry check | Monthly | $10–$25 |
+| **TOTAL ONGOING** | | **$20–$50/mo** |
+
+**Compare to manual cleanup:** A person reviewing records at $25/hr would cost $1,000+ just for the initial scan. AI does it for under $150.
+
+---
+
 # Technical Deep Dive (Reference Slide)
 
 *This slide is here if you want the specifics — feel free to skip it.*
