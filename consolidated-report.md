@@ -8,16 +8,20 @@
 ## Table of Contents
 
 1. Current Tool Inventory (Full Detail)
-2. Tool-by-Tool Disposition Plan
-3. Proposal A: Full Architecture & Cost Breakdown
-4. Proposal B: Full Architecture & Cost Breakdown
-5. Side-by-Side Financial Analysis
-6. Engagement Structure & Milestones
-7. HIPAA Compliance Deep Dive
-8. PHI Leakage Prevention Plan
-9. Change Management Plan
-10. Risk Register
-11. Open Questions & Investigation Items
+2. **AgencyBlock & AgencyIntegrator: The Core Patient Data Systems**
+3. **API Capabilities Report: Full Tool Analysis**
+4. **Data Hygiene Problem & Solution**
+5. Tool-by-Tool Disposition Plan
+6. Proposal A: Full Architecture & Cost Breakdown
+7. Proposal B: Full Architecture & Cost Breakdown
+8. Hours Saved, Labor Value Recovery & ROI Analysis
+9. Side-by-Side Financial Analysis
+10. Engagement Structure & Milestones
+11. HIPAA Compliance Deep Dive
+12. PHI Leakage Prevention Plan
+13. Change Management Plan
+14. Risk Register
+15. Open Questions & Investigation Items
 
 ---
 
@@ -146,7 +150,270 @@
 
 ---
 
-## 2. Tool-by-Tool Disposition Plan
+## 2. AgencyBlock & AgencyIntegrator: The Core Patient Data Systems
+
+### Overview
+
+The Brokerage Inc. already has two HIPAA-compliant systems for patient data management. These systems are not being replaced — they are being integrated and optimized.
+
+| System | Primary Function | HIPAA Status |
+|--------|-----------------|-------------|
+| **AgencyBlock** | Patient records, policies, enrollment data, Medicare IDs | HIPAA-compliant (existing BAA) |
+| **AgencyIntegrator** | Workflow automation, integrations, process management | HIPAA-compliant (existing BAA) |
+
+### Current Problems
+
+Based on management feedback, both systems share these issues:
+
+| Problem | Impact | Severity |
+|---------|--------|----------|
+| **Data is messy, old, and redundant** | Inconsistent records, conflicting information, wasted time searching | High |
+| **Deceased patient records still active** | Compliance risk, wasted outreach, inaccurate reporting | High |
+| **No time to review and purge records** | Problems compound monthly, staff too busy with daily operations | Medium |
+| **No regular data hygiene process** | One-time cleanups don't stick; data degrades over time | High |
+| **AgencyBlock and AgencyIntegrator don't communicate** | Manual workarounds, duplicate data entry, errors in sync | Critical |
+| **Departments create workarounds** | Shadow processes, inconsistent data, frustrated staff | High |
+
+### Why We Keep These Systems
+
+| Reason | Detail |
+|--------|--------|
+| **Already HIPAA-compliant** | BAAs in place, encryption configured, audit logging active |
+| **Contains years of patient data** | Migration would be costly, risky, and time-consuming |
+| **Staff already trained** | Learning curve for a replacement would be significant |
+| **Industry-specific features** | Built for insurance/Medicare workflows |
+| **Cost** | Already paying for these — replacement would add cost, not reduce it |
+
+**The solution is not replacement — it's integration and cleanup.**
+
+### Integration Architecture
+
+We solve the communication problem by adding n8n as a middle layer:
+
+```
+┌─────────────────────┐
+│     AgencyBlock     │
+│   (Patient Records) │
+└──────────┬──────────┘
+           │ API
+           ▼
+┌─────────────────────┐     ┌─────────────────────┐
+│        n8n          │◄───►│       Notion        │
+│  (Integration Hub)  │     │    (Daily CRM)      │
+└──────────┬──────────┘     └─────────────────────┘
+           │ API
+           ▼
+┌─────────────────────┐
+│  AgencyIntegrator   │
+│    (Workflows)      │
+└─────────────────────┘
+```
+
+**How it works:**
+- n8n connects to both AgencyBlock and AgencyIntegrator via their APIs
+- When data changes in one system, n8n propagates the change to others
+- Notion receives only non-PHI data (names, status, stages) — never patient health information
+- Staff work primarily in Notion; AgencyBlock/AgencyIntegrator are accessed only when needed for PHI
+
+---
+
+## 3. API Capabilities Report: Full Tool Analysis
+
+This section documents the API capabilities of every tool in the current tech stack, assessing integration potential with n8n and the proposed architecture.
+
+### API Strength Rating Scale
+
+| Rating | Meaning | Integration Potential |
+|--------|---------|----------------------|
+| **Excellent** | Full REST/GraphQL API, well-documented, webhooks, all CRUD operations | Full automation possible |
+| **Good** | REST API with most needed operations, decent documentation | Most automation possible |
+| **Moderate** | Limited API or webhook-only, partial documentation | Some automation, manual gaps |
+| **Basic** | Simple endpoints only (send/receive), poor documentation | Limited automation |
+| **None** | No API available | Manual only, cannot integrate |
+
+---
+
+### Core Patient Data Systems (HIPAA)
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **AgencyBlock** | REST API | Good | Read/write patient records, enrollment data, policy info, search, webhooks for updates | Rate limits, some bulk operations require pagination | Native n8n node available; custom HTTP requests for advanced operations |
+| **AgencyIntegrator** | REST API | Good | Trigger workflows, status updates, data sync, event webhooks | Complex workflow triggers may require custom configuration | HTTP Request node + webhooks; may need custom integration work |
+
+### CRM / Sales / Outreach — 7 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **Active Campaign** | REST API v3 | Good | Contacts, lists, tags, campaigns, automations, deals, notes, custom fields, webhooks | Complex automation logic must be built in AC, not just API | Native n8n node; full contact management, campaign triggers |
+| **EZ Texting** | REST API | Basic | Send SMS, check delivery status, manage contacts | No advanced workflows, limited webhook support | HTTP Request node; basic send/receive only |
+| **slydial** | None | None | N/A | No API exists; voicemail drops are manual or via their interface only | Cannot integrate — replaced by Twilio/n8n |
+| **GMass** | Limited | Basic | Send campaigns, track opens/clicks via Google Sheets | Gmail-based, no direct API; relies on Google Sheets integration | Not practical to integrate — replaced by SendGrid |
+| **Five9** | REST API + SOAP | Limited | Call data, agent status, campaign management | Real-time call events difficult; complex authentication; SOAP legacy | Partial integration possible; may need to keep Five9 separate for complex call center features |
+| **Crisp** | REST API | Moderate | Conversations, contacts, send messages, webhooks | Limited CRM features; best for chat widget only | Native n8n node available; webhook triggers for new conversations |
+| **Quo** | REST API | Moderate | Contacts, sequences, activities, tasks | Limited documentation; may require vendor support | HTTP Request node; being replaced by AI SDR agent |
+
+### Marketing / Content / SEO — 9 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **Canva** | REST API | Moderate | Export designs, access brand kit, create designs from templates | Cannot programmatically edit complex designs; template-based only | HTTP Request node; useful for automated design exports |
+| **Riverside** | Limited | Basic | Export recordings, manage guests | No real-time integration; mostly manual workflow | Webhook for recording completion; manual download |
+| **Testimonial.to** | REST API | Moderate | Retrieve testimonials, embed codes, submission webhooks | Limited write operations | Webhook for new testimonials; display automation |
+| **UberSuggest** | None | None | N/A | No public API; data must be exported manually | Cannot integrate — manual SEO research tool |
+| **Unbounce** | REST API + Webhooks | Moderate | Page stats, lead capture webhooks, A/B test data | Cannot programmatically create/edit pages | Webhook for lead capture; being replaced by WordPress |
+| **SEO articles** | N/A | N/A | Vendor service, not a tool | N/A | N/A — human vendor relationship |
+| **Libsyn** | REST API | Basic | Episode data, download stats | Cannot upload via API on all plans | Limited integration; mostly manual |
+| **YouTube Premium** | N/A | N/A | Consumer subscription, not a tool | N/A | N/A — likely personal expense |
+| **BrightFire** | Unknown | Unknown | Insurance marketing platform | Requires vendor confirmation | TBD — investigate during Phase 0 |
+
+### Website / Web Infrastructure — 10 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **WordPress** | REST API | Good | Posts, pages, users, media, custom post types, custom fields (with plugins) | Plugin-dependent for advanced features; authentication can be complex | Native n8n node; full content management |
+| **WP Engine** | REST API | Moderate | Environment management, backups, cache clearing | Hosting-level operations only; not content | HTTP Request node; useful for deployment automation |
+| **Squarespace** | REST API | Limited | Pages, products, orders, inventory | Cannot fully manage site design via API | Limited integration; being consolidated to WordPress |
+| **Elementor** | None | None | N/A | Page builder with no API; changes require WP admin | Cannot integrate — visual editing only |
+| **Gravity Forms** | REST API | Good | Entries, forms, fields, notifications | Requires WordPress REST API access | Native n8n node via WordPress; form submission webhooks |
+| **Fluent Forms** | REST API | Good | Similar to Gravity Forms | Requires WordPress REST API access | HTTP Request node; webhook triggers |
+| **Forgravity** | N/A | N/A | Gravity Forms add-on | Depends on Gravity Forms | N/A — plugin, not standalone tool |
+| **Imagify** | REST API | Basic | Optimize images, check usage | Simple operations only | HTTP Request node; batch optimization possible |
+| **Gravatar** | REST API | Basic | Retrieve avatars by email hash | Read-only; cannot modify profiles | HTTP Request node; avatar lookup |
+
+### Data / Automation / Backend — 10 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **Airtable** | REST API | Excellent | Full CRUD on all records, views, attachments, webhooks, formula fields | 5 requests/second rate limit; large bases can be slow | Native n8n node; full database automation |
+| **Zapier** | REST API + Webhooks | Excellent | 5,000+ app integrations, webhook triggers | Being replaced by n8n | N/A — competitor being replaced |
+| **SendGrid** | REST API | Excellent | Send email, templates, contacts, analytics, webhooks for events | Deliverability requires proper domain setup | Native n8n node; full email automation |
+| **Twilio** | REST API | Excellent | SMS, voice, WhatsApp, verify, webhooks | Usage-based pricing can add up | Native n8n node; SMS/voice automation |
+| **Amazon Web Services** | Multiple APIs | Excellent | S3, RDS, EC2, Bedrock, SES, SNS, Lambda — full infrastructure | Complexity; requires AWS expertise | Native n8n nodes for most services; Bedrock via HTTP |
+| **Couchdrop** | REST API | Moderate | File transfer, SFTP, cloud storage sync | Limited to file operations | HTTP Request node; file transfer automation |
+| **HIPAA Vault** | Basic | Basic | File storage, basic management | Limited API; mostly portal access | Limited integration; may need manual processes |
+| **Streamlit** | None | None | N/A | Python app framework; no management API | Cannot integrate — application runtime, not service |
+| **Basefront** | Unknown | Unknown | Unidentified tool | Requires investigation | TBD — investigate during Phase 0 |
+
+### Industry-Specific / Enrollment — 3 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **Medicare Pro** | REST API | Good | Enrollment status, quotes, carrier data, agent assignments | Rate limits; requires vendor partnership | HTTP Request node; enrollment pipeline sync |
+| **Medicare Pro Test** | Same as Medicare Pro | Good | Test environment | Same as production | Same integration approach |
+| **E123** | REST API | Moderate | Quoting, enrollment submission, status tracking | Documentation may be limited | HTTP Request node; quote-to-enrollment automation |
+
+### Learning / Training — 2 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **Cloud Academy** | REST API | Moderate | User management, course assignments, completion tracking | Limited content creation via API | HTTP Request node; training completion triggers |
+| **LearnDash** | REST API (WordPress) | Moderate | Courses, lessons, quizzes, user progress | Requires WordPress REST API | WordPress node + custom endpoints |
+
+### Compliance / Finance / Other — 5 Tools
+
+| Tool | API Type | Strength | Key Capabilities | Limitations | n8n Integration |
+|------|----------|----------|------------------|-------------|-----------------|
+| **Tax Bandits** | REST API | Moderate | 1099 generation, filing status | Seasonal use; mostly batch operations | HTTP Request node; year-end automation |
+| **Adobe Pro** | Limited | Basic | PDF operations via Adobe Document Services | Complex authentication; per-document pricing | Limited; may be replaced by simpler PDF tools |
+| **Fathom Analytics** | REST API | Moderate | Site stats, custom events | Read-only; no data push | HTTP Request node; dashboard data pull |
+| **AddEvent** | REST API | Moderate | Create events, RSVPs, calendar sync | Simple event management | HTTP Request node; event creation automation |
+| **Marketing inbox** | Unknown | Unknown | Unidentified | Requires investigation | TBD — investigate during Phase 0 |
+
+---
+
+### API Integration Architecture Summary
+
+**Tools with Excellent/Good APIs (Full Integration Possible):**
+- AgencyBlock, AgencyIntegrator, Active Campaign, Airtable, SendGrid, Twilio, AWS, WordPress, Gravity Forms, Medicare Pro
+
+**Tools with Moderate APIs (Partial Integration):**
+- Canva, Testimonial.to, Unbounce (webhooks), WP Engine, E123, Cloud Academy, LearnDash, Fathom, AddEvent
+
+**Tools with Basic/No APIs (Manual or Replaced):**
+- slydial (None — replaced), GMass (Limited — replaced), EZ Texting (Basic — replaced), Squarespace (Limited — migrated), Elementor (None — visual tool), HIPAA Vault (Basic), Streamlit (None)
+
+**Tools Requiring Investigation:**
+- BrightFire, Basefront, Marketing inbox, Five9 (complex)
+
+---
+
+## 4. Data Hygiene Problem & Solution
+
+### The Current State of Patient Data
+
+Based on management feedback, AgencyBlock and AgencyIntegrator contain:
+
+| Data Quality Issue | Estimated Prevalence | Impact |
+|-------------------|---------------------|--------|
+| **Deceased patient records** | Unknown — common in systems 5+ years old | Compliance risk, wasted marketing spend, inaccurate metrics |
+| **Duplicate records** | Typically 10–30% of records in unmanaged systems | Conflicting information, split history, reporting errors |
+| **Outdated contact information** | Degrades 2–3% per month naturally | Failed outreach, returned mail, frustrated staff |
+| **Incomplete records** | Varies by data entry discipline | Missing critical fields for compliance, enrollment |
+| **Inconsistent formatting** | Common without validation rules | Phone numbers, addresses, names in different formats |
+| **Orphaned records** | Agents who left, abandoned leads | Database bloat, confusion about ownership |
+
+### Why Manual Cleanup Doesn't Work
+
+| Approach | Problem |
+|----------|---------|
+| "We'll clean it up when we have time" | Time never comes; daily operations take priority |
+| One-time cleanup project | Data degrades immediately after; no lasting improvement |
+| Individual staff responsibility | Inconsistent, no accountability, no standardization |
+| Annual cleanup | Too infrequent; problems compound for 11 months |
+
+### The Data Hygiene Solution
+
+#### Phase 1: Initial Cleanup (One-Time)
+
+| Task | Method | Deliverable |
+|------|--------|-------------|
+| **Deceased record identification** | Cross-reference against SSDI (Social Security Death Index), state death registries, DMF (Death Master File) | Flagged records for human review; no auto-deletion |
+| **Duplicate detection** | AI-powered fuzzy matching across both systems (name, DOB, SSN, address, phone) | Merge candidates with confidence scores |
+| **Duplicate resolution** | High-confidence: auto-merge with audit trail. Low-confidence: human review queue | Single "golden record" per patient |
+| **Data standardization** | Normalize phone (E.164), address (USPS), name (proper case) | Consistent formatting across all records |
+| **Missing data audit** | Identify records missing critical fields (DOB, Medicare ID, contact info) | Report + action items by agent/department |
+| **Archive inactive records** | Flag records with no activity in 3+ years | Archived status (retained but hidden from active views) |
+
+**Estimated one-time cost: $4,000–$10,000** (depends on record volume and data quality)
+
+#### Phase 2: Ongoing Hygiene (Automated)
+
+| Task | Frequency | Method |
+|------|-----------|--------|
+| **New record validation** | Real-time (every new entry) | n8n workflow checks for duplicates, validates required fields, standardizes format before save |
+| **Death registry check** | Monthly | Automated batch query against DMF; flagged records sent to compliance for review |
+| **Duplicate monitoring** | Weekly | AI scan for new duplicates created since last check |
+| **Data decay detection** | Monthly | Flag records with bounced emails, disconnected phones, returned mail |
+| **Compliance completeness** | Weekly | Audit records approaching renewal for missing required fields |
+| **Data quality dashboard** | Real-time | Notion dashboard showing health metrics: duplicate rate, completeness %, decay rate |
+
+**Estimated ongoing cost: $50–$100/month** (n8n workflows + AI processing + registry access)
+
+### Data Hygiene Cost Breakdown
+
+| Item | One-Time | Monthly | Pricing Basis |
+|------|----------|---------|---------------|
+| Death registry access (DMF/SSDI) | $500–$1,000 | $50–$100 | Per-query or subscription; volume-dependent |
+| AI duplicate detection (Bedrock) | $200–$500 | $10–$30 | Token usage for fuzzy matching |
+| n8n workflow development | $2,000–$5,000 | $0 | One-time build; included in integration layer |
+| Manual review labor (internal) | $500–$2,000 | $0–$200 | Staff time for edge cases; may be internal |
+| Data standardization scripts | $500–$1,000 | $0 | One-time build |
+| Quality dashboard (Notion) | $300–$500 | $0 | Included in Notion CRM build |
+| **TOTAL** | **$4,000–$10,000** | **$50–$100** | |
+
+### Expected Outcomes
+
+| Metric | Before | After (3 months) | After (12 months) |
+|--------|--------|-----------------|-------------------|
+| Duplicate rate | 10–30% (est.) | <5% | <2% |
+| Deceased records in active status | Unknown | 0 (flagged for review) | 0 (ongoing monitoring) |
+| Records with missing critical fields | Unknown | Identified, action plan | <5% |
+| Data format consistency | Low | 80%+ | 95%+ |
+| Staff time on data issues | 3–5 hrs/week | 1 hr/week | <30 min/week |
+
+---
+
+## 5. Tool-by-Tool Disposition Plan
 
 ### Summary
 
@@ -169,11 +436,20 @@
 
 ---
 
-## 3. Proposal A: Full Architecture & Cost Breakdown
+## 6. Proposal A: Full Architecture & Cost Breakdown
 
-### Architecture: Split Non-PHI / PHI
+### Architecture: Integration-First Approach (Updated)
 
-**Layer 1 — Notion (Non-PHI CRM & Operations)**
+**Key Change:** We keep AgencyBlock and AgencyIntegrator as the HIPAA-compliant patient data systems. We do NOT build a new AWS PHI database. Instead, n8n integrates existing systems and Notion provides the modern front-end.
+
+**Layer 1 — AgencyBlock + AgencyIntegrator (Existing PHI Systems — KEPT)**
+- **AgencyBlock:** Patient records, Medicare IDs, policy numbers, enrollment data, health plan selections
+- **AgencyIntegrator:** Workflow automation, carrier integrations, process management
+- Both systems remain the source of truth for all PHI
+- Existing BAAs remain in place — no new compliance agreements needed
+- n8n connects to these systems via their APIs
+
+**Layer 2 — Notion (Non-PHI CRM & Operations)**
 - Contact records: name, email, phone, agent assignment, lead source, deal stage
 - Pipeline: Kanban boards, timeline views, deal value tracking
 - Tasks: follow-up scheduling, activity logs, reminders
@@ -190,30 +466,32 @@
 - Signed health documents
 - Any communication content referencing health status
 
-**Layer 2 — AWS (PHI/HIPAA-Compliant)**
-- n8n self-hosted on EC2 (automation engine)
-- PostgreSQL on RDS (encrypted, structured PHI storage)
-- S3 (encrypted, PHI document storage)
-- VPC with private subnets (network isolation)
-- CloudTrail + CloudWatch (audit logging + monitoring)
-- KMS (encryption key management)
-- BAA signed via AWS Artifact (free)
+**Layer 3 — n8n (Integration & Automation Hub)**
+- Self-hosted on AWS EC2 (automation engine)
+- **Solves the core problem:** Bridges AgencyBlock and AgencyIntegrator so they finally communicate
+- Syncs status information from PHI systems to Notion (sanitized — no PHI transferred)
+- Orchestrates all workflows: lead routing, enrollment status updates, notifications
+- Runs data hygiene workflows (duplicate detection, deceased record flagging)
 
-**Layer 3 — AWS Bedrock (HIPAA-Compliant AI)**
+**Layer 4 — AWS Bedrock (HIPAA-Compliant AI)**
 - All LLM inference routes through Bedrock
-- HIPAA-eligible service covered by the same AWS BAA
+- HIPAA-eligible service covered by AWS BAA
 - Models available: Claude Haiku, Sonnet, Opus; Amazon Titan; Llama; Mistral
-- PHI never leaves the AWS environment
-- n8n calls Bedrock APIs from within the private VPC
+- n8n calls Bedrock APIs for AI agent operations and data hygiene
 
-**Layer 4 — AI Agents (Orchestrated by n8n via Bedrock)**
+**Layer 5 — AI Agents (Orchestrated by n8n via Bedrock)**
 - AI SDR: lead qualification, outreach, follow-up, meeting booking
 - AI BDR: prospecting, list building, personalized outreach
 - AI Admin: data entry, scheduling, compliance tracking, reporting
 
+**Layer 6 — Data Hygiene System**
+- Initial cleanup: deceased record identification, duplicate detection, standardization
+- Ongoing hygiene: new record validation, monthly death registry checks, weekly duplicate scans
+- Quality dashboard in Notion showing data health metrics
+
 ---
 
-### Proposal A — One-Time Costs (Detailed)
+### Proposal A — One-Time Costs (Detailed) — UPDATED
 
 | Item | Low | High | What This Pays For |
 |------|-----|------|-------------------|
@@ -221,28 +499,27 @@
 | AI SDR agent build | $8,000 | $20,000 | n8n workflow design, Bedrock integration, prompt engineering, email/SMS sequence logic, lead scoring model, follow-up triggers, meeting booking integration, testing |
 | AI BDR agent build | $5,000 | $15,000 | Prospecting logic, list enrichment workflows, personalized outreach templates, Bedrock integration, data source connections, testing |
 | AI Admin agent build | $5,000 | $15,000 | Data entry automation workflows, scheduling integrations, compliance document tracking, reporting dashboards, Bedrock integration, testing |
-| Integration layer (n8n) | $5,000 | $15,000 | API connections to Medicare Pro, E123, SendGrid/Twilio, Notion API, Bedrock API; data sync logic; error handling; retry mechanisms |
+| Integration layer (n8n) | $6,000 | $18,000 | **API connections to AgencyBlock, AgencyIntegrator**, Medicare Pro, E123, SendGrid/Twilio, Notion API, Bedrock API; data sync logic; error handling; retry mechanisms. **Increased** to account for AgencyBlock/AgencyIntegrator integration complexity. |
 | PHI prevention system | $2,500 | $6,000 | Sanitization workflows, PHI scanner (Bedrock-powered), data classification guide, LearnDash training module |
-| AWS PHI environment setup | $1,500 | $4,000 | VPC architecture, RDS provisioning, S3 bucket config, KMS encryption, IAM policies, CloudTrail/CloudWatch setup, security group rules, BAA signing |
-| Data migration | $2,000 | $5,000 | Contact export from Active Campaign + Airtable, data cleaning, Notion import, PHI data routing to AWS RDS, validation |
+| **Data hygiene: initial cleanup** | $4,000 | $10,000 | **NEW:** Deceased record identification (death registry cross-reference), duplicate detection/resolution, data standardization, missing data audit, archive inactive records |
+| Data migration | $2,000 | $5,000 | Contact export from Active Campaign + Airtable, data cleaning, Notion import, validation |
 | Training & change management | $1,000 | $3,000 | Per-department training sessions, user guides, PHI boundary training, change champion onboarding |
-| **TOTAL ONE-TIME** | **$33,000** | **$91,000** | |
+| **TOTAL ONE-TIME** | **$36,500** | **$100,000** | |
+
+*Note: AWS PHI environment setup removed — we are keeping AgencyBlock/AgencyIntegrator instead of building new PHI infrastructure. Integration layer cost increased to account for connecting to these existing systems.*
 
 ---
 
-### Proposal A — Monthly Ongoing Costs (Detailed)
+### Proposal A — Monthly Ongoing Costs (Detailed) — UPDATED
 
 | Item | Low (10 seats) | High (25 seats) | Pricing Detail |
 |------|----------------|-----------------|----------------|
 | Notion Business | $200 | $600 | $20/user/mo (annual) or $24/user/mo (monthly). Business tier needed for schema locking + private teamspaces. |
-| n8n EC2 server | $30 | $80 | t3.medium instance ($0.0416/hr) + 50GB EBS. Handles all automation workloads. |
-| RDS PostgreSQL (PHI) | $25 | $75 | db.t3.medium, encrypted (KMS), Multi-AZ at high end for reliability. |
-| S3 storage (PHI docs) | $5 | $20 | SSE-KMS encryption, versioning, lifecycle policies. ~10–100GB. |
-| VPC + NAT Gateway | $35 | $50 | NAT Gateway ~$32/mo + data processing. Required for private subnet internet access. |
-| CloudTrail + CloudWatch | $10 | $30 | Audit logging (HIPAA requirement) + monitoring alarms. |
-| KMS | $1 | $5 | $1/key/mo + $0.03/10K API calls. |
-| EC2 for agent services | $50 | $150 | t3.large for AI agent runtime (if separate from n8n instance). |
-| Data transfer | $5 | $30 | Inter-service API calls, Notion sync, SendGrid, external integrations. |
+| n8n EC2 server | $30 | $80 | t3.medium instance ($0.0416/hr) + 50GB EBS. Handles all automation workloads + AgencyBlock/AgencyIntegrator integrations. |
+| **Data hygiene automation** | $50 | $100 | **NEW:** Death registry access, AI duplicate detection, quality monitoring. Ongoing after initial cleanup. |
+| Data transfer | $5 | $30 | Inter-service API calls, Notion sync, SendGrid, AgencyBlock/AgencyIntegrator API calls. |
+
+*Note: RDS, S3, VPC, KMS costs removed — patient data remains in AgencyBlock/AgencyIntegrator. AgencyBlock and AgencyIntegrator costs continue as-is (already in budget).*
 | **AWS Bedrock (Haiku)** | $7 | $50 | ~3M input + 800K output tokens/mo. PHI scanning, classification, drafts. |
 | **AWS Bedrock (Sonnet)** | $8 | $100 | ~1M input + 300K output tokens/mo. Complex reasoning, lead qual. |
 | **AWS Bedrock (Opus)** | $5 | $75 | ~100K input + 50K output tokens/mo. Compliance review (low volume). |

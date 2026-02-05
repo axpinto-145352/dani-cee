@@ -5,7 +5,11 @@
 
 # The Problem
 
-The Brokerage Inc. has accumulated 45+ tools across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion. It's time to consolidate.
+The Brokerage Inc. has accumulated 45+ tools across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion.
+
+**Additionally:** The two core patient data systems — AgencyBlock and AgencyIntegrator — don't communicate with each other. Staff create manual workarounds to move information between systems. The data in these systems is messy, outdated, and contains records of deceased patients that have never been purged.
+
+It's time to consolidate and integrate.
 
 ---
 
@@ -113,15 +117,19 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 ---
 
-## Industry-Specific / Enrollment
+## Industry-Specific / Enrollment / HIPAA Systems
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
+| **AgencyBlock** | Patient records, enrollment data, policy management | Existing contract | HIPAA-compliant AMS; existing BAA in place | **KEEP — Core PHI system** |
+| **AgencyIntegrator** | Workflow automation, carrier integrations | Existing contract | HIPAA-compliant workflow platform; existing BAA in place | **KEEP — Core PHI system** |
 | Medicare Pro | Enrollment platform | $100–$300 | Industry-specific licensing; per-agent or flat monthly | **Keep — core business** |
 | Medicare Pro Test | Testing environment | $0 | Included with Medicare Pro subscription | Keep |
 | E123 | Enrollment / quoting | $50–$200 | Per-agent licensing for enrollment/quoting platform | **Keep — core business** |
 
-**Category subtotal: ~$150–$500/mo**
+**Category subtotal: ~$150–$500/mo** (excludes AgencyBlock/AgencyIntegrator — already in budget)
+
+**Note:** AgencyBlock and AgencyIntegrator are the existing HIPAA-compliant patient data systems. They are NOT being replaced — they are being integrated via n8n and cleaned up via data hygiene services.
 
 ---
 
@@ -174,15 +182,22 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 ## Proposal A — Philosophy
 
-Build a split-architecture system: Notion handles all non-PHI CRM operations (pipeline, tasks, contacts, SOPs). Self-hosted n8n on AWS handles all HIPAA/PHI workflows in an encrypted, BAA-covered environment. AI agents layer on top of both via n8n orchestration.
+**Integration-first approach:** Keep the existing HIPAA-compliant systems (AgencyBlock & AgencyIntegrator) and connect them with a modern front-end. Notion handles all non-PHI CRM operations (pipeline, tasks, contacts, SOPs). n8n bridges the systems that have never talked to each other. AI agents layer on top via n8n orchestration. Data hygiene cleans up years of accumulated mess.
 
-**Two layers. Clear boundary. No PHI in Notion. Full compliance on AWS.**
+**We don't replace what works — we connect it and clean it up.**
 
 ---
 
-## Proposal A — Architecture (Split: Non-PHI / PHI)
+## Proposal A — Architecture (Integration-First)
 
-### Layer 1: Notion (Non-PHI CRM & Operations Hub)
+### Layer 1: AgencyBlock + AgencyIntegrator (Existing PHI Systems — KEPT)
+- **AgencyBlock:** Patient records, Medicare IDs, policy numbers, enrollment data, health plan selections — already HIPAA-compliant with existing BAA
+- **AgencyIntegrator:** Workflow automation, carrier integrations, process management — already HIPAA-compliant with existing BAA
+- Both systems remain the source of truth for all PHI
+- **No migration of patient data** — we connect to these systems via their APIs
+- **Problem solved:** n8n makes these systems communicate with each other for the first time
+
+### Layer 2: Notion (Non-PHI CRM & Operations Hub)
 - Contact records: name, email, phone, agent assignment, lead source, deal stage
 - Pipeline tracking with Kanban boards and timeline views
 - Task management, follow-up scheduling, activity logs
@@ -192,26 +207,29 @@ Build a split-architecture system: Notion handles all non-PHI CRM operations (pi
 
 **What NEVER goes in Notion:** SSNs, DOBs linked to health data, Medicare/Medicaid IDs, policy numbers, health plan selections, enrollment details, medical conditions, coverage information, signed health documents
 
-### Layer 2: n8n + AWS (PHI/HIPAA-Compliant Environment)
-- Self-hosted n8n on AWS (standard regions — not GovCloud; BAA signed with AWS)
-- Encrypted PostgreSQL (RDS) for structured PHI: enrollment data, policy details, Medicare IDs, health plan selections
-- Encrypted S3 for PHI documents: signed enrollment forms, compliance paperwork, health-related correspondence
-- All PHI processing happens exclusively in this layer
-- n8n workflows bridge Notion and the PHI layer — reading non-PHI context from Notion, processing PHI on AWS, writing back only non-PHI status updates (e.g., "enrollment complete" without enrollment details)
+### Layer 3: n8n (Integration & Automation Hub)
+- Self-hosted on AWS EC2 (automation engine)
+- **Key function:** Bridges AgencyBlock and AgencyIntegrator — they finally communicate
+- Syncs status information from PHI systems to Notion (sanitized — no PHI transferred)
+- Orchestrates all workflows: lead routing, enrollment status updates, notifications
+- Runs data hygiene workflows (duplicate detection, deceased record flagging)
+- Replaces Zapier with unlimited automations at no per-use cost
 
-### Layer 3: AI via AWS Bedrock (HIPAA-Compliant LLM Access)
+### Layer 4: AI via AWS Bedrock (HIPAA-Compliant LLM Access)
 - **All LLM usage routes through AWS Bedrock** — a HIPAA-eligible service covered by the AWS BAA
-- PHI never leaves the AWS environment; Bedrock processes LLM requests within the same compliant perimeter as your data
 - No separate BAA needed with Anthropic or OpenAI — the AWS BAA covers Bedrock usage
 - Available models on Bedrock: Claude (Haiku, Sonnet, Opus), Llama, Mistral, Amazon Titan, and others
-- n8n calls Bedrock APIs directly from within the VPC — same network as PHI database and document storage
+- n8n calls Bedrock APIs for all AI operations
 
-### Layer 4: AI Agents (Orchestrated by n8n via Bedrock)
+### Layer 5: AI Agents (Orchestrated by n8n via Bedrock)
 - AI SDR: Lead qualification, email/SMS outreach, follow-up, meeting booking
 - AI BDR: Outbound prospecting, list building, personalized outreach
 - AI Admin: Data entry, scheduling, compliance document tracking, reporting
-- All agent workflows call AWS Bedrock for LLM inference — PHI-touching and non-PHI tasks alike
-- Single LLM access path eliminates the risk of accidentally routing PHI to a non-compliant API endpoint
+- All agent workflows call AWS Bedrock for LLM inference
+
+### Layer 6: Data Hygiene System
+- **Initial cleanup:** Deceased record identification (death registry cross-reference), duplicate detection across both systems, data standardization, missing data audit
+- **Ongoing hygiene:** New record validation, monthly death registry checks, weekly duplicate scans, data quality dashboard in Notion
 
 ---
 
@@ -309,15 +327,16 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 
 ## Proposal A — What Gets Built
 
-1. **Notion CRM (Non-PHI Layer)** — Contacts, pipeline, tasks, department hubs, SOPs — no PHI
-2. **AWS PHI Environment** — Encrypted RDS + S3 with BAA, private VPC, audit logging — all PHI lives here
-3. **AWS Bedrock (HIPAA-Compliant AI)** — All LLM inference runs through Bedrock within AWS; covered by same BAA; no separate AI vendor agreements needed
-4. **n8n Automation Layer** — Self-hosted on AWS; bridges Notion and PHI layer; calls Bedrock for AI; includes sanitization and PHI scanning workflows
+1. **AgencyBlock + AgencyIntegrator Integration** — n8n connects both systems via their APIs so they finally communicate
+2. **Notion CRM (Non-PHI Layer)** — Contacts, pipeline, tasks, department hubs, SOPs — no PHI
+3. **n8n Automation Hub** — Self-hosted on AWS; bridges AgencyBlock, AgencyIntegrator, and Notion; orchestrates all workflows
+4. **AWS Bedrock (HIPAA-Compliant AI)** — All LLM inference runs through Bedrock within AWS; covered by AWS BAA
 5. **AI SDR Agent** — n8n workflows calling Bedrock (Claude Haiku/Sonnet) for lead qualification and outreach
 6. **AI BDR Agent** — Prospecting automation, list enrichment, personalized messaging via Bedrock
 7. **AI Admin Agent** — Data entry automation, scheduling, compliance checks, reporting via Bedrock
-8. **Integration Layer** — n8n connects Notion, AWS PHI layer, Bedrock, Medicare Pro, E123, SendGrid, and retained tools
-9. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner (Bedrock-powered), incident response procedures
+8. **Integration Layer** — n8n connects all systems: AgencyBlock, AgencyIntegrator, Notion, Medicare Pro, E123, SendGrid, Twilio
+9. **Data Hygiene System** — Initial cleanup (deceased records, duplicates, standardization) + ongoing automated hygiene
+10. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner (Bedrock-powered), incident response procedures
 
 ---
 
@@ -446,7 +465,7 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 
 ---
 
-## Proposal A — Total Cost Summary
+## Proposal A — Total Cost Summary (UPDATED)
 
 ### One-Time Costs
 
@@ -456,12 +475,14 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 | AI SDR agent build | $8,000 | $20,000 |
 | AI BDR agent build | $5,000 | $15,000 |
 | AI Admin agent build | $5,000 | $15,000 |
-| Integration layer (n8n workflows) | $5,000 | $15,000 |
+| Integration layer (n8n → AgencyBlock, AgencyIntegrator, Notion, etc.) | $6,000 | $18,000 |
 | PHI prevention system (scanner, training, guide) | $2,500 | $6,000 |
+| **Data hygiene: initial cleanup** | $4,000 | $10,000 |
 | Data migration (from Airtable, Active Campaign, etc.) | $2,000 | $5,000 |
-| AWS PHI environment setup (VPC, encryption, IAM, logging) | $1,500 | $4,000 |
 | Training & change management | $1,000 | $3,000 |
-| **TOTAL ONE-TIME** | **$33,000** | **$91,000** |
+| **TOTAL ONE-TIME** | **$36,500** | **$100,000** |
+
+*Note: AWS PHI environment setup removed — AgencyBlock and AgencyIntegrator already provide HIPAA-compliant storage. Integration layer cost increased to account for connecting to these existing systems.*
 
 ### Monthly Ongoing Costs
 
@@ -469,58 +490,64 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 |------|----------------|-----------------|
 | Notion Business | $200 | $600 |
 | n8n self-hosted (AWS server) | $30 | $80 |
-| AWS PHI environment (RDS, S3, VPC, logging) | $131 | $360 |
-| AWS Bedrock AI costs (agents + PHI scanner) | $55 | $350 |
+| AWS Bedrock AI costs (agents + data hygiene) | $55 | $350 |
+| **Data hygiene automation** | $50 | $100 |
 | n8n maintenance/DevOps | $0 | $500 |
 | Retained tools (see above) | $354 | $1,624 |
-| **TOTAL MONTHLY ONGOING** | **$770** | **$3,514** |
-| **TOTAL ANNUAL ONGOING** | **$9,240** | **$42,168** |
+| **TOTAL MONTHLY ONGOING** | **$689** | **$3,254** |
+| **TOTAL ANNUAL ONGOING** | **$8,268** | **$39,048** |
+
+*Note: AWS PHI environment costs (RDS, S3, VPC) removed — patient data stays in AgencyBlock/AgencyIntegrator. AgencyBlock and AgencyIntegrator costs continue as-is (already in budget).*
 
 ---
 
-## Proposal A — Timeline
+## Proposal A — Timeline (UPDATED)
 
 | Phase | Description | Duration | Milestone |
 |-------|-------------|----------|-----------|
-| Phase 0 | Process discovery & requirements; data classification (PHI vs. non-PHI) | Weeks 1–3 | Process map + data classification guide complete |
-| Phase 1 | AWS PHI environment setup (VPC, RDS, S3, encryption, IAM, CloudTrail, BAA) | Weeks 4–6 | HIPAA-compliant infrastructure live |
-| Phase 2 | Notion CRM build (databases, relations, views, templates, locked schemas) | Weeks 4–7 | CRM operational (non-PHI) |
-| Phase 3 | n8n setup + core automations (lead routing, notifications, Notion-AWS bridge, sanitization workflows) | Weeks 5–9 | n8n live; PHI boundary enforced |
-| Phase 4 | PHI scanner workflow + incident response procedures | Weeks 7–9 | Automated PHI detection active |
-| Phase 5 | AI SDR agent (email + SMS outreach sequences via n8n) | Weeks 8–12 | SDR agent in testing |
-| Phase 6 | AI BDR agent (prospecting + list building) | Weeks 10–14 | BDR agent in testing |
-| Phase 7 | AI Admin agent (scheduling, data entry, compliance) | Weeks 12–16 | Admin agent in testing |
-| Phase 8 | Integration layer (Medicare Pro, E123, retained tools) | Weeks 13–17 | All integrations live |
-| Phase 9 | Migration & legacy tool decommission (dept by dept) | Weeks 15–21 | Redundant tools canceled |
-| Phase 10 | Training (including PHI boundary training), change management, stabilization | Weeks 17–24 | Full rollout; all staff trained |
+| Phase 0 | Process discovery; data classification; **AgencyBlock/AgencyIntegrator API audit**; **data hygiene assessment** | Weeks 1–3 | Process map + API integration plan + data quality report |
+| Phase 1 | Notion CRM build (databases, relations, views, templates, locked schemas) | Weeks 4–6 | CRM operational (non-PHI) |
+| Phase 2 | n8n setup + **AgencyBlock/AgencyIntegrator integration** (the core bridge) | Weeks 4–8 | Systems communicate for the first time |
+| Phase 3 | **Data hygiene Phase 1** — initial cleanup (deceased records, duplicates, standardization) | Weeks 5–8 | Critical data cleaned |
+| Phase 4 | Core automations (lead routing, notifications, status sync, sanitization workflows) | Weeks 7–10 | n8n live; PHI boundary enforced |
+| Phase 5 | PHI scanner workflow + incident response procedures | Weeks 8–10 | Automated PHI detection active |
+| Phase 6 | AI SDR agent (email + SMS outreach sequences via n8n) | Weeks 9–13 | SDR agent in testing |
+| Phase 7 | AI BDR agent (prospecting + list building) | Weeks 11–15 | BDR agent in testing |
+| Phase 8 | AI Admin agent (scheduling, data entry, compliance) | Weeks 13–17 | Admin agent in testing |
+| Phase 9 | **Data hygiene Phase 2** — full cleanup completed, ongoing automation enabled | Weeks 10–14 | Clean data + automated hygiene |
+| Phase 10 | Integration layer (Medicare Pro, E123, retained tools) | Weeks 14–18 | All integrations live |
+| Phase 11 | Migration & legacy tool decommission (dept by dept) | Weeks 16–22 | Redundant tools canceled |
+| Phase 12 | Training, change management, stabilization, **data quality dashboard live** | Weeks 18–24 | Full rollout; all staff trained |
 
 **Total: ~6 months to full deployment**
 
-*Note: Phases 1 and 2 run in parallel (AWS setup + Notion CRM build). The extra time vs. the previous estimate accounts for the PHI prevention system build and mandatory compliance training.*
+*Note: Phases 1–3 run in parallel. Key difference from previous plan: we're integrating existing systems instead of building new PHI infrastructure. Data hygiene is a major component.*
 
 ---
 
-## Proposal A — Pros & Cons
+## Proposal A — Pros & Cons (UPDATED)
 
 **Pros**
+- **Keeps existing HIPAA-compliant systems** — AgencyBlock and AgencyIntegrator stay in place; no risky migration
+- **Finally makes AgencyBlock and AgencyIntegrator communicate** — eliminates manual workarounds
+- **Includes data hygiene** — cleans up years of deceased records, duplicates, and messy data
 - Notion is familiar, flexible, and fast to configure — no custom software development for the CRM
 - n8n self-hosted gives unlimited automations at near-zero marginal cost
 - AI agents tuned to insurance sales workflows — competitive differentiator
 - No per-seat SaaS fees for automation (n8n) — only Notion scales per seat
 - You own all data — no vendor lock-in on the automation layer
-- HIPAA compliance handled via AWS BAA (free) + self-managed encryption — no $297/mo add-on fee
-- All AI runs through AWS Bedrock (HIPAA-eligible) — no separate BAA with Anthropic/OpenAI needed; PHI never leaves AWS
+- All AI runs through AWS Bedrock (HIPAA-eligible) — covered by AWS BAA
 - PHI prevention system provides automated, continuous compliance monitoring
-- Clear separation of concerns: business users work in Notion, PHI stays locked in AWS
+- Clear separation of concerns: business users work in Notion, PHI stays in AgencyBlock/AgencyIntegrator
 
 **Cons**
-- Split architecture adds complexity — two systems to maintain instead of one
+- Split architecture adds complexity — multiple systems to maintain
 - PHI boundary requires ongoing vigilance (mitigated by automated scanner + training)
 - Notion is not a purpose-built CRM — has limitations on relational data, reporting, and scale (10K+ records can slow down)
 - n8n self-hosted requires some DevOps knowledge to maintain
 - AI agents require upfront build investment and ongoing prompt tuning
 - Longer deployment timeline (~6 months vs. ~3.5 months for GHL)
-- Compliance responsibility is on the organization, not a vendor
+- **AgencyBlock/AgencyIntegrator API limitations may constrain some integrations** — mitigated by thorough API audit in Phase 0
 
 ---
 
@@ -718,17 +745,18 @@ Based on industry data for insurance brokerages (Salary.com Jan 2026, PayScale 2
 
 **Blended hourly cost: ~$23/hr** (weighted: agents $28–31/hr at 60%, admin $15–17/hr at 30%, management $35–45/hr at 10%)
 
-### Proposal A (Notion + n8n + AI Agents)
+### Proposal A (Notion + n8n + AI Agents + Data Hygiene)
 
 | Category | Current Hours/Wk | After Automation | Saved/Wk | Annual Hours Saved |
 |----------|-----------------|-----------------|----------|-------------------|
 | AI SDR (lead qual, outreach, follow-up) | 24–38 | 3–4.5 | 21–33.5 | 1,092–1,742 |
 | AI BDR (prospecting, list building) | 11–18 | 1.5–2 | 9.5–16 | 494–832 |
 | AI Admin (data entry, scheduling, compliance) | 17–28 | 3–5 | 14–23 | 728–1,196 |
+| **Manual workarounds (AgencyBlock ↔ AgencyIntegrator)** | 5–10 | 0 | 5–10 | 260–520 |
 | Tool consolidation (context switching, duplicate entry) | 7–13 | 1 | 6–12 | 312–624 |
-| **TOTAL** | **59–97** | **8.5–12.5** | **50.5–84.5** | **2,626–4,394** |
+| **TOTAL** | **64–107** | **8.5–12.5** | **55.5–94.5** | **2,886–4,914** |
 
-**Equivalent to 1.3–2.1 FTEs returned to revenue-generating work.**
+**Equivalent to 1.4–2.4 FTEs returned to revenue-generating work.**
 
 ### Proposal B (GoHighLevel)
 
@@ -745,28 +773,30 @@ GHL automates tool consolidation and basic workflows but lacks custom AI agents.
 
 ## Financial Value & ROI
 
-### Annual Value Created
+### Annual Value Created (UPDATED)
 
 | Value Source | Proposal A (Conservative) | Proposal A (Optimistic) | Proposal B (Mid-Range) |
 |-------------|--------------------------|------------------------|----------------------|
-| Labor value recovered (hours × $23/hr) | $60,398 | $101,062 | $32,890 |
+| Labor value recovered (hours × $23/hr) | $66,378 | $113,022 | $32,890 |
 | Tool cost savings (eliminated tools) | $8,172 | $27,648 | $14,910 |
-| **Total annual value** | **$68,570** | **$128,710** | **$47,800** |
+| **Total annual value** | **$74,550** | **$140,670** | **$47,800** |
 
-### ROI by Year (10-Seat Scenario)
+*Note: Proposal A now includes hours saved from eliminating manual workarounds between AgencyBlock and AgencyIntegrator.*
+
+### ROI by Year (10-Seat Scenario) — UPDATED
 
 | Period | Proposal A (Conservative) | Proposal A (Optimistic) | Proposal B |
 |--------|--------------------------|------------------------|------------|
-| Year 1 investment | $55,240 | $55,240 | $19,216 |
-| Year 1 net value | +$13,330 | +$73,470 | +$28,584 |
-| **Year 1 ROI** | **24%** | **133%** | **149%** |
-| Year 2 cost (ongoing + retainer) | $27,240 | $27,240 | $12,216 |
-| Year 2 net value | +$41,330 | +$101,470 | +$35,584 |
-| **Year 2 ROI** | **152%** | **373%** | **291%** |
-| **3-Year cumulative net value** | **+$95,990** | **+$248,410** | **+$99,752** |
-| **Payback period** | **~10 months** | **~5 months** | **~5 months** |
+| Year 1 investment | $58,768 | $58,768 | $19,216 |
+| Year 1 net value | +$15,782 | +$81,902 | +$28,584 |
+| **Year 1 ROI** | **27%** | **139%** | **149%** |
+| Year 2 cost (ongoing + retainer) | $26,268 | $26,268 | $12,216 |
+| Year 2 net value | +$48,282 | +$114,402 | +$35,584 |
+| **Year 2 ROI** | **184%** | **436%** | **291%** |
+| **3-Year cumulative net value** | **+$111,564** | **+$280,104** | **+$99,752** |
+| **Payback period** | **~9 months** | **~5 months** | **~5 months** |
 
-**Key insight:** Proposal B pays back faster due to lower upfront cost, but Proposal A generates 1.4–2.5x more cumulative value by Year 3 due to AI agent automation. The gap widens every year.
+**Key insight:** Proposal B pays back faster due to lower upfront cost, but Proposal A generates 1.1–2.8x more cumulative value by Year 3 due to AI agent automation + system integration. The gap widens every year. Option B also does NOT solve the AgencyBlock/AgencyIntegrator communication problem.
 
 ### Revenue Upside (Not Modeled)
 
