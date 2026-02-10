@@ -7,7 +7,7 @@
 **Version:** 1.0
 **Date:** February 2026
 **Prepared For:** Dani (CMO) and The Brokerage Inc. Leadership Team
-**Prepared By:** VV Consulting
+**Prepared By:** Veteran Vectors
 **Engagement Partner:** Jay Border (Border Consulting)
 
 ---
@@ -361,7 +361,7 @@ The remaining budget can fund initial quick-win automations while you bring an i
 
 | Role | Name / Firm | Responsibility |
 |------|-------------|----------------|
-| **Engagement Lead** | VV Consulting | Overall engagement management, analysis, final deliverables |
+| **Engagement Lead** | Veteran Vectors | Overall engagement management, analysis, final deliverables |
 | **Process Expert** | Jay Border (Border Consulting) | On-site assessments, process optimization, operational insights |
 
 ### About Jay Border / Border Consulting
@@ -375,9 +375,9 @@ Jay Border brings operational expertise with experience in:
 
 His involvement ensures the assessment combines both technical and operational perspectives.
 
-### About VV Consulting
+### About Veteran Vectors
 
-VV Consulting specializes in:
+Veteran Vectors specializes in:
 
 - Technology stack consolidation
 - Process automation design
@@ -448,7 +448,7 @@ Let's schedule a short alignment call to nail down the scope, timeline, and logi
 
 ---
 
-**VV Consulting**
+**Veteran Vectors**
 *Process Optimization & Automation Specialists*
 
 **Prepared for:** The Brokerage Inc.

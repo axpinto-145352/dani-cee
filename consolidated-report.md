@@ -7,7 +7,7 @@
 **Version:** 2.0
 **Date:** February 2026
 **Prepared For:** The Brokerage Inc. Leadership Team
-**Prepared By:** VV Consulting
+**Prepared By:** Veteran Vectors
 
 ---
 
@@ -1056,7 +1056,7 @@ Hours-saved estimates are based on:
 |-----------|-------------|-----------|
 | Total annual value created | $68,570 | $128,710 |
 | One-time build investment | ($33,000) | ($33,000) |
-| VV engagement fee | ($13,000) | ($13,000) |
+| Veteran Vectors engagement fee | ($13,000) | ($13,000) |
 | Ongoing costs (10 seats, 12 months) | ($9,240) | ($9,240) |
 | **Year 1 total investment** | **($55,240)** | **($55,240)** |
 | **Year 1 net value** | **+$13,330** | **+$73,470** |
@@ -1068,7 +1068,7 @@ Hours-saved estimates are based on:
 |-----------|-------------|-----------|
 | Total annual value created | $68,570 | $128,710 |
 | Ongoing costs (10 seats, 12 months) | ($9,240) | ($9,240) |
-| VV retainer (12 months) | ($18,000) | ($18,000) |
+| Veteran Vectors retainer (12 months) | ($18,000) | ($18,000) |
 | **Year 2 total cost** | **($27,240)** | **($27,240)** |
 | **Year 2 net value** | **+$41,330** | **+$101,470** |
 | **Year 2 ROI** | **152%** | **373%** |
@@ -1185,7 +1185,7 @@ At 25 seats:
 
 ## 6. Engagement Structure & Milestones
 
-### VV Consulting Fee Structure
+### Veteran Vectors Fee Structure
 
 | Component | Amount | Timing |
 |-----------|--------|--------|
@@ -1332,7 +1332,7 @@ Active Campaign only signs BAAs on their Enterprise plan. If The Brokerage Inc. 
 | Role | Responsibility | Who |
 |------|---------------|-----|
 | Executive sponsor | Approves budget, removes organizational blockers, signals priority | Senior leadership |
-| Project lead (VV) | Architecture, build, migration, training delivery | VV consultant |
+| Project lead (Veteran Vectors) | Architecture, build, migration, training delivery | Veteran Vectors consultant |
 | Change champion (per dept) | Owns transition for their team, collects feedback, escalates issues | Department lead or senior team member |
 | Compliance officer | PHI boundary ownership, scanner review, audit process | Designated internal role |
 
@@ -1388,10 +1388,10 @@ Active Campaign only signs BAAs on their Enterprise plan. If The Brokerage Inc. 
 
 | # | Risk | Likelihood | Impact | Risk Level | Detailed Mitigation |
 |---|------|-----------|--------|-----------|-------------------|
-| P1 | **Scope creep during build** — New requirements surface after Phase 0, expanding the build beyond original estimate | Medium | Medium | **MEDIUM** | Fixed 4-milestone structure with go/no-go gates. Scope is locked at Milestone 1 (end of discovery). New requests after scope lock go into a backlog for retainer phase or a separate engagement. VV engagement fee is fixed — scope creep doesn't change the base fee, but may extend the retainer. |
-| P2 | **Key person dependency (VV consultant)** — If VV becomes unavailable, institutional knowledge is lost | Medium | Medium | **MEDIUM** | All architecture decisions documented in Notion (meta: the CRM documents its own build). Complete handoff documentation delivered at Milestone 4. n8n workflows are self-documenting (visual flowcharts). Retainer provides ongoing access. If VV is unavailable: another n8n/Notion specialist can pick up from documentation. |
+| P1 | **Scope creep during build** — New requirements surface after Phase 0, expanding the build beyond original estimate | Medium | Medium | **MEDIUM** | Fixed 4-milestone structure with go/no-go gates. Scope is locked at Milestone 1 (end of discovery). New requests after scope lock go into a backlog for retainer phase or a separate engagement. Veteran Vectors engagement fee is fixed — scope creep doesn't change the base fee, but may extend the retainer. |
+| P2 | **Key person dependency (Veteran Vectors consultant)** — If Veteran Vectors becomes unavailable, institutional knowledge is lost | Medium | Medium | **MEDIUM** | All architecture decisions documented in Notion (meta: the CRM documents its own build). Complete handoff documentation delivered at Milestone 4. n8n workflows are self-documenting (visual flowcharts). Retainer provides ongoing access. If Veteran Vectors is unavailable: another n8n/Notion specialist can pick up from documentation. |
 | P3 | **Longer timeline than estimated** — Build takes 5–6 months instead of 4 | Medium | Medium | **MEDIUM** | MVP at Milestone 2 (Month 2) delivers functional value even if later phases delay. Team can use Notion CRM + basic automations while AI agents are still in development. Go/no-go gates prevent sunk cost spiral — if Milestone 1 reveals the project is larger than expected, scope is adjusted before major build investment. |
-| P4 | **Budget overrun on one-time costs** — Build costs exceed the $33K–$91K range | Low | Medium | **LOW** | VV engagement is fixed fee ($13K for 4 months). Infrastructure costs (AWS) are usage-based and monitored monthly. Agent build costs are the main variable — mitigated by building SDR first (Milestone 2) and validating cost/effort before committing to BDR and Admin agents. Go/no-go gate at Milestone 2 specifically addresses this. |
+| P4 | **Budget overrun on one-time costs** — Build costs exceed the $33K–$91K range | Low | Medium | **LOW** | Veteran Vectors engagement is fixed fee ($13K for 4 months). Infrastructure costs (AWS) are usage-based and monitored monthly. Agent build costs are the main variable — mitigated by building SDR first (Milestone 2) and validating cost/effort before committing to BDR and Admin agents. Go/no-go gate at Milestone 2 specifically addresses this. |
 | P5 | **Stakeholder alignment breaks down** — Different departments have conflicting requirements that can't be reconciled | Medium | Medium | **MEDIUM** | Phase 0 gives every department a voice before any changes happen. Process map is reviewed and approved by all department leads at Milestone 1. Change champions serve as feedback conduits throughout the build. Executive sponsor resolves conflicts that change champions can't. |
 
 ---

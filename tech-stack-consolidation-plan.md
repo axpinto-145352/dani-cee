@@ -7,7 +7,7 @@
 **Version:** 2.0
 **Date:** February 2026
 **Prepared For:** The Brokerage Inc. Leadership Team
-**Prepared By:** VV Consulting
+**Prepared By:** Veteran Vectors
 
 ---
 
