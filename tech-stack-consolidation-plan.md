@@ -3,7 +3,32 @@
 
 ---
 
-# The Problem
+**Document Type:** Technical Implementation Plan
+**Version:** 2.0
+**Date:** February 2026
+**Prepared For:** The Brokerage Inc. Leadership Team
+**Prepared By:** VV Consulting
+
+---
+
+## Table of Contents
+
+1. The Problem
+2. Our Approach
+3. Phase 0: Process Discovery
+4. Current Tool Inventory & Cost Estimates
+5. Proposal A: Notion CRM + n8n + AI Agents
+6. Proposal B: GoHighLevel + Automation
+7. Hours Saved & ROI Analysis
+8. Side-by-Side Comparison
+9. The Hybrid Option
+10. Recommendation
+11. Change Management Strategy
+12. Next Steps
+
+<div style="page-break-after: always;"></div>
+
+# 1. The Problem
 
 The Brokerage Inc. has accumulated **90+ tools** across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion.
 
@@ -11,17 +36,17 @@ The Brokerage Inc. has accumulated **90+ tools** across siloed departments. The 
 
 It's time to consolidate and integrate.
 
----
+<div style="page-break-after: always;"></div>
 
-# Our Approach: Foundation First
+# 2. Our Approach: Foundation First
 
 Before selecting tools, we map the actual processes. Start analog, then rebuild the tech layer on top.
 
 **Phase 0 comes first — regardless of which proposal is chosen.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Phase 0: Process Discovery
+# 3. Phase 0: Process Discovery
 
 ## What We Do
 - Inventory every department and vertical
@@ -37,9 +62,9 @@ A process map that becomes the single source of truth for all consolidation deci
 ## Timeline
 **Weeks 1–3**
 
----
+<div style="page-break-after: always;"></div>
 
-# Current Tool Inventory & Cost Estimates
+# 4. Current Tool Inventory & Cost Estimates
 
 All costs below are estimates based on typical published plan pricing. Actual amounts require a contract and billing audit during Phase 0.
 
@@ -278,9 +303,9 @@ All costs below are estimates based on typical published plan pricing. Actual am
 - **Form builders duplicated** (Gravity Forms + Fluent Forms)
 - **Project management duplicated** (Asana + Trello) — both replaceable by Notion
 
----
+<div style="page-break-after: always;"></div>
 
-# Proposal A: Notion CRM + n8n + AI Agents
+# 5. Proposal A: Notion CRM + n8n + AI Agents
 
 ---
 
@@ -695,9 +720,9 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 
 ---
 
-# Proposal B: GoHighLevel + Automation
+<div style="page-break-after: always;"></div>
 
----
+# 6. Proposal B: GoHighLevel + Automation
 
 ## Proposal B — Philosophy
 
@@ -881,7 +906,9 @@ Use GoHighLevel (GHL) as the all-in-one platform. Strip out redundant tools. Lay
 
 ---
 
-# Hours Saved & ROI Analysis
+<div style="page-break-after: always;"></div>
+
+# 7. Hours Saved & ROI Analysis
 
 ## Estimated Hours Recaptured Per Week
 
@@ -955,7 +982,9 @@ If even 10% of recovered agent hours convert to additional enrollments, the reve
 
 ---
 
-# Side-by-Side Comparison
+<div style="page-break-after: always;"></div>
+
+# 8. Side-by-Side Comparison
 
 | Factor | Proposal A (Notion + n8n + AI) | Proposal B (GoHighLevel) |
 |--------|-------------------------------|--------------------------|
@@ -1002,7 +1031,9 @@ If even 10% of recovered agent hours convert to additional enrollments, the reve
 
 ---
 
-# The Hybrid Option
+<div style="page-break-after: always;"></div>
+
+# 9. The Hybrid Option
 
 **Best of both worlds — phased approach:**
 
@@ -1015,7 +1046,9 @@ This gives immediate consolidation wins while building toward the more powerful 
 
 ---
 
-# Recommendation
+<div style="page-break-after: always;"></div>
+
+# 10. Recommendation
 
 Start with **Phase 0** regardless of proposal chosen.
 
@@ -1028,7 +1061,9 @@ The process mapping will:
 
 ---
 
-# Change Management Strategy
+<div style="page-break-after: always;"></div>
+
+# 11. Change Management Strategy
 
 Given the number of departments and verticals, change management is critical.
 
@@ -1041,7 +1076,9 @@ Given the number of departments and verticals, change management is critical.
 
 ---
 
-# Next Steps
+<div style="page-break-after: always;"></div>
+
+# 12. Next Steps
 
 1. Schedule Monday discussion to review this plan
 2. **Immediate:** Verify whether Active Campaign is currently on an Enterprise plan with a signed BAA — if not, there is an existing HIPAA compliance gap

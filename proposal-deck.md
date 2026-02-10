@@ -1,13 +1,50 @@
-# Tech Stack Consolidation
-## The Brokerage Inc. — Presented by VV
+# Tech Stack Consolidation Proposal
+## The Brokerage Inc.
+### Presented by VV
 
 ---
 
-# What This Presentation Covers
+**Document Type:** Executive Presentation
+**Version:** 2.0
+**Date:** February 2026
+**Prepared For:** The Brokerage Inc. Leadership Team
+**Prepared By:** VV Consulting
 
-We looked at every tool your company uses — all **90+ of them**.
+---
 
-This deck explains:
+<div style="page-break-after: always;"></div>
+
+## Table of Contents
+
+1. Executive Summary
+2. The Problem
+3. Your Patient Data Systems
+4. Current Tool Landscape (90+ Tools)
+5. The Solution: Option A (Recommended)
+6. Integration Architecture
+7. Data Hygiene Solution
+8. AI-Powered Cleanup
+9. Security & Compliance
+10. Cost Analysis
+11. Option B: GoHighLevel (Comparison)
+12. Side-by-Side Comparison
+13. Risk Analysis
+14. Implementation Timeline
+15. VV Engagement Terms
+16. Recommendation & Next Steps
+
+<div style="page-break-after: always;"></div>
+
+## 1. Executive Summary
+
+**The Situation**
+
+We audited every tool your company uses — all **90+ of them**.
+
+Your company pays for 90+ different software tools. Many do the same thing. Your two patient databases don't talk to each other. Nobody knows which tools are actually needed.
+
+**What This Proposal Covers**
+
 - What's broken and what it's costing you
 - Your existing patient data systems and how to fix them
 - How we connect everything into one seamless operation
@@ -15,15 +52,11 @@ This deck explains:
 - The timeline and what happens each month
 - How to get started
 
----
+<div style="page-break-after: always;"></div>
 
-# The Problem in One Sentence
+## 2. The Problem
 
-Your company pays for **90+ different software tools**, many of them do the same thing, your two patient databases don't talk to each other, and nobody knows which ones are actually needed.
-
----
-
-# How Did We Get Here?
+### How Did We Get Here?
 
 - The previous tech lead left without any documentation
 - Different departments bought their own tools independently
@@ -34,9 +67,9 @@ Your company pays for **90+ different software tools**, many of them do the same
 
 **This isn't unusual — but it needs to be fixed before it gets more expensive.**
 
----
+<div style="page-break-after: always;"></div>
 
-# The Patient Data Problem
+## 3. Your Patient Data Systems
 
 You already have two HIPAA-compliant systems for patient data:
 
@@ -46,6 +79,7 @@ You already have two HIPAA-compliant systems for patient data:
 | **AgencyIntegrator** | Handles workflows and integrations | Doesn't talk to AgencyBlock |
 
 **Both systems have the same issues:**
+
 - Records of deceased patients are still in the database
 - Duplicate and redundant entries everywhere
 - No time to review and purge old data
@@ -54,97 +88,95 @@ You already have two HIPAA-compliant systems for patient data:
 
 **The result:** Staff waste hours manually copying data between systems, and errors slip through.
 
----
+<div style="page-break-after: always;"></div>
 
-# What "90+ Tools" Actually Looks Like
+## 4. Current Tool Landscape
 
-Your teams use tools across every part of the business:
+### 90+ Tools Across the Business
 
-| Area | How Many Tools | What They Do |
-|------|---------------|-------------|
-| Communication & Collaboration | 6 tools | Video calls, chat, project management |
-| Sales & Outreach | 11 tools | CRM, email campaigns, texting, calls, voicemail |
-| Marketing & Content | 11 tools | SEO, social media, content creation, landing pages |
-| Websites | 11 tools | Hosting, landing pages, forms, analytics |
-| Data & Automation | 15 tools | Databases, integrations, workflow tools |
-| Insurance-Specific | 17 tools | Medicare enrollment, carrier platforms, compliance |
-| Security & Authentication | 8 tools | MFA, endpoint security, compliance |
-| Finance & Accounting | 6 tools | Payroll, accounting, expense management |
-| Training | 5 tools | Online courses, process documentation |
-| AI Tools | 2 tools | ChatGPT, Copilot (HIPAA compliance risk!) |
-| Office & Other | 5+ tools | PDF, analytics, scheduling |
+| Area | Count | Examples |
+|------|-------|----------|
+| Communication & Collaboration | 6 | Video calls, chat, project management |
+| Sales & Outreach | 11 | CRM, email campaigns, texting, calls, voicemail |
+| Marketing & Content | 11 | SEO, social media, content creation, landing pages |
+| Websites | 11 | Hosting, landing pages, forms, analytics |
+| Data & Automation | 15 | Databases, integrations, workflow tools |
+| Insurance-Specific | 17 | Medicare enrollment, carrier platforms, compliance |
+| Security & Authentication | 8 | MFA, endpoint security, compliance |
+| Finance & Accounting | 6 | Payroll, accounting, expense management |
+| Training | 5 | Online courses, process documentation |
+| AI Tools | 2 | ChatGPT, Copilot (HIPAA compliance risk!) |
+| Office & Other | 5+ | PDF, analytics, scheduling |
 
-**Total estimated spend: $23,148–$83,724/year** — and that grows significantly as you add people.
+**Total estimated spend: $23,148–$83,724/year**
 
----
+<div style="page-break-after: always;"></div>
 
-# The Real Cost Isn't Just the Software
+### The Real Cost Isn't Just the Software
 
 Beyond the subscription fees, you're paying in:
 
-- **Wasted time** — staff switching between tools, re-entering the same data in multiple places
-- **Manual workarounds** — copying information between AgencyBlock and AgencyIntegrator by hand
-- **Missed leads** — no single view of your pipeline means things fall through the cracks
-- **Data quality issues** — deceased patient records, duplicates, and outdated information
-- **Training overhead** — new hires have to learn a dozen tools instead of one system
+| Hidden Cost | Impact |
+|-------------|--------|
+| **Wasted time** | Staff switching between tools, re-entering the same data |
+| **Manual workarounds** | Copying information between AgencyBlock and AgencyIntegrator by hand |
+| **Missed leads** | No single view of pipeline means things fall through |
+| **Data quality issues** | Deceased patient records, duplicates, outdated information |
+| **Training overhead** | New hires learn a dozen tools instead of one system |
 
 **The hidden costs are bigger than the software bills.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Where the Overlap Is
+### Duplicate Tools Identified
 
 You're paying for multiple tools that do the same job:
 
-| Job to Be Done | Tools You're Paying For | How Many |
-|----------------|------------------------|----------|
-| Send emails | Active Campaign, GMass, SendGrid (x3 subscriptions!) | 5 |
-| Send texts | EZ Texting (x2 subscriptions!), various | 3+ |
+| Function | Redundant Tools | Count |
+|----------|----------------|-------|
+| Send emails | Active Campaign, GMass, SendGrid (×3 subscriptions) | 5 |
+| Send texts | EZ Texting (×2 subscriptions), various | 3+ |
 | Voicemail drops | slydial, slydocast, My Broadcast | 3 |
-| Store data | Airtable (4 separate workspaces!) | 4 |
-| Collect form responses | Gravity Forms, Fluent Forms, Forgravity | 3 |
+| Store data | Airtable (4 separate workspaces) | 4 |
+| Collect forms | Gravity Forms, Fluent Forms, Forgravity | 3 |
 | Accounting | Sage, Quickbooks, BILL, Ramp | 4 |
 | Training/LMS | Cloud Academy, LearnDash, iSpring | 3 |
 | Project management | Asana, Trello | 2 |
 | AI assistants | ChatGPT, Co-pilot (compliance risk!) | 2 |
-| Chat/messaging | Crisp (3 separate listings!) | 3 |
-| Host websites | WordPress, Squarespace | 2 |
-| Train agents | Cloud Academy, LearnDash | 2 |
-| Build landing pages | Unbounce, Elementor | 2 |
-| Track analytics | Fathom, BrightFire | 2 |
+| Chat/messaging | Crisp (3 separate listings) | 3 |
 
 **At least 11 tools can be cut right away.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Two Options to Fix This
+## 5. The Solution: Option A (Recommended)
 
-We're presenting two approaches. Both solve the problem — they differ in how much control you get.
+### Two Options to Fix This
 
 | | **Option A: Custom Build** | **Option B: All-in-One Platform** |
 |--|---------------------------|----------------------------------|
-| What it is | We connect your existing systems + add AI automation | We move everything into GoHighLevel |
-| Best for | Maximum flexibility, keeps your current patient data systems | Speed and simplicity |
+| What it is | Connect your existing systems + add AI automation | Move everything into GoHighLevel |
+| Best for | Maximum flexibility, keeps your patient data systems | Speed and simplicity |
 | Analogy | Renovating and connecting the rooms you have | Moving to a new house |
 
-**Let's walk through each one.**
+**Option A is recommended because it solves the core problem: AgencyBlock and AgencyIntegrator don't talk to each other.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Option A: The Custom Build
+### Option A: The Custom Build
 
-## The Recommended Approach
+We keep your existing HIPAA-compliant systems and connect them to a modern front-end:
 
-We keep your existing HIPAA-compliant systems (AgencyBlock & AgencyIntegrator) and connect them to a modern front-end:
+| Component | Purpose |
+|-----------|---------|
+| **Notion** | Your new CRM and operations hub — the command center where your team lives every day |
+| **n8n** | The automation engine that finally makes AgencyBlock and AgencyIntegrator talk to each other |
+| **AI Assistants** | Digital workers that handle lead outreach, follow-ups, and admin tasks 24/7 |
+| **Data Hygiene Service** | We clean up your patient databases and keep them clean |
 
-- **Notion** — Your new CRM and operations hub (the command center where your team lives every day)
-- **n8n** — The automation engine that finally makes AgencyBlock and AgencyIntegrator talk to each other
-- **AI Assistants** — Digital workers that handle lead outreach, follow-ups, and admin tasks 24/7
-- **Data Hygiene Service** — We clean up your patient databases and keep them clean
+<div style="page-break-after: always;"></div>
 
----
-
-# The Big Difference: We Connect What You Have
+### The Big Difference: We Connect What You Have
 
 Instead of building a new patient database from scratch, we:
 
@@ -152,13 +184,15 @@ Instead of building a new patient database from scratch, we:
 2. **Keep AgencyIntegrator** — It already handles your workflows
 3. **Bridge them together** — n8n automation makes them sync automatically
 4. **Add Notion as the front-end** — Your team works in one clean interface
-5. **Clean up the data** — We remove deceased records, merge duplicates, and establish ongoing hygiene
+5. **Clean up the data** — Remove deceased records, merge duplicates, establish ongoing hygiene
 
 **Your staff stops doing manual workarounds. The systems finally talk to each other.**
 
----
+<div style="page-break-after: always;"></div>
 
-# How the Integration Works
+## 6. Integration Architecture
+
+### How the Integration Works
 
 Think of it like connecting three islands with bridges:
 
@@ -176,112 +210,138 @@ Think of it like connecting three islands with bridges:
 ```
 
 **n8n sits in the middle and keeps everything in sync:**
+
 - When a lead becomes a client → AgencyBlock gets the patient data, Notion shows the status
-- When an enrollment completes in AgencyIntegrator → Notion updates automatically
+- When an enrollment completes → Notion updates automatically
 - When a patient record changes → All systems stay synchronized
 
----
+<div style="page-break-after: always;"></div>
 
-# The Data Hygiene Problem
+### What Notion Replaces
+
+Notion becomes the one place your team goes for everything non-medical:
+
+| Currently Using | Notion Replaces It With |
+|----------------|------------------------|
+| Active Campaign (CRM features) | Contact database + pipeline view |
+| Airtable (3 accounts) | Structured databases with views |
+| Scattered Google Docs / wikis | Department wikis and SOPs |
+| Manual spreadsheet reports | Auto-updating dashboards |
+| Crisp (chat/support) | Intake forms + automated routing |
+
+**One login. One system. Everyone on the same page.**
+
+<div style="page-break-after: always;"></div>
+
+### What the Automation Engine Does
+
+n8n is the "invisible assistant" that runs behind the scenes:
+
+| Trigger | Automated Action |
+|---------|-----------------|
+| New lead comes in | Automatically scored and routed to the right agent |
+| Appointment booked | Sends confirmation texts and calendar invites |
+| AgencyBlock gets enrollment | Notion updates the pipeline automatically |
+| AgencyIntegrator completes workflow | Status syncs to Notion |
+| Form submitted | Data flows to the right system without typing |
+
+**This replaces manual workarounds AND Zapier with unlimited automations at no per-use cost.**
+
+<div style="page-break-after: always;"></div>
+
+### What the AI Assistants Do
+
+Digital employees that handle repetitive work so your people can focus on selling:
+
+| AI Assistant | What It Does |
+|--------------|-------------|
+| **AI Sales Development Rep (SDR)** | Reaches out to new leads via email and text; follows up automatically; qualifies leads and books meetings |
+| **AI Business Development Rep (BDR)** | Builds prospecting lists; sends personalized outreach at scale; enriches lead records |
+| **AI Admin Assistant** | Enters data automatically; manages scheduling and reminders; tracks compliance documents |
+
+<div style="page-break-after: always;"></div>
+
+## 7. Data Hygiene Solution
+
+### The Data Hygiene Problem
 
 Your patient databases have accumulated years of messy data:
 
 | Problem | Impact | How Common |
 |---------|--------|-----------|
-| Deceased patient records still active | Compliance risk, wasted outreach | Very common in older systems |
-| Duplicate entries | Confusion, conflicting information | 10–30% of records typically |
+| Deceased patient records still active | Compliance risk, wasted outreach | Very common |
+| Duplicate entries | Confusion, conflicting info | 10–30% of records |
 | Outdated contact information | Failed outreach, frustrated staff | Grows over time |
-| Incomplete records | Missing enrollment data, compliance gaps | Scattered throughout |
-| No regular cleanup process | Problems compound every month | The root cause |
+| Incomplete records | Missing enrollment data | Scattered throughout |
+| No regular cleanup process | Problems compound monthly | The root cause |
 
-**You don't have time to fix this manually — and even if you did, it would get messy again without a system.**
+**You don't have time to fix this manually — and it would get messy again without a system.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Data Hygiene: What We Do
+### Data Hygiene: What We Do
 
-## Phase 1: Initial Cleanup (One-Time)
+**Phase 1: Initial Cleanup (One-Time)**
 
 | Task | What It Involves |
 |------|-----------------|
-| **Deceased record identification** | Cross-reference against death registries, flag for review |
-| **Duplicate detection** | AI-powered matching to find duplicates across both systems |
-| **Data standardization** | Phone numbers, addresses, names in consistent format |
-| **Missing data audit** | Identify records with critical missing fields |
-| **Archive old records** | Move inactive records (3+ years) to archive status |
+| Deceased record identification | Cross-reference against death registries, flag for review |
+| Duplicate detection | AI-powered matching across both systems |
+| Data standardization | Phone numbers, addresses, names in consistent format |
+| Missing data audit | Identify records with critical missing fields |
+| Archive old records | Move inactive records (3+ years) to archive status |
 
-## Phase 2: Ongoing Hygiene (Automated)
+**Phase 2: Ongoing Hygiene (Automated)**
 
 | Task | Frequency |
 |------|-----------|
-| **New record validation** | Every new entry checked for duplicates and completeness |
-| **Death registry check** | Monthly automated cross-reference |
-| **Duplicate monitoring** | Weekly scan for new duplicates |
-| **Data quality dashboard** | Real-time visibility into data health |
+| New record validation | Every new entry checked |
+| Death registry check | Monthly automated cross-reference |
+| Duplicate monitoring | Weekly scan for new duplicates |
+| Data quality dashboard | Real-time visibility |
 
----
+<div style="page-break-after: always;"></div>
 
-# Why AI for Data Cleanup?
+## 8. AI-Powered Cleanup
 
-Traditional data cleanup relies on exact matches and manual review. That doesn't work when:
+### Why AI for Data Cleanup?
+
+Traditional data cleanup relies on exact matches. That doesn't work when:
 
 - "John Smith" and "Jon Smith" are the same person
 - "123 Main St" and "123 Main Street, Apt 2" need to be linked
-- A deceased person's record has no death flag — just no activity for 3 years
+- A deceased person has no death flag — just no activity for 3 years
 
 **AI can do what rules-based systems can't:**
 
 | Challenge | How AI Solves It |
 |-----------|-----------------|
-| **Fuzzy matching** | Recognizes "John" and "Jon" as likely duplicates even without exact match |
-| **Pattern recognition** | Identifies deceased records by activity patterns, not just death registry matches |
-| **Context understanding** | Knows that "Medicare ID: 1EG4-TE5-MK72" in a notes field is PHI, even if it's not in a labeled column |
-| **Confidence scoring** | Says "85% confident these are duplicates" — so you know what to auto-merge vs. what needs human review |
+| **Fuzzy matching** | Recognizes "John" and "Jon" as likely duplicates |
+| **Pattern recognition** | Identifies deceased records by activity patterns |
+| **Context understanding** | Finds Medicare IDs in notes fields |
+| **Confidence scoring** | "85% confident these are duplicates" — auto-merge vs. human review |
 
----
+<div style="page-break-after: always;"></div>
 
-# AI-Powered Data Hygiene: How It Works
-
-## The Two-Phase Approach
-
-**Phase 1: Initial Cleanup (One-Time)**
-
-AI reviews every record in AgencyBlock and AgencyIntegrator:
-1. **Duplicate detection** — Fuzzy matches names, addresses, DOB, phone numbers across both systems
-2. **Deceased identification** — Cross-references death registries + flags inactive records with death-like patterns
-3. **Data standardization** — Normalizes phone formats, addresses, name capitalization
-4. **Quality scoring** — Rates each record's completeness and flags critical gaps
-
-**Phase 2: Ongoing Hygiene (Automated)**
-
-AI monitors data quality continuously:
-1. **New record validation** — Checks every new entry for duplicates before it's saved
-2. **Weekly duplicate scans** — Catches duplicates that slip through
-3. **Monthly death registry checks** — Automated cross-reference against updated death records
-4. **Real-time alerts** — Flags data quality issues as they happen
-
----
-
-# Confidence-Based Automation
+### Confidence-Based Automation
 
 **Not all AI decisions are equal. We handle that with confidence scoring:**
 
-| Confidence Level | What Happens | Example |
-|-----------------|-------------|---------|
-| **High (90%+)** | Auto-applied, logged for audit | "John Smith, 123 Main St, DOB 5/15/1945" matches "John Smith, 123 Main Street, DOB 05/15/1945" |
-| **Medium (70–90%)** | Queued for human review | "J. Smith" at same address — probably the same person, but needs confirmation |
-| **Low (<70%)** | Flagged but no action | "John Smith" and "John Smythe" at different addresses — might be related, might not |
+| Confidence | Action | Example |
+|------------|--------|---------|
+| **High (90%+)** | Auto-applied, logged for audit | "John Smith" matches "John Smith" at same address |
+| **Medium (70–90%)** | Queued for human review | "J. Smith" at same address — needs confirmation |
+| **Low (<70%)** | Flagged but no action | Similar names at different addresses |
 
 **The human-in-the-loop principle:**
+
 - AI does the heavy lifting (scanning thousands of records)
 - Humans make the judgment calls (reviewing medium-confidence matches)
 - Nothing gets deleted without review — only flagged and archived
 
----
+<div style="page-break-after: always;"></div>
 
-# Sample AI Analysis: Duplicate Detection
-
-Here's what the AI actually sees when comparing records:
+### Sample AI Analysis: Duplicate Detection
 
 ```
 Record A: "Jon Smith, 123 Main St, Medicare ID ending 7K42, last contact 2023"
@@ -301,11 +361,9 @@ Recommendation: MERGE (High confidence: 94%)
 
 **This would take a human 5–10 minutes per record. AI does it in seconds.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Sample AI Analysis: Deceased Detection
-
-When the death registry doesn't have a match, AI looks for patterns:
+### Sample AI Analysis: Deceased Detection
 
 ```
 Record: "Mary Johnson, DOB 3/12/1932, last contact: January 2021"
@@ -326,199 +384,105 @@ Recommendation: FLAG FOR REVIEW (Medium confidence)
 - Attempt one more contact before status change
 ```
 
-**Result:** Catches deceased records that slip through death registries — without accidentally flagging someone who just moved.
+**Catches deceased records that slip through death registries.**
 
----
+<div style="page-break-after: always;"></div>
 
-# AI Data Hygiene: Cost Breakdown
+### AI Data Hygiene: Cost Breakdown
 
-**We use Claude Haiku via AWS Bedrock — fast, cheap, and HIPAA-compliant.**
+**We use Claude Haiku via AWS Bedrock — fast, cheap, HIPAA-compliant.**
 
-| Task | Volume | Token Usage | Estimated Cost |
-|------|--------|-------------|----------------|
-| **Initial duplicate scan** | 10,000 records | ~500K tokens | $15–$30 |
-| **Initial deceased detection** | 10,000 records | ~800K tokens | $25–$50 |
-| **Initial standardization** | 10,000 records | ~300K tokens | $10–$20 |
-| **Initial quality scoring** | 10,000 records | ~400K tokens | $15–$25 |
-| **TOTAL INITIAL CLEANUP** | | | **$65–$125** |
+**Initial Cleanup Costs:**
 
-| Ongoing Task | Frequency | Monthly Cost |
-|--------------|-----------|--------------|
+| Task | Volume | Estimated Cost |
+|------|--------|----------------|
+| Initial duplicate scan | 10,000 records | $15–$30 |
+| Initial deceased detection | 10,000 records | $25–$50 |
+| Initial standardization | 10,000 records | $10–$20 |
+| Initial quality scoring | 10,000 records | $15–$25 |
+| **TOTAL INITIAL** | | **$65–$125** |
+
+**Ongoing Monthly Costs:**
+
+| Task | Frequency | Monthly Cost |
+|------|-----------|--------------|
 | New record validation | Real-time | $5–$10 |
 | Weekly duplicate scan | Weekly | $5–$15 |
 | Monthly death registry check | Monthly | $10–$25 |
 | **TOTAL ONGOING** | | **$20–$50/mo** |
 
-**Compare to manual cleanup:** A person reviewing records at $25/hr would cost $1,000+ just for the initial scan. AI does it for under $150.
+**Compare to manual cleanup: $1,000+ at $25/hr. AI does it for under $150.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Technical Deep Dive (Reference Slide)
+## 9. Security & Compliance
 
-*This slide is here if you want the specifics — feel free to skip it.*
-
-## The Technology Behind Each Layer
-
-| Layer | Technology | What It Is | Why We Chose It |
-|-------|-----------|-----------|-----------------|
-| **Patient Data** | AgencyBlock + AgencyIntegrator | Your existing HIPAA-compliant systems | Already in place, already compliant. No need to replace. |
-| **CRM & Operations** | Notion (Business Plan) | Cloud-based workspace with databases, wikis, and dashboards | $20/user/mo. Replaces Airtable, Active Campaign CRM, and scattered docs. No PHI stored here. |
-| **Integration Engine** | n8n (self-hosted, Community Edition) | Open-source workflow automation platform | Free and unlimited. Bridges AgencyBlock, AgencyIntegrator, and Notion. Replaces manual workarounds. |
-| **AI Processing** | AWS Bedrock | Managed AI service from Amazon (runs Claude, Titan, and other models) | HIPAA-eligible. Covered by AWS BAA (free). Your data is never used to train models. |
-| **AI Agents** | n8n workflows + Bedrock API | Orchestration layer that chains AI calls with CRM actions | n8n triggers → Bedrock processes → results written back to appropriate system. |
-| **Data Hygiene** | n8n + Bedrock + death registries | Automated cleanup and ongoing monitoring | AI-powered duplicate detection, cross-reference checks, validation rules. |
-
-## Key Technical Decisions
-
-- **Why keep AgencyBlock & AgencyIntegrator?** They're already HIPAA-compliant and contain years of patient data. Migration would be costly and risky.
-- **Why n8n as the bridge?** Free, unlimited, self-hosted. Creates the integration layer these systems have always needed.
-- **Why Notion for the front-end?** Fast to deploy, easy to use, highly customizable. Staff learn it in a day.
-- **Why Bedrock for AI?** HIPAA-eligible, covered by one AWS agreement, no data leaves your environment.
-
----
-
-# What Notion Replaces
-
-Notion becomes the one place your team goes for everything non-medical:
-
-| Currently Using | Notion Replaces It With |
-|----------------|------------------------|
-| Active Campaign (CRM features) | Contact database + pipeline view |
-| Airtable (3 accounts) | Structured databases with views |
-| Scattered Google Docs / wikis | Department wikis and SOPs |
-| Manual spreadsheet reports | Auto-updating dashboards |
-| Crisp (chat/support) | Intake forms + automated routing |
-
-**One login. One system. Everyone on the same page.**
-
----
-
-# What the Automation Engine Does
-
-n8n is the "invisible assistant" that runs behind the scenes:
-
-- When a new lead comes in → it automatically gets scored and routed to the right agent
-- When an appointment is booked → it sends confirmation texts and calendar invites
-- When AgencyBlock gets a new enrollment → Notion updates the pipeline automatically
-- When AgencyIntegrator completes a workflow → the status syncs to Notion
-- When a form is submitted → the data flows to the right system without anyone typing it in
-
-**This replaces manual workarounds AND Zapier (which charges per task) with unlimited automations at no per-use cost.**
-
----
-
-# What the AI Assistants Do
-
-Think of these as digital employees that handle repetitive work so your people can focus on selling:
-
-**AI Sales Development Rep (SDR)**
-- Reaches out to new leads via email and text
-- Follows up automatically if someone doesn't respond
-- Qualifies leads and books meetings for your human agents
-
-**AI Business Development Rep (BDR)**
-- Builds prospecting lists from your target markets
-- Sends personalized outreach at scale
-- Enriches lead records with relevant data
-
-**AI Admin Assistant**
-- Enters data into your systems automatically
-- Manages appointment scheduling and reminders
-- Tracks compliance documents and flags what's missing
-
----
-
-# How Much Time This Saves
-
-Here's where your team's hours currently go — and what gets automated:
-
-| Task | Hours/Week Today | Hours/Week After | Time Saved |
-|------|-----------------|-----------------|------------|
-| Qualifying and scoring leads | 10–15 hrs | 1–2 hrs | **9–13 hrs** |
-| Sending outreach emails & texts | 8–12 hrs | 1–2 hrs | **7–10 hrs** |
-| Data entry (contacts, pipeline) | 10–15 hrs | 2–3 hrs | **8–12 hrs** |
-| **Manual workarounds between systems** | 5–10 hrs | 0 hrs | **5–10 hrs** |
-| Scheduling appointments | 5–8 hrs | 0.5–1 hr | **4.5–7 hrs** |
-| Building reports | 5–8 hrs | 1–2 hrs | **4–6 hrs** |
-| Switching between tools | 5–10 hrs | 0.5–1 hr | **4.5–9 hrs** |
-| Compliance tracking | 3–5 hrs | 0.5–1 hr | **2.5–4 hrs** |
-| Voicemail drops & call logging | 3–5 hrs | 0.5 hr | **2.5–4.5 hrs** |
-| **TOTAL** | **54–88 hrs/wk** | **6–11.5 hrs/wk** | **47–76.5 hrs/wk** |
-
-**That's 1.2 to 1.9 full-time employees' worth of time — returned to revenue-generating work every single week.**
-
----
-
-# The Healthcare Privacy Question
-
-As a Medicare brokerage, you handle protected health information (PHI) — things like Medicare IDs, policy numbers, and enrollment data.
-
-**Good news: You already have HIPAA-compliant systems for this.**
-
-AgencyBlock and AgencyIntegrator are designed for healthcare data. We're not replacing them — we're connecting them to a better front-end and cleaning up the data inside them.
-
----
-
-# How We Keep Patient Data Safe
+### How We Keep Patient Data Safe
 
 We use a "split" design — patient data stays where it belongs:
 
 **Where Patient Data Lives:**
-- **AgencyBlock** — Medicare IDs, policy numbers, enrollment records (stays here)
-- **AgencyIntegrator** — Workflow data and integrations (stays here)
+
+| System | Data Types |
+|--------|-----------|
+| **AgencyBlock** | Medicare IDs, policy numbers, enrollment records |
+| **AgencyIntegrator** | Workflow data and integrations |
 
 **Where Your Team Works (No Patient Data):**
-- **Notion** — Contact names, phone numbers, deal stages, tasks, wikis
-- **No patient health data ever goes into Notion**
 
-**The automation engine (n8n) is the bridge — it syncs status information without moving sensitive patient data into Notion.**
+| System | Data Types |
+|--------|-----------|
+| **Notion** | Contact names, phone numbers, deal stages, tasks, wikis |
 
----
+**The automation engine (n8n) syncs status information without moving sensitive patient data into Notion.**
 
-# What About the AI? Is That Safe?
+<div style="page-break-after: always;"></div>
 
-Great question. All AI processing runs through **AWS Bedrock** — Amazon's enterprise AI service.
+### What About the AI? Is That Safe?
 
-Why this matters:
+All AI processing runs through **AWS Bedrock** — Amazon's enterprise AI service.
 
 | Concern | How It's Addressed |
 |---------|-------------------|
-| Does patient data leave our systems? | **No.** AI processing happens in a HIPAA-compliant AWS environment. |
-| Do we need a separate privacy agreement with the AI company? | **No.** It's covered by the AWS agreement. |
+| Does patient data leave our systems? | **No.** AI processing happens in HIPAA-compliant AWS. |
+| Need separate privacy agreement with AI company? | **No.** Covered by the AWS agreement. |
 | Can the AI "learn" from our patient data? | **No.** AWS Bedrock does not use your data to train models. |
-| What AI models are available? | Claude (Anthropic), Amazon Titan, and others — you're not locked into one. |
+| What AI models are available? | Claude (Anthropic), Amazon Titan, others — not locked to one. |
 
 **Bottom line: the AI stays within the compliance boundary.**
 
----
+<div style="page-break-after: always;"></div>
 
-# 11 Safeguards to Prevent Data Leaks
-
-We don't just separate the data — we build a system of checks:
+### 11 Safeguards to Prevent Data Leaks
 
 **Automated Protections (Always Running)**
-1. Database fields in Notion are locked — only admins can change the structure
+
+1. Database fields in Notion are locked — only admins can change structure
 2. Automation workflows strip patient identifiers before updating Notion
-3. An AI scanner checks Notion every night for any patient data that shouldn't be there
-4. Only the automation engine can write data to Notion (no manual copy-paste gaps)
-5. AgencyBlock and AgencyIntegrator remain the only systems that store patient data
+3. AI scanner checks Notion every night for any patient data
+4. Only the automation engine can write data to Notion
+5. AgencyBlock and AgencyIntegrator remain the only PHI systems
 
 **Team Rules & Training**
-6. Simple color-coded guide: GREEN data goes to Notion, RED data stays in AgencyBlock/AgencyIntegrator
+
+6. Color-coded guide: GREEN data → Notion, RED data → AgencyBlock/AgencyIntegrator
 7. Every employee gets privacy training at onboarding and annually
-8. Written plan for what to do if patient data ends up in the wrong place
+8. Written plan for handling data that ends up in wrong place
 
 **Organizational Accountability**
-9. A designated compliance officer owns the data boundary
-10. Quarterly audits to verify the separation is holding
-11. Notion workspace is branded "PHI-Free Zone" so nobody forgets
 
----
+9. Designated compliance officer owns the data boundary
+10. Quarterly audits to verify separation
+11. Notion workspace branded "PHI-Free Zone"
 
-# What Gets Cut (11 Tools)
+<div style="page-break-after: always;"></div>
 
-| Tool Being Removed | What Replaces It | Monthly Savings |
-|-------------------|-----------------|----------------|
+## 10. Cost Analysis
+
+### What Gets Cut (11 Tools)
+
+| Tool Removed | Replaced By | Monthly Savings |
+|--------------|-------------|----------------|
 | Active Campaign | Notion + automations + SendGrid | $150–$500 |
 | EZ Texting | Automated texting via Twilio | $50–$200 |
 | slydial | AI voicemail via automation | $30–$100 |
@@ -528,15 +492,13 @@ We don't just separate the data — we build a system of checks:
 | Airtable (×3 accounts) | Notion databases | $60–$135 |
 | Zapier | n8n (free, unlimited) | $20–$100 |
 | Unbounce | WordPress + Elementor | $90–$225 |
-| Squarespace | WordPress (consolidate to one site platform) | $16–$49 |
+| Squarespace | WordPress (consolidate) | $16–$49 |
 
 **Total tool savings: $7,932–$22,848/year**
 
----
+<div style="page-break-after: always;"></div>
 
-# Option A: What It Costs to Build
-
-## One-Time Investment
+### Option A: One-Time Investment
 
 | What You're Paying For | Cost Range |
 |-----------------------|-----------|
@@ -544,130 +506,79 @@ We don't just separate the data — we build a system of checks:
 | Building the AI Sales Rep | $8,000–$20,000 |
 | Building the AI Business Dev Rep | $5,000–$15,000 |
 | Building the AI Admin Assistant | $5,000–$15,000 |
-| Connecting everything (n8n → AgencyBlock, AgencyIntegrator, Notion) | $6,000–$18,000 |
+| Connecting everything (n8n integration) | $6,000–$18,000 |
 | Patient data protection system | $2,500–$6,000 |
 | **Data hygiene: initial cleanup** | $4,000–$10,000 |
-| Moving your data + training your team | $3,000–$8,000 |
+| Moving data + training team | $3,000–$8,000 |
 | **TOTAL ONE-TIME** | **$36,500–$100,000** |
 
-*The range depends on complexity discovered during Phase 0, the state of your data, and how many custom workflows are needed.*
+*Range depends on complexity discovered during Phase 0, data state, and custom workflows needed.*
 
----
+<div style="page-break-after: always;"></div>
 
-# Option A: What It Costs Monthly
+### Option A: Monthly Ongoing Costs
 
-## Ongoing After Build is Complete
-
-| Item | Small Team (10 people) | Larger Team (25 people) |
-|------|----------------------|------------------------|
+| Item | 10 People | 25 People |
+|------|-----------|-----------|
 | Notion Business plan | $200/mo | $600/mo |
 | Automation engine hosting (AWS) | $30/mo | $80/mo |
 | AI processing costs | $55/mo | $350/mo |
-| **Ongoing data hygiene automation** | $50/mo | $100/mo |
+| **Ongoing data hygiene** | $50/mo | $100/mo |
 | Maintenance & updates | $0–$500/mo | $0–$500/mo |
-| Tools you keep (SendGrid, Twilio, etc.) | $354/mo | $1,624/mo |
+| Tools you keep | $354/mo | $1,624/mo |
 | **TOTAL MONTHLY** | **$689–$1,439** | **$1,204–$3,254** |
 | **TOTAL ANNUAL** | **$8,268–$17,268** | **$14,448–$39,048** |
 
-**Compare to current spend: $17,784–$60,996/year**
+**Compare to current spend: $23,148–$83,724/year**
 
-*Note: AgencyBlock and AgencyIntegrator costs continue as-is — they're already in your budget.*
+*Note: AgencyBlock and AgencyIntegrator costs continue as-is.*
 
----
+<div style="page-break-after: always;"></div>
 
-# Return on Investment
+### Time Savings Analysis
 
-## When Does Option A Pay for Itself?
+| Task | Hours/Week Today | After | Saved |
+|------|-----------------|-------|-------|
+| Qualifying and scoring leads | 10–15 hrs | 1–2 hrs | **9–13 hrs** |
+| Sending outreach emails & texts | 8–12 hrs | 1–2 hrs | **7–10 hrs** |
+| Data entry | 10–15 hrs | 2–3 hrs | **8–12 hrs** |
+| **Manual workarounds between systems** | 5–10 hrs | 0 hrs | **5–10 hrs** |
+| Scheduling appointments | 5–8 hrs | 0.5–1 hr | **4.5–7 hrs** |
+| Building reports | 5–8 hrs | 1–2 hrs | **4–6 hrs** |
+| Switching between tools | 5–10 hrs | 0.5–1 hr | **4.5–9 hrs** |
+| Compliance tracking | 3–5 hrs | 0.5–1 hr | **2.5–4 hrs** |
+| Voicemail drops & call logging | 3–5 hrs | 0.5 hr | **2.5–4.5 hrs** |
+| **TOTAL** | **54–88 hrs/wk** | **6–11.5 hrs/wk** | **47–76.5 hrs/wk** |
 
-| | Conservative | Optimistic |
-|--|-------------|-----------|
+**1.2 to 1.9 FTEs returned to revenue-generating work every week.**
+
+<div style="page-break-after: always;"></div>
+
+### Return on Investment
+
+| Metric | Conservative | Optimistic |
+|--------|-------------|-----------|
 | Value of time saved per year | $54,648 | $88,389 |
 | Tool cost savings per year | $7,932 | $22,848 |
 | **Total annual value** | **$62,580** | **$111,237** |
-| Year 1 total cost (build + consulting + monthly) | $58,768 | $58,768 |
+| Year 1 total cost (build + monthly) | $58,768 | $58,768 |
 | **Year 1 net return** | **+$3,812 (6%)** | **+$52,469 (89%)** |
-| Year 2 cost (monthly + retainer only) | $26,268 | $26,268 |
+| Year 2 cost (monthly + retainer) | $26,268 | $26,268 |
 | **Year 2 net return** | **+$36,312 (138%)** | **+$84,969 (323%)** |
 
 **Payback period: 7–11 months**
 
-*This does not include the revenue upside from your agents spending more time actually selling — which is the real multiplier.*
+*Does not include revenue upside from agents spending more time selling.*
 
----
+<div style="page-break-after: always;"></div>
 
-# API Capabilities: How Your Tools Connect
+## 11. Option B: GoHighLevel (Comparison)
 
-## What Is an API?
+Instead of connecting what you have, you move everything into one vendor platform.
 
-An API (Application Programming Interface) is how software systems talk to each other. Think of it like a phone line between two offices — if both offices have phones, they can communicate.
-
-**Tools with good APIs can be connected. Tools without APIs have to be used manually.**
-
----
-
-# API Report: Your Current Tools
-
-## Tools with Strong APIs (Easy to Integrate)
-
-| Tool | API Strength | What It Can Do |
-|------|-------------|---------------|
-| **AgencyBlock** | Good | Read/write patient records, enrollment data, policy info |
-| **AgencyIntegrator** | Good | Trigger workflows, sync status, exchange data |
-| **SendGrid (Twilio)** | Excellent | Send emails/SMS, track opens/clicks, manage contacts |
-| **Airtable** | Excellent | Full CRUD (create, read, update, delete) on all records |
-| **Active Campaign** | Good | Contacts, campaigns, automations, tags |
-| **Zapier** | Excellent | 5,000+ app integrations (but we're replacing with n8n) |
-| **WordPress** | Good | Posts, pages, users, custom fields via REST API |
-| **AWS** | Excellent | Full infrastructure + AI services (Bedrock) |
-| **Canva** | Moderate | Design export, brand kit access |
-
----
-
-# API Report: Your Current Tools (Continued)
-
-## Tools with Limited or No APIs (Manual Only)
-
-| Tool | API Status | Impact |
-|------|-----------|--------|
-| **Five9** | Limited | Real-time call data hard to sync; may need to keep separate |
-| **EZ Texting** | Basic | Simple send/receive only; Twilio is more capable |
-| **slydial** | None | No integration possible; replaced by n8n + Twilio |
-| **GMass** | Limited | Gmail-based; difficult to integrate |
-| **Unbounce** | Moderate | Webhook-based; replaced by WordPress + Elementor |
-| **Squarespace** | Limited | Basic content API; moving to WordPress anyway |
-| **Cloud Academy / LearnDash** | Limited | Basic user/course data only |
-| **HIPAA Vault** | Basic | File transfer only; storage integration limited |
-
----
-
-# API Report: How We Use Them
-
-## The Integration Architecture
-
-| Connection | How It Works | Benefit |
-|------------|-------------|---------|
-| AgencyBlock ↔ n8n | API calls to read patient status, write updates | Automated sync with Notion without moving PHI |
-| AgencyIntegrator ↔ n8n | Workflow triggers, status updates | Completed workflows auto-update pipeline |
-| Notion ↔ n8n | Full API access to databases | Real-time CRM updates, dashboards |
-| SendGrid ↔ n8n | Email sending, tracking, bounces | AI-powered outreach sequences |
-| Twilio ↔ n8n | SMS sending, delivery status | Automated text follow-ups |
-| Medicare Pro ↔ n8n | Enrollment status, quotes | Pipeline syncs with enrollment progress |
-| E123 ↔ n8n | Quoting data, submissions | Quotes flow into pipeline automatically |
-| AWS Bedrock ↔ n8n | AI model calls | Lead scoring, email drafting, data cleanup |
-
-**n8n is the hub that connects everything. It speaks to each system's API and keeps them all synchronized.**
-
----
-
-# Option B: The All-in-One Platform
-
-## GoHighLevel — For Comparison
-
-Instead of connecting what you have, you move everything into one vendor platform:
-
-| | Detail |
-|--|--------|
-| **What it is** | GoHighLevel — an all-in-one CRM and marketing platform |
+| Attribute | Detail |
+|-----------|--------|
+| **What it is** | GoHighLevel — all-in-one CRM and marketing platform |
 | **One-time setup cost** | $7,000–$20,000 |
 | **Monthly cost** | $1,018–$2,765 (includes $297/mo HIPAA add-on) |
 | **Annual cost** | $12,216–$33,180 |
@@ -676,114 +587,165 @@ Instead of connecting what you have, you move everything into one vendor platfor
 | **Customization** | Limited to what the platform offers |
 | **Switching later** | Difficult — high vendor lock-in |
 
-**Important:** GoHighLevel would NOT replace AgencyBlock or AgencyIntegrator. You'd still need those for HIPAA-compliant patient data. GHL is for the sales/marketing layer only.
+**Important:** GoHighLevel would NOT replace AgencyBlock or AgencyIntegrator. You'd still need those for HIPAA-compliant patient data.
 
----
+<div style="page-break-after: always;"></div>
 
-# Side-by-Side: Option A vs Option B
+## 12. Side-by-Side Comparison
 
-| | **Option A (Custom Build)** | **Option B (GoHighLevel)** |
-|--|---------------------------|--------------------------|
+| Factor | Option A (Custom) | Option B (GHL) |
+|--------|------------------|----------------|
 | **Upfront cost** | $36.5K–$100K | $7K–$20K |
 | **Monthly cost (10 people)** | $689–$1,439 | $1,018–$1,870 |
 | **Annual cost (10 people)** | $8,268–$17,268 | $12,216–$22,440 |
-| **Connects AgencyBlock + AgencyIntegrator?** | Yes — finally makes them work together | No — still separate |
-| **Data hygiene included?** | Yes — initial cleanup + ongoing | No |
+| **Connects AgencyBlock + AgencyIntegrator?** | **Yes** | No |
+| **Data hygiene included?** | **Yes** | No |
 | **AI capabilities** | Full custom AI assistants | Basic platform AI |
 | **Hours saved/week** | 47–76.5 hrs | ~21–33 hrs |
 | **Customization** | Unlimited | Platform-limited |
 | **Vendor lock-in** | Low (you own it) | High (you're renting) |
 | **Payback period** | 7–11 months | ~6 months |
-| **Best for** | Long-term competitive advantage | Quick wins, simpler needs |
+| **Best for** | Long-term advantage | Quick wins, simpler needs |
 
----
+<div style="page-break-after: always;"></div>
 
-# Three-Year Cost Comparison
+### Three-Year Cost Comparison
 
-## What Each Path Costs Over Time
-
-| | Year 1 | Year 2 | Year 3 | **3-Year Total** |
-|--|--------|--------|--------|-----------------|
-| **Do nothing** (current state) | $18K–$61K | $18K–$61K | $18K–$61K | **$53K–$183K** |
-| **Option A** (10 seats + VV engagement) | $58K–$127K | $26K–$35K | $26K–$35K | **$110K–$197K** |
-| **Option A value created** | $62K–$111K | $62K–$111K | $62K–$111K | **$187K–$333K** |
-| **Option A net gain (3-year)** | | | | **+$77K–$136K** |
+| Path | Year 1 | Year 2 | Year 3 | **3-Year Total** |
+|------|--------|--------|--------|-----------------|
+| **Do nothing** | $18K–$61K | $18K–$61K | $18K–$61K | **$53K–$183K** |
+| **Option A** | $58K–$127K | $26K–$35K | $26K–$35K | **$110K–$197K** |
+| **Option A value** | $62K–$111K | $62K–$111K | $62K–$111K | **$187K–$333K** |
+| **Option A net gain** | | | | **+$77K–$136K** |
 | **Option B** | $19K–$42K | $12K–$22K | $12K–$22K | **$43K–$86K** |
-| **Option B value created** | $36K–$61K | $36K–$61K | $36K–$61K | **$108K–$183K** |
-| **Option B net gain (3-year)** | | | | **+$65K–$97K** |
+| **Option B value** | $36K–$61K | $36K–$61K | $36K–$61K | **$108K–$183K** |
+| **Option B net gain** | | | | **+$65K–$97K** |
 
-**Option A costs more upfront but creates more value — and solves the AgencyBlock/AgencyIntegrator problem that Option B doesn't touch.**
+**Option A costs more upfront but creates more value — and solves the AgencyBlock/AgencyIntegrator problem.**
 
----
+<div style="page-break-after: always;"></div>
 
-# What Could Go Wrong (And How We Prevent It)
+## 13. Risk Analysis
 
-## Compliance Risks
+### Compliance Risks
 
-| What Could Happen | How Likely | How Bad | How We Prevent It |
-|-------------------|-----------|---------|------------------|
-| Patient data accidentally gets into Notion | Medium | Very Bad | 11-layer protection system (automated scanners, locked fields, training, audits) |
-| Current tools already have a compliance gap | Medium | Very Bad | We check this in the very first week — before building anything |
-| AgencyBlock/AgencyIntegrator integration fails | Low | High | We test all API connections before going live; rollback plan in place |
+| Risk | Likelihood | Severity | Mitigation |
+|------|-----------|----------|------------|
+| Patient data enters Notion | Medium | High | 11-layer protection system |
+| Current tools have compliance gap | Medium | High | Check in first week |
+| AgencyBlock/AgencyIntegrator integration fails | Low | High | Test all APIs before go-live |
 
----
+### Operational Risks
 
-# What Could Go Wrong (Continued)
+| Risk | Likelihood | Severity | Mitigation |
+|------|-----------|----------|------------|
+| Staff resist change | High | Medium | Change champions, gradual rollout |
+| Automation system goes down | Low | High | Auto-recovery, monitoring alerts |
+| Notion slows with data | Medium | Medium | Archive quarterly, optimize structure |
+| AgencyBlock API has limitations | Medium | Medium | API audit in Phase 0 |
 
-## Operational Risks
+<div style="page-break-after: always;"></div>
 
-| What Could Happen | How Likely | How Bad | How We Prevent It |
-|-------------------|-----------|---------|------------------|
-| Staff resist the change | High | Medium | We assign change champions per department, roll out gradually, and show quick wins early |
-| Automation system goes down | Low | High | Automatic recovery, monitoring alerts, restart procedures documented |
-| Notion slows down with lots of data | Medium | Medium | We archive old records quarterly and structure databases to stay fast |
-| AgencyBlock API has limitations we discover | Medium | Medium | We audit API capabilities during Phase 0 before committing to the architecture |
+### Data Hygiene Risks
 
----
+| Risk | Likelihood | Severity | Mitigation |
+|------|-----------|----------|------------|
+| Deceased ID is imperfect | Medium | Low | Human review for flagged records |
+| False positive duplicates | Medium | Medium | Confidence scoring with human review |
+| Cleanup takes longer | Medium | Medium | Prioritize critical data first |
+| Data gets messy again | Low | Medium | Ongoing automated hygiene |
 
-# What Could Go Wrong (Continued)
+### Project Risks
 
-## Data Hygiene Risks
+| Risk | Likelihood | Severity | Mitigation |
+|------|-----------|----------|------------|
+| Scope grows beyond budget | Medium | Medium | Fixed milestones with approval gates |
+| Too dependent on VV | Medium | Medium | Full documentation and training |
+| Data lost during migration | Low | High | Backups, parallel systems, validation |
 
-| What Could Happen | How Likely | How Bad | How We Prevent It |
-|-------------------|-----------|---------|------------------|
-| Deceased record identification is imperfect | Medium | Low | Human review step for flagged records; we don't auto-delete, we flag for review |
-| Duplicate matching creates false positives | Medium | Medium | Confidence scoring — high-confidence merges are automated, low-confidence get human review |
-| Data cleanup takes longer than expected | Medium | Medium | We prioritize critical data first; phased approach so you see value early |
-| Data gets messy again after cleanup | Low | Medium | Ongoing automated hygiene catches new issues before they accumulate |
+**Every risk has a mitigation. Go/no-go gates mean you're never over-committed.**
 
----
+<div style="page-break-after: always;"></div>
 
-# What Could Go Wrong (Continued)
+## 14. Implementation Timeline
 
-## Project & Strategic Risks
+### Month 1: Discovery & Planning
 
-| What Could Happen | How Likely | How Bad | How We Prevent It |
-|-------------------|-----------|---------|------------------|
-| Project scope grows beyond budget | Medium | Medium | Fixed milestones with approval gates — scope is locked after Month 1 |
-| Too dependent on VV | Medium | Medium | Full documentation and training at handoff. Everything is yours. |
-| Data gets lost during migration | Low | High | We back everything up, run systems in parallel, and validate before cutting over |
-| AI pricing goes up | Low | Medium | We're not locked into one AI provider — the system can switch models |
-| AgencyBlock or AgencyIntegrator changes their API | Low | Medium | n8n is flexible — we can adapt workflows without rebuilding everything |
+| Activity | Deliverable |
+|----------|------------|
+| Map every department's workflows | Process documentation |
+| Audit AgencyBlock/AgencyIntegrator APIs | Integration capability report |
+| Classify all data (sensitive vs. non-sensitive) | Data classification guide |
+| Audit every tool | Tool inventory with costs |
+| Assess data hygiene needs | Data quality report |
+| Deliver architecture plan | Approved technical plan |
 
-**Every risk has a mitigation. And the go/no-go gates at Milestones 1 and 2 mean you're never over-committed.**
+**Decision point: Go or no-go.** You've spent $10K. If you don't like the plan, you stop here with a full process map in hand.
 
----
+<div style="page-break-after: always;"></div>
 
-# The VV Engagement
+### Month 2: Build the Foundation (MVP)
 
-## What You Pay Us
+| Activity | Deliverable |
+|----------|------------|
+| Notion CRM goes live | Working CRM with contacts, pipeline |
+| n8n connects to AgencyBlock/AgencyIntegrator | Systems talking to each other |
+| Core automations active | Lead routing, notifications, syncing |
+| Data hygiene Phase 1 | Initial cleanup of critical records |
+| Patient data safeguards in place | Protection system active |
+| First AI assistant in prototype | AI Sales Rep in testing |
 
-| | Detail |
-|--|--------|
+**Decision point: Go or no-go.** If MVP works, approve continued build. Retainer begins.
+
+<div style="page-break-after: always;"></div>
+
+### Month 3: Expand AI + Complete Data Cleanup
+
+| Activity | Deliverable |
+|----------|------------|
+| AI Sales Rep goes live | Production deployment |
+| AI Business Dev Rep built | In testing |
+| AI Admin Assistant built | In testing |
+| Data hygiene Phase 2 | Full cleanup, ongoing automation |
+| Nightly data scanner active | Automated compliance monitoring |
+| Medicare Pro/E123 integrations | Connected and syncing |
+| First department migrated | Legacy tools retiring |
+
+<div style="page-break-after: always;"></div>
+
+### Month 4: Full Rollout & Handoff
+
+| Activity | Deliverable |
+|----------|------------|
+| All AI assistants live | Production deployment |
+| All departments migrated and trained | Fully operational |
+| Old tools fully decommissioned | Contracts canceled |
+| Quarterly audit process established | Compliance process |
+| Data hygiene dashboard live | Ongoing monitoring |
+| Complete handoff documentation | Knowledge transfer |
+
+**Outcome:** A fully operational system that you own. VV transitions to optional retainer.
+
+<div style="page-break-after: always;"></div>
+
+## 15. VV Engagement Terms
+
+### What You Pay Us
+
+| Component | Cost |
+|-----------|------|
 | **Base fee** | $10,000 |
 | **Duration** | 4 months |
-| **Months 1–2** | Covered by the base fee (discovery + build kickoff) |
+| **Months 1–2** | Covered by base fee |
 | **Month 3 retainer** | $1,500 |
 | **Month 4 retainer** | $1,500 |
 | **Total engagement** | **$13,000** |
 
-## What's Included
+**After engagement:** Retainer continues at $1,500/mo for optimization, AI tuning, and ongoing support — cancelable with 30 days notice.
+
+<div style="page-break-after: always;"></div>
+
+### What's Included
 
 - Full discovery of every process and tool across all departments
 - AgencyBlock + AgencyIntegrator API audit and integration planning
@@ -796,136 +758,62 @@ Instead of connecting what you have, you move everything into one vendor platfor
 - Training for every department
 - Full handoff documentation
 
-**After the engagement:** Retainer continues at $1,500/mo for optimization, AI tuning, and ongoing data hygiene support — cancelable with 30 days notice.
+<div style="page-break-after: always;"></div>
 
----
+## 16. Recommendation & Next Steps
 
-# The 4-Month Roadmap
-
-## Month 1 → Discovery & Planning
-
-**What happens:**
-- We map every department's workflows
-- We audit AgencyBlock and AgencyIntegrator APIs for integration capabilities
-- We classify all data (sensitive vs. non-sensitive)
-- We audit every tool (who uses it, what it costs, when the contract renews)
-- We assess data hygiene needs (deceased records, duplicates, data quality)
-- We deliver the architecture plan
-
-**What you get:** A complete picture of your current state and an approved plan to move forward
-
-**Decision point: Go or no-go.** You've spent $10K. If you don't like the plan, you stop here with a full process map in hand.
-
----
-
-# The 4-Month Roadmap
-
-## Month 2 → Build the Foundation (MVP)
-
-**What happens:**
-- Notion CRM goes live with your contacts, pipeline, and dashboards
-- n8n automation engine connects to AgencyBlock and AgencyIntegrator
-- Core automations are active (lead routing, notifications, status syncing)
-- **Data hygiene Phase 1** — initial cleanup of critical records
-- Patient data safeguards are in place
-- **First AI assistant (Sales Rep) is in prototype**
-
-**What you get:** A working system where AgencyBlock, AgencyIntegrator, and Notion finally talk to each other
-
-**Decision point: Go or no-go.** If the MVP is working, you approve continued build. Retainer ($1,500/mo) begins.
-
----
-
-# The 4-Month Roadmap
-
-## Month 3 → Expand the AI + Complete Data Cleanup
-
-**What happens:**
-- AI Sales Rep goes live in production
-- AI Business Dev Rep built and in testing
-- AI Admin Assistant built and in testing
-- **Data hygiene Phase 2** — full cleanup completed, ongoing automation enabled
-- Nightly data scanner is active (checking Notion for patient data + monitoring data quality)
-- Medicare Pro and E123 integrations go live
-- First department migrated off old tools
-
-**What you get:** Full AI assistant suite in testing; legacy tools starting to shut down; clean patient data
-
----
-
-# The 4-Month Roadmap
-
-## Month 4 → Full Rollout & Handoff
-
-**What happens:**
-- All AI assistants live in production
-- All departments migrated and trained
-- Old tools fully decommissioned
-- Quarterly audit process established
-- Data hygiene dashboard live (ongoing monitoring)
-- Complete handoff documentation delivered
-
-**What you get:** A fully operational system that you own. AgencyBlock and AgencyIntegrator finally work together seamlessly. VV transitions to optional retainer support.
-
----
-
-# The Hybrid Option
-
-**You don't have to choose one path forever.**
-
-A phased approach:
-
-1. **Months 1–4:** Build Option A (Notion + integrations + AI) with VV
-2. **If you need something working immediately:** Deploy GoHighLevel in parallel for basic CRM consolidation
-3. **Months 5–8:** Stabilize the custom build; evaluate if GoHighLevel adds value or is redundant
-4. **Year 2:** Full AI optimization; GoHighLevel either stays as a supplement or gets cut
-
-**This gives you the speed of Option B with the long-term upside of Option A.**
-
----
-
-# Our Recommendation
+### Our Recommendation
 
 **Start with Phase 0 — no matter which direction you choose.**
 
 The discovery phase will:
+
 - Show you exactly which tools are needed and which aren't
 - Map the full API capabilities of AgencyBlock and AgencyIntegrator
-- Quantify the data hygiene problem (how many deceased records, duplicates, etc.)
-- Uncover any existing compliance gaps (before they become a problem)
+- Quantify the data hygiene problem
+- Uncover any existing compliance gaps
 - Give every department input before changes happen
 - Replace estimates with real numbers
 
-**You can't make a confident decision without this information. Phase 0 gives it to you.**
+**You can't make a confident decision without this information.**
 
----
+<div style="page-break-after: always;"></div>
 
-# What Happens Next
+### What Happens Next
 
-1. **This week** → Approve the engagement and schedule kickoff
-2. **Immediately** → We check your current tools for compliance gaps
-3. **Weeks 1–3** → Full discovery across every department + API audit of AgencyBlock/AgencyIntegrator
-4. **End of Week 3** → Milestone 1 review — you decide if we proceed
-5. **Weeks 4–8** → Build the MVP (Notion CRM + n8n integrations + data cleanup + first AI assistant)
-6. **End of Week 8** → Milestone 2 review — you decide if we expand
-7. **Weeks 9–18** → Full AI rollout, complete data cleanup, migration, training, and stabilization
+| Timing | Action |
+|--------|--------|
+| **This week** | Approve engagement and schedule kickoff |
+| **Immediately** | Check current tools for compliance gaps |
+| **Weeks 1–3** | Full discovery + API audit |
+| **End of Week 3** | Milestone 1 review — you decide if we proceed |
+| **Weeks 4–8** | Build MVP |
+| **End of Week 8** | Milestone 2 review — you decide if we expand |
+| **Weeks 9–18** | Full AI rollout, migration, training |
 
-**Every major decision point requires your approval. You're never locked in past the next milestone.**
+**Every major decision requires your approval. You're never locked in past the next milestone.**
 
----
+<div style="page-break-after: always;"></div>
 
-# Thank You
+## Summary
 
-## VV — The Brokerage Inc. Tech Stack Consolidation
+### VV — The Brokerage Inc. Tech Stack Consolidation
 
-**Total engagement: $13,000 over 4 months**
-**Projected annual value: $62,000–$111,000**
-**Payback period: 7–11 months**
+| Metric | Value |
+|--------|-------|
+| **Total engagement** | $13,000 over 4 months |
+| **Projected annual value** | $62,000–$111,000 |
+| **Payback period** | 7–11 months |
 
 **What makes this different:**
+
 - We finally make AgencyBlock and AgencyIntegrator work together
 - We clean up your patient data and keep it clean
 - We connect all your tools through a single automation engine
 - Your team works in one place instead of 10
 
-Ready to get started? Let's schedule Phase 0.
+**Ready to get started? Let's schedule Phase 0.**
+
+---
+
+*Document prepared by VV Consulting — February 2026*
