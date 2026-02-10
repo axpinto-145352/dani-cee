@@ -1,16 +1,26 @@
 # Tech Stack Consolidation — Consolidated Report
-## The Brokerage Inc. — Detailed Reference Document
+## The Brokerage Inc.
+
+---
+
+**Document Type:** Technical Reference Document
+**Version:** 2.0
+**Date:** February 2026
+**Prepared For:** The Brokerage Inc. Leadership Team
+**Prepared By:** VV Consulting
+
+---
 
 **Purpose:** This document is the detailed reference companion to the proposal deck. Use it to speak intelligently about every tool, cost, timeline, and architectural decision. It contains the full granular breakdowns behind every number in the presentation.
 
----
+<div style="page-break-after: always;"></div>
 
 ## Table of Contents
 
 1. Current Tool Inventory (Full Detail)
-2. **AgencyBlock & AgencyIntegrator: The Core Patient Data Systems**
-3. **API Capabilities Report: Full Tool Analysis**
-4. **Data Hygiene Problem & Solution**
+2. AgencyBlock & AgencyIntegrator: The Core Patient Data Systems
+3. API Capabilities Report: Full Tool Analysis
+4. Data Hygiene Problem & Solution
 5. Tool-by-Tool Disposition Plan
 6. Proposal A: Full Architecture & Cost Breakdown
 7. Proposal B: Full Architecture & Cost Breakdown
@@ -23,7 +33,7 @@
 14. Risk Register
 15. Open Questions & Investigation Items
 
----
+<div style="page-break-after: always;"></div>
 
 ## 1. Current Tool Inventory (Full Detail)
 
@@ -231,7 +241,7 @@
 
 **Key unknowns:** Marketing inbox identity, Adobe Pro usage level and potential replacement.
 
----
+<div style="page-break-after: always;"></div>
 
 ## 2. AgencyBlock & AgencyIntegrator: The Core Patient Data Systems
 
@@ -298,7 +308,7 @@ We solve the communication problem by adding n8n as a middle layer:
 - Notion receives only non-PHI data (names, status, stages) — never patient health information
 - Staff work primarily in Notion; AgencyBlock/AgencyIntegrator are accessed only when needed for PHI
 
----
+<div style="page-break-after: always;"></div>
 
 ## 3. API Capabilities Report: Full Tool Analysis
 
@@ -418,7 +428,7 @@ This section documents the API capabilities of every tool in the current tech st
 **Tools Requiring Investigation:**
 - BrightFire, Basefront, Marketing inbox, Five9 (complex)
 
----
+<div style="page-break-after: always;"></div>
 
 ## 4. Data Hygiene Problem & Solution
 
@@ -716,7 +726,7 @@ Record:
 
 AI-powered hygiene is 10–50x cheaper than manual review and provides better accuracy than rules-based tools.
 
----
+<div style="page-break-after: always;"></div>
 
 ## 5. Tool-by-Tool Disposition Plan
 
