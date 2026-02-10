@@ -6,9 +6,9 @@
 **Document Type:** Consulting Engagement Proposal
 **Version:** 1.0
 **Date:** February 2026
-**Prepared For:** The Brokerage Inc. Leadership Team
-**Prepared By:** VV Consulting
-**Engagement Partner:** Jay Border (USNA Fractional COO)
+**Prepared For:** Dani (CMO) and The Brokerage Inc. Leadership Team
+**Prepared By:** Veteran Vectors
+**Engagement Partner:** Jay Border (Border Consulting)
 
 ---
 
@@ -359,14 +359,14 @@ The remaining budget can fund initial quick-win automations while you bring an i
 
 ### Engagement Team
 
-| Role | Name | Responsibility |
-|------|------|----------------|
-| **Engagement Lead** | Dani (VV) | Overall engagement management, client communication, final deliverables |
-| **Process Expert** | Jay Border (USNA Fractional COO) | On-site assessments, process optimization, operational insights |
+| Role | Name / Firm | Responsibility |
+|------|-------------|----------------|
+| **Engagement Lead** | Veteran Vectors | Overall engagement management, analysis, final deliverables |
+| **Process Expert** | Jay Border (Border Consulting) | On-site assessments, process optimization, operational insights |
 
-### About Jay Border
+### About Jay Border / Border Consulting
 
-Jay Border brings operational expertise as a USNA fractional COO with experience in:
+Jay Border brings operational expertise with experience in:
 
 - Process optimization and workflow design
 - Organizational restructuring
@@ -375,16 +375,16 @@ Jay Border brings operational expertise as a USNA fractional COO with experience
 
 His involvement ensures the assessment combines both technical and operational perspectives.
 
-### About VV Consulting
+### About Veteran Vectors
 
-VV Consulting specializes in:
+Veteran Vectors specializes in:
 
 - Technology stack consolidation
 - Process automation design
 - AI-powered workflow optimization
 - HIPAA-compliant system architecture
 
-We've helped insurance agencies and brokerages streamline their operations through strategic technology and process improvements.
+We help insurance agencies and brokerages streamline their operations through strategic technology and process improvements.
 
 <div style="page-break-after: always;"></div>
 
@@ -448,7 +448,7 @@ Let's schedule a short alignment call to nail down the scope, timeline, and logi
 
 ---
 
-**VV Consulting**
+**Veteran Vectors**
 *Process Optimization & Automation Specialists*
 
 **Prepared for:** The Brokerage Inc.
