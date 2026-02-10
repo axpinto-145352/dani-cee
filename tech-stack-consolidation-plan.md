@@ -5,7 +5,11 @@
 
 # The Problem
 
-The Brokerage Inc. has accumulated 45+ tools across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion. It's time to consolidate.
+The Brokerage Inc. has accumulated **90+ tools** across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion.
+
+**Additionally:** The two core patient data systems — AgencyBlock and AgencyIntegrator — don't communicate with each other. Staff create manual workarounds to move information between systems. The data in these systems is messy, outdated, and contains records of deceased patients that have never been purged.
+
+It's time to consolidate and integrate.
 
 ---
 
@@ -39,6 +43,23 @@ A process map that becomes the single source of truth for all consolidation deci
 
 All costs below are estimates based on typical published plan pricing. Actual amounts require a contract and billing audit during Phase 0.
 
+**Total tools identified: 90+** (significant expansion from initial 46-tool estimate)
+
+---
+
+## Communication / Collaboration
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| Zoom | Video meetings / phone system | $15–$20/user | Pro ~$15/user/mo; Business ~$20/user/mo | Keep — evaluate seat count |
+| OtterAI | Meeting transcription | $10–$20/user | Pro ~$10/user/mo; Business ~$20/user/mo | Evaluate — may replace with AI |
+| MS365-Teams | Team collaboration | $6–$22/user | Business Basic ~$6/user; Business Premium ~$22/user | Keep |
+| Asana | Project management | $11–$25/user | Premium ~$11/user; Business ~$25/user | Redundant — replace with Notion |
+| Trello | Task management | $5–$10/user | Standard ~$5/user; Premium ~$10/user | Redundant — replace with Notion |
+| Grasshopper | Virtual phone | $30–$80 | Solo ~$30/mo; Small Business ~$80/mo | Evaluate — Five9 may cover |
+
+**Category subtotal: ~$77–$177/mo** (single-seat estimate; scales significantly)
+
 ---
 
 ## CRM / Sales / Outreach
@@ -47,13 +68,17 @@ All costs below are estimates based on typical published plan pricing. Actual am
 |------|----------|-------------------|--------------------------|--------|
 | Active Campaign | Email marketing / CRM | $150–$500 | Tiered by contact count: Starter ~$15/mo (500 contacts), Professional scales to $500+ for large lists | Redundant — replace |
 | EZ Texting | SMS outreach | $50–$200 | Plans start ~$20/mo for 500 credits; scales by message volume | Redundant — replace |
-| slydial | Voicemail drops | $30–$100 | Per-use credits (~$0.05–$0.10/drop) or monthly subscription packs | Niche — evaluate |
+| EZ Texting (ServiceLink) | SMS messaging (separate account?) | $50–$200 | Same pricing — confirm if duplicate subscription | Investigate — likely duplicate |
+| slydial | Voicemail drops | $30–$100 | Per-use credits (~$0.05–$0.10/drop) or monthly subscription packs | Redundant — multiple VM tools |
+| slydocast | Voicemail drops | $30–$100 | Similar to slydial — confirm if same vendor/different product | Redundant — consolidate |
+| My Broadcast | Voicemail drops | $30–$100 | Another voicemail drop service | Redundant — pick one |
 | GMass | Bulk email via Gmail | $20–$50 | Standard plan ~$20/mo per Gmail account; Premium ~$30; Enterprise ~$50 | Redundant — replace |
 | Five9 | Contact center / dialer | $150–$300/seat | Core plan ~$149/seat/mo; per-minute telecom usage added on top | Core — evaluate replacement |
-| Crisp | Live chat / messaging | $25–$95 | Free basic; Pro ~$25/mo; Unlimited ~$95/mo per workspace | Redundant — replace |
-| Quo | Sales engagement | $50–$150 | Per-seat SaaS pricing; varies by plan tier | Redundant — replace |
+| Crisp | Live chat / messaging | $25–$95 | Free basic; Pro ~$25/mo; Unlimited ~$95/mo per workspace | Redundant — appears 3x |
+| Crisp - Chatbot | Website chat | $25–$95 | Same tool, different listing | Duplicate listing |
+| Quo | Sales engagement / quoting | $50–$150 | Per-seat SaaS pricing; varies by plan tier | Redundant — replace |
 
-**Category subtotal: ~$475–$1,395/mo**
+**Category subtotal: ~$610–$1,890/mo**
 
 ---
 
@@ -61,17 +86,19 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Canva | Design | $13–$30 | Pro ~$13/mo (1 user); Teams ~$30/mo per 5 users | Keep |
-| Riverside | Podcast/video recording | $15–$24 | Standard ~$15/mo; Business ~$24/mo; per-seat | Keep if podcast continues |
+| Canva | Graphic design | $13–$30 | Pro ~$13/mo (1 user); Teams ~$30/mo per 5 users | Keep |
+| Riverside | Remote recording / podcast | $15–$24 | Standard ~$15/mo; Business ~$24/mo; per-seat | Keep if podcast continues |
 | Testimonial.to | Video testimonials | $20–$50 | Starter ~$20/mo; Premium ~$50/mo; based on # of testimonials | Evaluate ROI |
 | UberSuggest | SEO research | $30–$50 | Individual ~$29/mo; Business ~$49/mo; lifetime deals available | Redundant — evaluate |
 | Unbounce | Landing pages | $90–$225 | Launch ~$90/mo; Optimize ~$225/mo; based on conversions/pages | Redundant — replace |
-| SEO articles | Content/SEO service | $200–$500+ | Vendor pricing — per article or monthly retainer | Clarify vendor vs. internal |
+| BrightFire | Insurance marketing / SEO | $100–$500 | Insurance-specific marketing packages | Evaluate ROI |
 | Liberated Syndication | Podcast hosting | $5–$20 | Classic plans $5–$20/mo based on storage per month | Keep if podcast continues |
-| YouTube Premium | Video | $14 | Fixed subscription price | Likely personal — remove |
-| BrightFire | Insurance marketing | $100–$500 | Insurance-specific marketing packages; appears duplicated in inventory — confirm one sub | Confirm single subscription |
+| YouTube Premium | Video streaming | $14 | Fixed subscription price | Likely personal — remove |
+| Link Tree | Link landing | $5–$24 | Free tier; Pro ~$5/mo; Premium ~$24/mo | Keep — low cost |
+| Forgravita LLC | Marketing services | TBD | Vendor/agency — confirm scope and cost | Investigate |
+| OptinMonster (crtrdp llc) | Lead capture | $14–$80 | Basic ~$14/mo; Pro ~$80/mo | Evaluate — GHL/Notion may cover |
 
-**Category subtotal: ~$487–$1,413/mo**
+**Category subtotal: ~$306–$1,017/mo**
 
 ---
 
@@ -79,18 +106,19 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| WordPress (main) | Primary website | $0 | Open-source CMS — free | Keep |
-| WP Engine | WordPress hosting | $20–$60 | Startup ~$20/mo (1 site, 25K visits); Growth ~$60/mo (10 sites) | Keep |
-| Staging environment TBI | Dev/staging | $0 | Included with WP Engine hosting plans | Keep |
-| Squarespace | Secondary site | $16–$49 | Personal ~$16/mo; Business ~$33/mo; Commerce ~$49/mo | Redundant — eliminate |
-| Elementor | Page builder | $5–$17 | Essential ~$5/mo (1 site); Advanced ~$17/mo (25 sites); billed annually | Keep w/ WordPress |
-| Gravity Forms | WordPress forms | $5–$20 | Basic ~$5/mo; Elite ~$20/mo; billed annually per-site license | Redundant — pick one |
-| Fluent Forms | WordPress forms | $5–$10 | Single site ~$5/mo; agency ~$10/mo; billed annually | Redundant — pick one |
-| Forgravity | Gravity Forms add-ons | $10–$20 | Annual license divided monthly; depends on add-on bundle | Eliminate if Gravity goes |
+| WordPress (main) | Primary website CMS | $0 | Open-source CMS — free | Keep |
+| wordpress - main | Website CMS (duplicate listing) | $0 | Same as above | Duplicate listing |
+| WP Engine / wpengine login | WordPress hosting | $20–$60 | Startup ~$20/mo (1 site, 25K visits); Growth ~$60/mo (10 sites) | Keep |
+| Elementor | Website builder / page builder | $5–$17 | Essential ~$5/mo (1 site); Advanced ~$17/mo (25 sites); billed annually | Keep w/ WordPress |
+| Gravity Forms | Form builder | $5–$20 | Basic ~$5/mo; Elite ~$20/mo; billed annually per-site license | Redundant — pick one |
+| Fluent Forms (wpmanageinja) | Form builder | $5–$10 | Single site ~$5/mo; agency ~$10/mo; billed annually | Redundant — pick one |
+| Forgravity (now ConnectGiant) | Gravity Forms add-ons / cloud storage | $10–$20 | Annual license divided monthly; depends on add-on bundle | Eliminate if Gravity goes |
 | Imagify | Image optimization | $5–$10 | Starter free (20MB); Growth ~$5/mo (500MB); Infinite ~$10/mo | Keep — low cost |
-| Gravatar | Profile avatars | $0 | Free service | Keep |
+| Gravatar | Avatar profiles | $0 | Free service | Keep |
+| Metabox | WordPress fields | $5–$15 | Personal ~$5/mo; Developer ~$15/mo | Keep if used |
+| perfmatters | Site performance | $3–$5 | ~$25/yr for single site | Keep — low cost |
 
-**Category subtotal: ~$66–$186/mo**
+**Category subtotal: ~$58–$157/mo**
 
 ---
 
@@ -99,29 +127,82 @@ All costs below are estimates based on typical published plan pricing. Actual am
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
 | Airtable (Admin) | Database / ops | $20–$45/seat | Team ~$20/seat/mo; Business ~$45/seat/mo; scales by seats and records | Redundant — replace |
-| Airtable | General use | $20–$45/seat | Same pricing as above — separate workspace or base | Redundant — replace |
-| Airtable OTP | Unknown use case | $20–$45/seat | Same pricing — unknown what this base serves | Investigate |
-| Zapier | Automation | $20–$100+ | Starter ~$20/mo (750 tasks); Professional ~$50/mo (2K tasks); Team ~$100/mo | Evaluate per proposal |
-| SendGrid (Twilio) | Transactional email | $15–$90 | Free tier (100/day); Essentials ~$15/mo (50K emails); Pro ~$90/mo (100K emails) | May keep for volume |
-| Amazon Web Services | Cloud infra | $50–$500+ | Usage-based: EC2 instances, S3 storage, data transfer — highly variable | Evaluate what runs here |
-| Couchdrop | File transfer / SFTP | $15–$50 | Starter ~$15/mo; Business ~$50/mo; based on storage and users | Evaluate necessity |
-| HIPAA Vault | HIPAA hosting/storage | $50–$300 | Managed HIPAA hosting; pricing by server size and compliance tier | **Keep — non-negotiable** |
-| Streamlit | Data apps / dashboards | $0–$250 | Community Cloud free; Teams ~$250/mo for private apps | Evaluate what it powers |
-| Basefront | Unknown | TBD | Cannot confirm pricing — tool needs investigation | Investigate |
+| Airtable | Database tool | $20–$45/seat | Same pricing as above — separate workspace or base | Redundant — replace |
+| Airtable OTP | Secure access / unknown | $20–$45/seat | Same pricing — unknown what this base serves | Investigate |
+| AirTable (Justin) | Database tool | $20–$45/seat | Personal workspace — confirm if needed | Investigate — likely consolidate |
+| Zapier | App automation | $20–$100+ | Starter ~$20/mo (750 tasks); Professional ~$50/mo (2K tasks); Team ~$100/mo | Replace with n8n |
+| SendGrid (Twilio) | Email delivery | $15–$90 | Free tier (100/day); Essentials ~$15/mo (50K emails); Pro ~$90/mo (100K emails) | Keep for transactional email |
+| Send Grid (ServiceLink) | Email delivery (separate account?) | $15–$90 | Same pricing — confirm if duplicate subscription | Investigate — likely duplicate |
+| Sendgrid | Email delivery (third listing) | $15–$90 | Same tool — multiple listings | Duplicate listing |
+| Amazon Web Services | Cloud hosting | $50–$500+ | Usage-based: EC2 instances, S3 storage, data transfer — highly variable | Keep — hosts n8n + AI |
+| Couchdrop | SFTP automation | $15–$50 | Starter ~$15/mo; Business ~$50/mo; based on storage and users | Evaluate necessity |
+| HIPAA Vault | Secure email / HIPAA hosting | $50–$300 | Managed HIPAA hosting; pricing by server size and compliance tier | **Keep — non-negotiable** |
+| Streamlit | Data apps | $0–$250 | Community Cloud free; Teams ~$250/mo for private apps | Evaluate what it powers |
+| Basefront | Lead management | TBD | Cannot confirm pricing — tool needs investigation | Investigate |
+| Hubsolo | Excel tools | TBD | Cannot confirm pricing — tool needs investigation | Investigate |
+| FileZilla | FTP client | $0 | Free open-source software | Keep — free |
 
-**Category subtotal: ~$210–$1,425/mo** (varies heavily by seats/usage)
+**Category subtotal: ~$260–$1,750/mo** (varies heavily by seats/usage)
 
 ---
 
-## Industry-Specific / Enrollment
+## Industry-Specific / Enrollment / HIPAA Systems
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Medicare Pro | Enrollment platform | $100–$300 | Industry-specific licensing; per-agent or flat monthly | **Keep — core business** |
-| Medicare Pro Test | Testing environment | $0 | Included with Medicare Pro subscription | Keep |
-| E123 | Enrollment / quoting | $50–$200 | Per-agent licensing for enrollment/quoting platform | **Keep — core business** |
+| **AgencyBloc** | Insurance CRM / patient records | Existing contract | HIPAA-compliant AMS; existing BAA in place | **KEEP — Core PHI system** |
+| **Agency Integrator (AI)** | Data integration / workflow automation | Existing contract | HIPAA-compliant workflow platform; existing BAA in place | **KEEP — Core PHI system** |
+| Agency Integrator | Data integration (duplicate listing) | Existing contract | Same tool | Duplicate listing |
+| AgencyVision | Agent analytics | $50–$150 | Insurance-specific analytics platform | Evaluate — may overlap with reporting |
+| HealthSherpa | ACA/Medicare enrollment | $0–$100 | Free for basic; premium features may have cost | **Keep — ACA enrollment** |
+| Sunfire | Medicare enrollment | $50–$150 | Medicare-specific enrollment platform | **Keep — Medicare enrollment** |
+| E123 | Medicare enrollment / commissions payouts | $50–$200 | Per-agent licensing for enrollment/quoting platform | **Keep — core business** |
+| Mojo/PaperClip | Enrollment automation | $50–$150 | Enrollment workflow automation | Evaluate — may overlap with AI |
+| Sircon | Licensing compliance | $25–$75 | Producer licensing management | **Keep — compliance required** |
+| NIPR | Producer registry | $0–$50 | National Insurance Producer Registry; per-transaction fees | **Keep — compliance required** |
+| Sunroofflex | Contracting platform | $50–$200 | Agent contracting and onboarding | Evaluate necessity |
+| BrokerLink 2.0 | Agent portal | TBD | Cannot confirm pricing | Investigate |
+| State Based Systems | Agent data (pulling new agent data) | $0–$50 | State-specific systems; may be free or per-transaction | **Keep — compliance required** |
+| State Dept of Insurance | Agent lookup / agent data | $0 | Government systems — typically free | **Keep — compliance required** |
+| DOI websites | Regulatory access | $0 | Government systems — free | **Keep — compliance required** |
+| HPMS | Medicare reporting | $0 | CMS Health Plan Management System — no direct cost | **Keep — CMS compliance** |
+| Workflex | Insurance admin | TBD | Cannot confirm pricing | Investigate |
 
-**Category subtotal: ~$150–$500/mo**
+**Category subtotal: ~$275–$1,125/mo** (excludes AgencyBloc/AgencyIntegrator — already in budget)
+
+**Note:** AgencyBloc and Agency Integrator are the existing HIPAA-compliant patient data systems. They are NOT being replaced — they are being integrated via n8n and cleaned up via data hygiene services.
+
+---
+
+## Security / Authentication / Compliance
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| DUO | Multi-factor authentication | $3–$9/user | MFA ~$3/user; Access ~$6/user; Beyond ~$9/user | **Keep — security required** |
+| Sophos | Cybersecurity / endpoint protection | $25–$50/endpoint | Intercept X ~$25–$50/endpoint/yr | **Keep — security required** |
+| KnowBe4 | Security training | $18–$30/user/yr | Security awareness training; per-user annual | **Keep — compliance training** |
+| Avenon | Email security | TBD | Cannot confirm pricing | Investigate |
+| Alarm.com | Security monitoring | $10–$30 | Physical security monitoring | Evaluate — is this office security? |
+| Checker | Background checks | Per-use | $20–$50 per background check | Keep — hiring requirement |
+| ControlMap Communications | Compliance platform | TBD | Cannot confirm pricing | Investigate |
+| Verify Comply | Compliance tracking | TBD | Cannot confirm pricing | Investigate |
+
+**Category subtotal: ~$56–$119/mo** (single-user estimate; background checks variable)
+
+---
+
+## Finance / Accounting / HR
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| Ramp | Expense management | $0–$12/user | Free tier available; Plus ~$12/user/mo | Evaluate — may overlap with accounting |
+| ADP | Payroll / HR | $50–$200+ | Base platform + per-employee fees | **Keep — payroll required** |
+| BILL | Bill payments | $45–$79 | Essentials ~$45/mo; Team ~$79/mo | Evaluate — may consolidate |
+| Sage | Accounting software | $25–$75 | Start ~$25/mo; Accounting ~$75/mo | Redundant — pick one |
+| Quickbooks | Accounting software | $30–$100 | Simple Start ~$30/mo; Plus ~$100/mo | Redundant — pick one |
+| Tax Bandits | Tax filing | ~$4/mo (~$50/yr) | Per-form pricing (e.g. $3–$5 per 1099); seasonal use | Keep |
+
+**Category subtotal: ~$154–$470/mo**
 
 ---
 
@@ -129,42 +210,73 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Cloud Academy | Training platform | $40–$55/seat | Individual ~$40/seat/mo; Team ~$55/seat/mo; enterprise negotiated | Redundant — pick one |
-| LearnDash | LMS (WordPress) | $13–$30 | 1 site ~$13/mo; 10 sites ~$30/mo; billed annually | Redundant — pick one |
+| Cloud Academy | Tech training | $40–$55/seat | Individual ~$40/seat/mo; Team ~$55/seat/mo; enterprise negotiated | Redundant — pick one |
+| LearnDash | LMS platform | $13–$30 | 1 site ~$13/mo; 10 sites ~$30/mo; billed annually | Redundant — pick one |
+| iSpring | Training software | $4–$7/user | Suite ~$4/user; Max ~$7/user (billed annually) | Redundant — pick one |
+| MLN | Learning network (Medicare Learning Network) | $0 | CMS resource — free | Keep — compliance training |
+| Scribe | Process documentation | $0–$29/user | Free basic; Pro ~$29/user | Evaluate — AI may replace |
 
-**Category subtotal: ~$53–$85/mo** (single-seat estimate)
+**Category subtotal: ~$57–$121/mo** (single-seat estimate)
 
 ---
 
-## Compliance / Finance / Other
+## AI Tools
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Tax Bandits | Tax filing | ~$4/mo (~$50/yr) | Per-form pricing (e.g. $3–$5 per 1099); seasonal use | Keep |
-| Adobe Pro | PDF / e-sign | $23–$35 | Acrobat Pro ~$23/mo; with e-sign features ~$35/mo per license | Evaluate if CRM covers e-sign |
-| Fathom Analytics | Privacy analytics | $14–$24 | $14/mo (100K page views); $24/mo (200K); scales by traffic | Keep |
-| AddEvent | Event scheduling | $0–$16 | Free tier available; Pro ~$16/mo for custom branding and more events | Keep if used |
-| Marketing inbox | Unknown | TBD | Cannot confirm — needs investigation | Investigate |
+| ChatGPT | AI assistant | $20–$25/user | Plus ~$20/user; Team ~$25/user | Evaluate — consolidate to Bedrock |
+| Co-pilot | AI assistant (Microsoft) | $30/user | Microsoft 365 Copilot ~$30/user/mo | Evaluate — consolidate to Bedrock |
 
-**Category subtotal: ~$41–$79/mo**
+**Category subtotal: ~$50–$55/mo** (single-user)
+
+**Note:** These standalone AI subscriptions should be consolidated into AWS Bedrock for HIPAA compliance and cost efficiency. Individual ChatGPT/Copilot accounts may expose PHI to non-compliant systems.
 
 ---
 
-# Total Estimated Current Spend
+## Office / Hardware / Other
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| Microsoft Office | Office productivity | Included | Often bundled with MS365 | Keep |
+| MS Office | Office productivity (duplicate listing) | Included | Same as above | Duplicate listing |
+| Adobe Pro | PDF editing | $23–$35 | Acrobat Pro ~$23/mo; with e-sign features ~$35/mo per license | Evaluate if CRM covers e-sign |
+| Zoho | Business suite / password | $3–$45/user | Varies by product; Zoho One ~$45/user/mo | Investigate scope |
+| AddEvent | Calendar links | $0–$16 | Free tier available; Pro ~$16/mo for custom branding | Keep if used |
+| CMS | Content management | TBD | Generic listing — clarify what this is | Investigate |
+| Registration Software | Event registration | TBD | Cannot confirm — clarify vendor | Investigate |
+| Brother Printers | Office printing | N/A | Hardware — not SaaS | N/A |
+
+**Category subtotal: ~$26–$96/mo** (excluding unknown tools)
+
+---
+
+# Total Estimated Current Spend (UPDATED)
 
 | Category | Low Estimate/mo | High Estimate/mo |
 |----------|----------------|-----------------|
-| CRM / Sales / Outreach | $475 | $1,395 |
-| Marketing / Content / SEO | $487 | $1,413 |
-| Website / Web Infrastructure | $66 | $186 |
-| Data / Automation / Backend | $210 | $1,425 |
-| Industry / Enrollment | $150 | $500 |
-| Learning / Training | $53 | $85 |
-| Compliance / Finance / Other | $41 | $79 |
-| **TOTAL MONTHLY** | **~$1,482/mo** | **~$5,083/mo** |
-| **TOTAL ANNUAL** | **~$17,784/yr** | **~$60,996/yr** |
+| Communication / Collaboration | $77 | $177 |
+| CRM / Sales / Outreach | $610 | $1,890 |
+| Marketing / Content / SEO | $306 | $1,017 |
+| Website / Web Infrastructure | $58 | $157 |
+| Data / Automation / Backend | $260 | $1,750 |
+| Industry / Enrollment | $275 | $1,125 |
+| Security / Authentication / Compliance | $56 | $119 |
+| Finance / Accounting / HR | $154 | $470 |
+| Learning / Training | $57 | $121 |
+| AI Tools | $50 | $55 |
+| Office / Hardware / Other | $26 | $96 |
+| **TOTAL MONTHLY** | **~$1,929/mo** | **~$6,977/mo** |
+| **TOTAL ANNUAL** | **~$23,148/yr** | **~$83,724/yr** |
 
-*Per-seat tools (Five9, Airtable, Cloud Academy) can multiply significantly with headcount. These estimates assume minimal seats — actual spend may be at or above the high end.*
+*Per-seat tools (MS365, Five9, Airtable, Zoom, ADP, etc.) can multiply significantly with headcount. These estimates assume minimal seats — actual spend may be at or above the high end.*
+
+**Key findings from expanded inventory:**
+- **Multiple duplicate subscriptions** identified (SendGrid x3, Crisp x3, Airtable x4, EZ Texting x2, voicemail drops x3)
+- **Three competing accounting systems** (Sage, Quickbooks, plus Ramp/BILL for payments)
+- **Three competing LMS/training platforms** (Cloud Academy, LearnDash, iSpring)
+- **AI tools fragmented** across ChatGPT and Copilot — consolidation to Bedrock needed for HIPAA compliance
+- **Form builders duplicated** (Gravity Forms + Fluent Forms)
+- **Project management duplicated** (Asana + Trello) — both replaceable by Notion
 
 ---
 
@@ -174,15 +286,22 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 ## Proposal A — Philosophy
 
-Build a split-architecture system: Notion handles all non-PHI CRM operations (pipeline, tasks, contacts, SOPs). Self-hosted n8n on AWS handles all HIPAA/PHI workflows in an encrypted, BAA-covered environment. AI agents layer on top of both via n8n orchestration.
+**Integration-first approach:** Keep the existing HIPAA-compliant systems (AgencyBlock & AgencyIntegrator) and connect them with a modern front-end. Notion handles all non-PHI CRM operations (pipeline, tasks, contacts, SOPs). n8n bridges the systems that have never talked to each other. AI agents layer on top via n8n orchestration. Data hygiene cleans up years of accumulated mess.
 
-**Two layers. Clear boundary. No PHI in Notion. Full compliance on AWS.**
+**We don't replace what works — we connect it and clean it up.**
 
 ---
 
-## Proposal A — Architecture (Split: Non-PHI / PHI)
+## Proposal A — Architecture (Integration-First)
 
-### Layer 1: Notion (Non-PHI CRM & Operations Hub)
+### Layer 1: AgencyBlock + AgencyIntegrator (Existing PHI Systems — KEPT)
+- **AgencyBlock:** Patient records, Medicare IDs, policy numbers, enrollment data, health plan selections — already HIPAA-compliant with existing BAA
+- **AgencyIntegrator:** Workflow automation, carrier integrations, process management — already HIPAA-compliant with existing BAA
+- Both systems remain the source of truth for all PHI
+- **No migration of patient data** — we connect to these systems via their APIs
+- **Problem solved:** n8n makes these systems communicate with each other for the first time
+
+### Layer 2: Notion (Non-PHI CRM & Operations Hub)
 - Contact records: name, email, phone, agent assignment, lead source, deal stage
 - Pipeline tracking with Kanban boards and timeline views
 - Task management, follow-up scheduling, activity logs
@@ -192,26 +311,69 @@ Build a split-architecture system: Notion handles all non-PHI CRM operations (pi
 
 **What NEVER goes in Notion:** SSNs, DOBs linked to health data, Medicare/Medicaid IDs, policy numbers, health plan selections, enrollment details, medical conditions, coverage information, signed health documents
 
-### Layer 2: n8n + AWS (PHI/HIPAA-Compliant Environment)
-- Self-hosted n8n on AWS (standard regions — not GovCloud; BAA signed with AWS)
-- Encrypted PostgreSQL (RDS) for structured PHI: enrollment data, policy details, Medicare IDs, health plan selections
-- Encrypted S3 for PHI documents: signed enrollment forms, compliance paperwork, health-related correspondence
-- All PHI processing happens exclusively in this layer
-- n8n workflows bridge Notion and the PHI layer — reading non-PHI context from Notion, processing PHI on AWS, writing back only non-PHI status updates (e.g., "enrollment complete" without enrollment details)
+### Layer 3: n8n (Integration & Automation Hub)
+- Self-hosted on AWS EC2 (automation engine)
+- **Key function:** Bridges AgencyBlock and AgencyIntegrator — they finally communicate
+- Syncs status information from PHI systems to Notion (sanitized — no PHI transferred)
+- Orchestrates all workflows: lead routing, enrollment status updates, notifications
+- Runs data hygiene workflows (duplicate detection, deceased record flagging)
+- Replaces Zapier with unlimited automations at no per-use cost
 
-### Layer 3: AI via AWS Bedrock (HIPAA-Compliant LLM Access)
+### Layer 4: AI via AWS Bedrock (HIPAA-Compliant LLM Access)
 - **All LLM usage routes through AWS Bedrock** — a HIPAA-eligible service covered by the AWS BAA
-- PHI never leaves the AWS environment; Bedrock processes LLM requests within the same compliant perimeter as your data
 - No separate BAA needed with Anthropic or OpenAI — the AWS BAA covers Bedrock usage
 - Available models on Bedrock: Claude (Haiku, Sonnet, Opus), Llama, Mistral, Amazon Titan, and others
-- n8n calls Bedrock APIs directly from within the VPC — same network as PHI database and document storage
+- n8n calls Bedrock APIs for all AI operations
 
-### Layer 4: AI Agents (Orchestrated by n8n via Bedrock)
+### Layer 5: AI Agents (Orchestrated by n8n via Bedrock)
 - AI SDR: Lead qualification, email/SMS outreach, follow-up, meeting booking
 - AI BDR: Outbound prospecting, list building, personalized outreach
 - AI Admin: Data entry, scheduling, compliance document tracking, reporting
-- All agent workflows call AWS Bedrock for LLM inference — PHI-touching and non-PHI tasks alike
-- Single LLM access path eliminates the risk of accidentally routing PHI to a non-compliant API endpoint
+- All agent workflows call AWS Bedrock for LLM inference
+
+### Layer 6: Data Hygiene System (AI-Powered)
+
+**Why AI for Data Hygiene?**
+
+Traditional rules-based cleanup tools fail when:
+- Names have common variations (Jon/John, Bill/William)
+- Addresses use different formats (St/Street, Apt/Unit)
+- Deceased status isn't in a death registry (recent deaths, out-of-state deaths)
+
+**AI (Claude Haiku via AWS Bedrock) provides:**
+- Fuzzy matching that catches what rules miss
+- Pattern recognition for deceased detection beyond death registries
+- Context understanding for PHI in free-text fields
+- Confidence scoring for automated vs. human-review routing
+
+**Initial Cleanup (Phase 1):**
+- **Duplicate detection:** AI compares all records using fuzzy matching on name, address, DOB, phone, Medicare ID
+- **Deceased identification:** Cross-references death registries + AI pattern analysis (age, inactivity, communication failures)
+- **Data standardization:** Normalizes phone (E.164), address (USPS), name (proper case)
+- **Quality scoring:** Rates each record's completeness and flags critical gaps
+
+**Ongoing Hygiene (Phase 2):**
+- **New record validation:** Real-time duplicate check before save (n8n workflow + Haiku)
+- **Weekly duplicate scan:** AI reviews new records for duplicates created since last scan
+- **Monthly death registry check:** Automated batch query against DMF with AI pattern analysis
+- **Data quality dashboard:** Notion dashboard showing health metrics in real-time
+
+**Confidence-Based Automation:**
+
+| Confidence | Action | Example |
+|------------|--------|---------|
+| **90%+** (High) | Auto-applied with audit trail | "Jon Smith" and "John Smith" at same address, same DOB |
+| **70–90%** (Medium) | Queued for human review | "J. Smith" at same address — needs confirmation |
+| **<70%** (Low) | Flagged only, no action | Similar names at different addresses |
+
+**AI Cost Estimates (Claude Haiku via Bedrock):**
+
+| Task | Volume | Cost |
+|------|--------|------|
+| Initial cleanup | 10,000 records | $41–$72 |
+| Ongoing monthly | All new records + scans | $22–$40/mo |
+
+*Compare to manual review: $2,500–$5,000 for initial cleanup at $25/hr*
 
 ---
 
@@ -309,15 +471,16 @@ The #1 risk in this architecture is PHI accidentally entering Notion. This secti
 
 ## Proposal A — What Gets Built
 
-1. **Notion CRM (Non-PHI Layer)** — Contacts, pipeline, tasks, department hubs, SOPs — no PHI
-2. **AWS PHI Environment** — Encrypted RDS + S3 with BAA, private VPC, audit logging — all PHI lives here
-3. **AWS Bedrock (HIPAA-Compliant AI)** — All LLM inference runs through Bedrock within AWS; covered by same BAA; no separate AI vendor agreements needed
-4. **n8n Automation Layer** — Self-hosted on AWS; bridges Notion and PHI layer; calls Bedrock for AI; includes sanitization and PHI scanning workflows
+1. **AgencyBlock + AgencyIntegrator Integration** — n8n connects both systems via their APIs so they finally communicate
+2. **Notion CRM (Non-PHI Layer)** — Contacts, pipeline, tasks, department hubs, SOPs — no PHI
+3. **n8n Automation Hub** — Self-hosted on AWS; bridges AgencyBlock, AgencyIntegrator, and Notion; orchestrates all workflows
+4. **AWS Bedrock (HIPAA-Compliant AI)** — All LLM inference runs through Bedrock within AWS; covered by AWS BAA
 5. **AI SDR Agent** — n8n workflows calling Bedrock (Claude Haiku/Sonnet) for lead qualification and outreach
 6. **AI BDR Agent** — Prospecting automation, list enrichment, personalized messaging via Bedrock
 7. **AI Admin Agent** — Data entry automation, scheduling, compliance checks, reporting via Bedrock
-8. **Integration Layer** — n8n connects Notion, AWS PHI layer, Bedrock, Medicare Pro, E123, SendGrid, and retained tools
-9. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner (Bedrock-powered), incident response procedures
+8. **Integration Layer** — n8n connects all systems: AgencyBlock, AgencyIntegrator, Notion, Medicare Pro, E123, SendGrid, Twilio
+9. **Data Hygiene System** — Initial cleanup (deceased records, duplicates, standardization) + ongoing automated hygiene
+10. **PHI Prevention System** — Sanitization workflows, scheduled PHI scanner (Bedrock-powered), incident response procedures
 
 ---
 
@@ -446,7 +609,7 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 
 ---
 
-## Proposal A — Total Cost Summary
+## Proposal A — Total Cost Summary (UPDATED)
 
 ### One-Time Costs
 
@@ -456,12 +619,14 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 | AI SDR agent build | $8,000 | $20,000 |
 | AI BDR agent build | $5,000 | $15,000 |
 | AI Admin agent build | $5,000 | $15,000 |
-| Integration layer (n8n workflows) | $5,000 | $15,000 |
+| Integration layer (n8n → AgencyBlock, AgencyIntegrator, Notion, etc.) | $6,000 | $18,000 |
 | PHI prevention system (scanner, training, guide) | $2,500 | $6,000 |
+| **Data hygiene: initial cleanup (AI-powered)** | $4,000 | $10,000 |
 | Data migration (from Airtable, Active Campaign, etc.) | $2,000 | $5,000 |
-| AWS PHI environment setup (VPC, encryption, IAM, logging) | $1,500 | $4,000 |
 | Training & change management | $1,000 | $3,000 |
-| **TOTAL ONE-TIME** | **$33,000** | **$91,000** |
+| **TOTAL ONE-TIME** | **$36,500** | **$100,000** |
+
+*Note: AWS PHI environment setup removed — AgencyBlock and AgencyIntegrator already provide HIPAA-compliant storage. Integration layer cost increased to account for connecting to these existing systems.*
 
 ### Monthly Ongoing Costs
 
@@ -469,58 +634,64 @@ All AI inference runs through AWS Bedrock. This is a HIPAA-eligible service cove
 |------|----------------|-----------------|
 | Notion Business | $200 | $600 |
 | n8n self-hosted (AWS server) | $30 | $80 |
-| AWS PHI environment (RDS, S3, VPC, logging) | $131 | $360 |
-| AWS Bedrock AI costs (agents + PHI scanner) | $55 | $350 |
+| AWS Bedrock AI costs (agents + data hygiene) | $55 | $350 |
+| **Data hygiene automation (AI-powered)** | $50 | $100 |
 | n8n maintenance/DevOps | $0 | $500 |
 | Retained tools (see above) | $354 | $1,624 |
-| **TOTAL MONTHLY ONGOING** | **$770** | **$3,514** |
-| **TOTAL ANNUAL ONGOING** | **$9,240** | **$42,168** |
+| **TOTAL MONTHLY ONGOING** | **$689** | **$3,254** |
+| **TOTAL ANNUAL ONGOING** | **$8,268** | **$39,048** |
+
+*Note: AWS PHI environment costs (RDS, S3, VPC) removed — patient data stays in AgencyBlock/AgencyIntegrator. AgencyBlock and AgencyIntegrator costs continue as-is (already in budget).*
 
 ---
 
-## Proposal A — Timeline
+## Proposal A — Timeline (UPDATED)
 
 | Phase | Description | Duration | Milestone |
 |-------|-------------|----------|-----------|
-| Phase 0 | Process discovery & requirements; data classification (PHI vs. non-PHI) | Weeks 1–3 | Process map + data classification guide complete |
-| Phase 1 | AWS PHI environment setup (VPC, RDS, S3, encryption, IAM, CloudTrail, BAA) | Weeks 4–6 | HIPAA-compliant infrastructure live |
-| Phase 2 | Notion CRM build (databases, relations, views, templates, locked schemas) | Weeks 4–7 | CRM operational (non-PHI) |
-| Phase 3 | n8n setup + core automations (lead routing, notifications, Notion-AWS bridge, sanitization workflows) | Weeks 5–9 | n8n live; PHI boundary enforced |
-| Phase 4 | PHI scanner workflow + incident response procedures | Weeks 7–9 | Automated PHI detection active |
-| Phase 5 | AI SDR agent (email + SMS outreach sequences via n8n) | Weeks 8–12 | SDR agent in testing |
-| Phase 6 | AI BDR agent (prospecting + list building) | Weeks 10–14 | BDR agent in testing |
-| Phase 7 | AI Admin agent (scheduling, data entry, compliance) | Weeks 12–16 | Admin agent in testing |
-| Phase 8 | Integration layer (Medicare Pro, E123, retained tools) | Weeks 13–17 | All integrations live |
-| Phase 9 | Migration & legacy tool decommission (dept by dept) | Weeks 15–21 | Redundant tools canceled |
-| Phase 10 | Training (including PHI boundary training), change management, stabilization | Weeks 17–24 | Full rollout; all staff trained |
+| Phase 0 | Process discovery; data classification; **AgencyBlock/AgencyIntegrator API audit**; **data hygiene assessment** | Weeks 1–3 | Process map + API integration plan + data quality report |
+| Phase 1 | Notion CRM build (databases, relations, views, templates, locked schemas) | Weeks 4–6 | CRM operational (non-PHI) |
+| Phase 2 | n8n setup + **AgencyBlock/AgencyIntegrator integration** (the core bridge) | Weeks 4–8 | Systems communicate for the first time |
+| Phase 3 | **Data hygiene Phase 1** — initial cleanup (deceased records, duplicates, standardization) | Weeks 5–8 | Critical data cleaned |
+| Phase 4 | Core automations (lead routing, notifications, status sync, sanitization workflows) | Weeks 7–10 | n8n live; PHI boundary enforced |
+| Phase 5 | PHI scanner workflow + incident response procedures | Weeks 8–10 | Automated PHI detection active |
+| Phase 6 | AI SDR agent (email + SMS outreach sequences via n8n) | Weeks 9–13 | SDR agent in testing |
+| Phase 7 | AI BDR agent (prospecting + list building) | Weeks 11–15 | BDR agent in testing |
+| Phase 8 | AI Admin agent (scheduling, data entry, compliance) | Weeks 13–17 | Admin agent in testing |
+| Phase 9 | **Data hygiene Phase 2** — full cleanup completed, ongoing automation enabled | Weeks 10–14 | Clean data + automated hygiene |
+| Phase 10 | Integration layer (Medicare Pro, E123, retained tools) | Weeks 14–18 | All integrations live |
+| Phase 11 | Migration & legacy tool decommission (dept by dept) | Weeks 16–22 | Redundant tools canceled |
+| Phase 12 | Training, change management, stabilization, **data quality dashboard live** | Weeks 18–24 | Full rollout; all staff trained |
 
 **Total: ~6 months to full deployment**
 
-*Note: Phases 1 and 2 run in parallel (AWS setup + Notion CRM build). The extra time vs. the previous estimate accounts for the PHI prevention system build and mandatory compliance training.*
+*Note: Phases 1–3 run in parallel. Key difference from previous plan: we're integrating existing systems instead of building new PHI infrastructure. Data hygiene is a major component.*
 
 ---
 
-## Proposal A — Pros & Cons
+## Proposal A — Pros & Cons (UPDATED)
 
 **Pros**
+- **Keeps existing HIPAA-compliant systems** — AgencyBlock and AgencyIntegrator stay in place; no risky migration
+- **Finally makes AgencyBlock and AgencyIntegrator communicate** — eliminates manual workarounds
+- **Includes data hygiene** — cleans up years of deceased records, duplicates, and messy data
 - Notion is familiar, flexible, and fast to configure — no custom software development for the CRM
 - n8n self-hosted gives unlimited automations at near-zero marginal cost
 - AI agents tuned to insurance sales workflows — competitive differentiator
 - No per-seat SaaS fees for automation (n8n) — only Notion scales per seat
 - You own all data — no vendor lock-in on the automation layer
-- HIPAA compliance handled via AWS BAA (free) + self-managed encryption — no $297/mo add-on fee
-- All AI runs through AWS Bedrock (HIPAA-eligible) — no separate BAA with Anthropic/OpenAI needed; PHI never leaves AWS
+- All AI runs through AWS Bedrock (HIPAA-eligible) — covered by AWS BAA
 - PHI prevention system provides automated, continuous compliance monitoring
-- Clear separation of concerns: business users work in Notion, PHI stays locked in AWS
+- Clear separation of concerns: business users work in Notion, PHI stays in AgencyBlock/AgencyIntegrator
 
 **Cons**
-- Split architecture adds complexity — two systems to maintain instead of one
+- Split architecture adds complexity — multiple systems to maintain
 - PHI boundary requires ongoing vigilance (mitigated by automated scanner + training)
 - Notion is not a purpose-built CRM — has limitations on relational data, reporting, and scale (10K+ records can slow down)
 - n8n self-hosted requires some DevOps knowledge to maintain
 - AI agents require upfront build investment and ongoing prompt tuning
 - Longer deployment timeline (~6 months vs. ~3.5 months for GHL)
-- Compliance responsibility is on the organization, not a vendor
+- **AgencyBlock/AgencyIntegrator API limitations may constrain some integrations** — mitigated by thorough API audit in Phase 0
 
 ---
 
@@ -718,17 +889,18 @@ Based on industry data for insurance brokerages (Salary.com Jan 2026, PayScale 2
 
 **Blended hourly cost: ~$23/hr** (weighted: agents $28–31/hr at 60%, admin $15–17/hr at 30%, management $35–45/hr at 10%)
 
-### Proposal A (Notion + n8n + AI Agents)
+### Proposal A (Notion + n8n + AI Agents + Data Hygiene)
 
 | Category | Current Hours/Wk | After Automation | Saved/Wk | Annual Hours Saved |
 |----------|-----------------|-----------------|----------|-------------------|
 | AI SDR (lead qual, outreach, follow-up) | 24–38 | 3–4.5 | 21–33.5 | 1,092–1,742 |
 | AI BDR (prospecting, list building) | 11–18 | 1.5–2 | 9.5–16 | 494–832 |
 | AI Admin (data entry, scheduling, compliance) | 17–28 | 3–5 | 14–23 | 728–1,196 |
+| **Manual workarounds (AgencyBlock ↔ AgencyIntegrator)** | 5–10 | 0 | 5–10 | 260–520 |
 | Tool consolidation (context switching, duplicate entry) | 7–13 | 1 | 6–12 | 312–624 |
-| **TOTAL** | **59–97** | **8.5–12.5** | **50.5–84.5** | **2,626–4,394** |
+| **TOTAL** | **64–107** | **8.5–12.5** | **55.5–94.5** | **2,886–4,914** |
 
-**Equivalent to 1.3–2.1 FTEs returned to revenue-generating work.**
+**Equivalent to 1.4–2.4 FTEs returned to revenue-generating work.**
 
 ### Proposal B (GoHighLevel)
 
@@ -745,28 +917,30 @@ GHL automates tool consolidation and basic workflows but lacks custom AI agents.
 
 ## Financial Value & ROI
 
-### Annual Value Created
+### Annual Value Created (UPDATED)
 
 | Value Source | Proposal A (Conservative) | Proposal A (Optimistic) | Proposal B (Mid-Range) |
 |-------------|--------------------------|------------------------|----------------------|
-| Labor value recovered (hours × $23/hr) | $60,398 | $101,062 | $32,890 |
+| Labor value recovered (hours × $23/hr) | $66,378 | $113,022 | $32,890 |
 | Tool cost savings (eliminated tools) | $8,172 | $27,648 | $14,910 |
-| **Total annual value** | **$68,570** | **$128,710** | **$47,800** |
+| **Total annual value** | **$74,550** | **$140,670** | **$47,800** |
 
-### ROI by Year (10-Seat Scenario)
+*Note: Proposal A now includes hours saved from eliminating manual workarounds between AgencyBlock and AgencyIntegrator.*
+
+### ROI by Year (10-Seat Scenario) — UPDATED
 
 | Period | Proposal A (Conservative) | Proposal A (Optimistic) | Proposal B |
 |--------|--------------------------|------------------------|------------|
-| Year 1 investment | $55,240 | $55,240 | $19,216 |
-| Year 1 net value | +$13,330 | +$73,470 | +$28,584 |
-| **Year 1 ROI** | **24%** | **133%** | **149%** |
-| Year 2 cost (ongoing + retainer) | $27,240 | $27,240 | $12,216 |
-| Year 2 net value | +$41,330 | +$101,470 | +$35,584 |
-| **Year 2 ROI** | **152%** | **373%** | **291%** |
-| **3-Year cumulative net value** | **+$95,990** | **+$248,410** | **+$99,752** |
-| **Payback period** | **~10 months** | **~5 months** | **~5 months** |
+| Year 1 investment | $58,768 | $58,768 | $19,216 |
+| Year 1 net value | +$15,782 | +$81,902 | +$28,584 |
+| **Year 1 ROI** | **27%** | **139%** | **149%** |
+| Year 2 cost (ongoing + retainer) | $26,268 | $26,268 | $12,216 |
+| Year 2 net value | +$48,282 | +$114,402 | +$35,584 |
+| **Year 2 ROI** | **184%** | **436%** | **291%** |
+| **3-Year cumulative net value** | **+$111,564** | **+$280,104** | **+$99,752** |
+| **Payback period** | **~9 months** | **~5 months** | **~5 months** |
 
-**Key insight:** Proposal B pays back faster due to lower upfront cost, but Proposal A generates 1.4–2.5x more cumulative value by Year 3 due to AI agent automation. The gap widens every year.
+**Key insight:** Proposal B pays back faster due to lower upfront cost, but Proposal A generates 1.1–2.8x more cumulative value by Year 3 due to AI agent automation + system integration. The gap widens every year. Option B also does NOT solve the AgencyBlock/AgencyIntegrator communication problem.
 
 ### Revenue Upside (Not Modeled)
 
