@@ -27,7 +27,9 @@
 
 ## 1. Current Tool Inventory (Full Detail)
 
-### CRM / Sales / Outreach — 7 Tools
+**UPDATED: 90+ tools identified** (expanded from initial 46-tool estimate based on new inventory data)
+
+### CRM / Sales / Outreach — 11 Tools
 
 | Tool | Function | Est. Monthly Cost | Pricing Model | Active Users | Status |
 |------|----------|-------------------|---------------|-------------|--------|
@@ -38,10 +40,14 @@
 | Five9 | Contact center / dialer | $150–$300/seat | Core plan ~$149/seat/mo; per-minute telecom usage added on top. This is the most expensive per-seat tool in the stack. | TBD — seat count critical | Core — evaluate replacement during Phase 0. If only 1–2 seats, retain. If 5+, explore AI dialer alternatives. |
 | Crisp | Live chat / messaging | $25–$95 | Free basic; Pro ~$25/mo; Unlimited ~$95/mo per workspace | TBD | Redundant — replace with Notion intake forms + n8n routing. Retain if chat volume is high (>100 conversations/mo). |
 | Quo | Sales engagement | $50–$150 | Per-seat SaaS pricing; varies by plan tier | TBD | Redundant — replace with AI SDR agent via n8n + Bedrock |
+| EZ Texting (ServiceLink) | SMS messaging (possible duplicate) | $50–$200 | Same as EZ Texting — confirm if separate subscription | TBD | Investigate — likely duplicate billing |
+| slydocast | Voicemail drops | $30–$100 | Similar to slydial | TBD | Redundant — consolidate voicemail tools |
+| My Broadcast | Voicemail drops | $30–$100 | Another voicemail drop service | TBD | Redundant — pick one voicemail tool |
+| Grasshopper | Virtual phone | $30–$80 | Solo ~$30/mo; Small Business ~$80/mo | TBD | Evaluate — Five9 may cover this |
 
-**Category subtotal: $475–$1,395/mo ($5,700–$16,740/yr)**
+**Category subtotal: $610–$1,890/mo ($7,320–$22,680/yr)**
 
-**Key unknowns:** Active Campaign plan tier (is there a BAA?), Five9 seat count (could be the largest single line item), Quo actual usage level.
+**Key unknowns:** Active Campaign plan tier (is there a BAA?), Five9 seat count (could be the largest single line item), Quo actual usage level, multiple voicemail drop subscriptions (slydial, slydocast, My Broadcast — consolidate to one).
 
 ---
 
@@ -86,13 +92,30 @@
 
 ---
 
-### Data / Automation / Backend — 10 Tools
+### Communication / Collaboration — 6 Tools (NEW CATEGORY)
+
+| Tool | Function | Est. Monthly Cost | Pricing Model | Status |
+|------|----------|-------------------|---------------|--------|
+| Zoom | Video meetings / phone system | $15–$20/user | Pro ~$15/user/mo; Business ~$20/user/mo | **Keep** — evaluate seat count during Phase 0 |
+| OtterAI | Meeting transcription | $10–$20/user | Pro ~$10/user/mo; Business ~$20/user/mo | **Evaluate** — may replace with AI agent via Bedrock |
+| MS365-Teams | Team collaboration | $6–$22/user | Business Basic ~$6/user; Business Premium ~$22/user | **Keep** — core collaboration platform |
+| Asana | Project management | $11–$25/user | Premium ~$11/user; Business ~$25/user | **Redundant** — replace with Notion |
+| Trello | Task management | $5–$10/user | Standard ~$5/user; Premium ~$10/user | **Redundant** — replace with Notion |
+
+**Category subtotal: $47–$97/mo per user ($564–$1,164/yr per user)**
+
+**Key unknowns:** Seat counts for Zoom, MS365, Asana, Trello — costs scale significantly.
+
+---
+
+### Data / Automation / Backend — 15 Tools (EXPANDED)
 
 | Tool | Function | Est. Monthly Cost | Pricing Model | Status |
 |------|----------|-------------------|---------------|--------|
 | Airtable (Admin) | Database / ops tracking | $20–$45/seat | Team ~$20/seat/mo; Business ~$45/seat/mo; scales by seats and record count | **Redundant** — replace with Notion databases |
 | Airtable | General use | $20–$45/seat | Same pricing — separate workspace or base from Admin | **Redundant** — replace with Notion databases |
-| Airtable OTP | Unknown use case | $20–$45/seat | Same pricing — unknown what this base is used for | **Investigate** — determine purpose during Phase 0 before deciding |
+| Airtable OTP | Secure access / unknown | $20–$45/seat | Same pricing — unknown what this base is used for | **Investigate** — determine purpose during Phase 0 |
+| AirTable (Justin) | Personal workspace | $20–$45/seat | Personal workspace — additional subscription | **Investigate** — consolidate if possible |
 | Zapier | Automation / integrations | $20–$100+ | Starter ~$20/mo (750 tasks); Professional ~$50/mo (2K tasks); Team ~$100/mo (50K tasks) | **Replace with n8n** — self-hosted n8n is free with unlimited executions |
 | SendGrid (Twilio) | Transactional email | $15–$90 | Free tier (100 emails/day); Essentials ~$15/mo (50K emails); Pro ~$90/mo (100K emails) | **Keep** — transactional email backend for n8n workflows; also provides SMS via Twilio |
 | Amazon Web Services | Cloud infrastructure | $50–$500+ | Usage-based: EC2 instances, S3 storage, RDS databases, data transfer — highly variable | **Keep + expand** — becomes the HIPAA-compliant backbone for PHI storage, n8n, Bedrock |
@@ -121,20 +144,80 @@
 
 ---
 
-### Learning / Training — 2 Tools
+### Learning / Training — 5 Tools (EXPANDED)
 
 | Tool | Function | Est. Monthly Cost | Pricing Model | Status |
 |------|----------|-------------------|---------------|--------|
-| Cloud Academy | Training platform | $40–$55/seat | Individual ~$40/seat/mo; Team ~$55/seat/mo; enterprise negotiated | **Redundant** — pick one LMS, eliminate the other |
-| LearnDash | LMS (WordPress-based) | $13–$30 | 1 site ~$13/mo; 10 sites ~$30/mo; billed annually | **Redundant** — pick one LMS, eliminate the other |
+| Cloud Academy | Tech training platform | $40–$55/seat | Individual ~$40/seat/mo; Team ~$55/seat/mo; enterprise negotiated | **Redundant** — pick one LMS |
+| LearnDash | LMS (WordPress-based) | $13–$30 | 1 site ~$13/mo; 10 sites ~$30/mo; billed annually | **Redundant** — pick one LMS |
+| iSpring | Training software | $4–$7/user | Suite ~$4/user; Max ~$7/user (billed annually) | **Redundant** — third competing LMS |
+| MLN | Medicare Learning Network | $0 | CMS resource — free | **Keep** — compliance training resource |
+| Scribe | Process documentation | $0–$29/user | Free basic; Pro ~$29/user | **Evaluate** — AI may replace |
 
-**Category subtotal: $53–$85/mo ($636–$1,020/yr)** (single-seat estimate)
+**Category subtotal: $57–$121/mo ($684–$1,452/yr)** (single-seat estimate)
 
-**Recommendation:** LearnDash is cheaper and integrates with WordPress (already in the stack). Cloud Academy is better for technical training content. Decision depends on what training content exists and where.
+**Recommendation:** Three competing LMS platforms is excessive. LearnDash is cheapest and integrates with WordPress. Consolidate to one.
 
 ---
 
-### Compliance / Finance / Other — 5 Tools
+### Security / Authentication — 8 Tools (NEW CATEGORY)
+
+| Tool | Function | Est. Monthly Cost | Pricing Model | Status |
+|------|----------|-------------------|---------------|--------|
+| DUO | Multi-factor authentication | $3–$9/user | MFA ~$3/user; Access ~$6/user; Beyond ~$9/user | **Keep** — security required |
+| Sophos | Endpoint protection / cybersecurity | $25–$50/endpoint/yr | Intercept X ~$25–$50/endpoint/yr | **Keep** — security required |
+| KnowBe4 | Security awareness training | $18–$30/user/yr | Per-user annual licensing | **Keep** — compliance training |
+| Avenon | Email security | TBD | Cannot confirm pricing | **Investigate** — clarify during Phase 0 |
+| Alarm.com | Security monitoring | $10–$30 | Physical security monitoring | **Evaluate** — is this office security? |
+| Checker | Background checks | Per-use | $20–$50 per background check | **Keep** — hiring requirement |
+| ControlMap Communications | Compliance platform | TBD | Cannot confirm pricing | **Investigate** |
+| Verify Comply | Compliance tracking | TBD | Cannot confirm pricing | **Investigate** |
+
+**Category subtotal: ~$56–$119/mo ($672–$1,428/yr)** (plus per-use background check fees)
+
+---
+
+### Finance / Accounting / HR — 6 Tools (NEW CATEGORY)
+
+| Tool | Function | Est. Monthly Cost | Pricing Model | Status |
+|------|----------|-------------------|---------------|--------|
+| Ramp | Expense management | $0–$12/user | Free tier available; Plus ~$12/user/mo | **Evaluate** — may overlap with accounting |
+| ADP | Payroll / HR | $50–$200+ | Base platform + per-employee fees | **Keep** — payroll is non-negotiable |
+| BILL | Bill payments | $45–$79 | Essentials ~$45/mo; Team ~$79/mo | **Evaluate** — may consolidate with accounting |
+| Sage | Accounting software | $25–$75 | Start ~$25/mo; Accounting ~$75/mo | **Redundant** — pick one accounting system |
+| Quickbooks | Accounting software | $30–$100 | Simple Start ~$30/mo; Plus ~$100/mo | **Redundant** — pick one accounting system |
+| Tax Bandits | Tax filing | ~$4/mo (~$50/yr) | Per-form pricing (e.g. $3–$5 per 1099 form); seasonal use | **Keep** — seasonal, low cost |
+
+**Category subtotal: $154–$470/mo ($1,848–$5,640/yr)**
+
+**Key issue:** Two competing accounting systems (Sage and Quickbooks) is wasteful. Pick one and migrate.
+
+---
+
+### AI Tools — 2 Tools (NEW CATEGORY)
+
+| Tool | Function | Est. Monthly Cost | Pricing Model | Status |
+|------|----------|-------------------|---------------|--------|
+| ChatGPT | AI assistant | $20–$25/user | Plus ~$20/user; Team ~$25/user | **Consolidate to Bedrock** — HIPAA compliance risk |
+| Co-pilot | AI assistant (Microsoft) | $30/user | Microsoft 365 Copilot ~$30/user/mo | **Consolidate to Bedrock** — HIPAA compliance risk |
+
+**Category subtotal: $50–$55/mo per user ($600–$660/yr per user)**
+
+**CRITICAL:** Standalone AI subscriptions (ChatGPT, Copilot) are a **HIPAA compliance risk**. Staff may inadvertently paste PHI into these tools. Consolidate all AI usage to AWS Bedrock, which is covered by the AWS BAA.
+
+---
+
+### Office / Other — 5 Tools (NEW CATEGORY)
+
+| Tool | Function | Est. Monthly Cost | Pricing Model | Status |
+|------|----------|-------------------|---------------|--------|
+| Adobe Pro | PDF / e-signing | $23–$35 | Acrobat Pro ~$23/mo; with e-sign features ~$35/mo per license | **Evaluate** — can CRM handle e-sign? |
+| Zoho | Business suite / password manager | $3–$45/user | Varies by product; Zoho One ~$45/user/mo | **Investigate** — clarify what Zoho products are in use |
+| AddEvent | Event scheduling links | $0–$16 | Free tier available; Pro ~$16/mo for custom branding | **Keep if used** — low cost |
+| Fathom Analytics | Privacy-focused analytics | $14–$24 | $14/mo (100K page views); $24/mo (200K) | **Keep** — privacy-compliant analytics |
+| Marketing inbox | Unknown | TBD | Cannot confirm — needs investigation | **Investigate** — what is this? |
+
+**Category subtotal: $40–$120/mo ($480–$1,440/yr)**
 
 | Tool | Function | Est. Monthly Cost | Pricing Model | Status |
 |------|----------|-------------------|---------------|--------|

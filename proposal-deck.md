@@ -5,7 +5,7 @@
 
 # What This Presentation Covers
 
-We looked at every tool your company uses — all 46 of them.
+We looked at every tool your company uses — all **90+ of them**.
 
 This deck explains:
 - What's broken and what it's costing you
@@ -19,7 +19,7 @@ This deck explains:
 
 # The Problem in One Sentence
 
-Your company pays for 46 different software tools, many of them do the same thing, your two patient databases don't talk to each other, and nobody knows which ones are actually needed.
+Your company pays for **90+ different software tools**, many of them do the same thing, your two patient databases don't talk to each other, and nobody knows which ones are actually needed.
 
 ---
 
@@ -56,21 +56,25 @@ You already have two HIPAA-compliant systems for patient data:
 
 ---
 
-# What "46 Tools" Actually Looks Like
+# What "90+ Tools" Actually Looks Like
 
 Your teams use tools across every part of the business:
 
 | Area | How Many Tools | What They Do |
 |------|---------------|-------------|
-| Sales & Outreach | 7 tools | CRM, email campaigns, texting, calls |
-| Marketing & Content | 9 tools | SEO, social media, content creation |
-| Websites | 10 tools | Hosting, landing pages, forms, analytics |
-| Data & Automation | 10 tools | Databases, integrations, workflow tools |
-| Insurance-Specific | 3 tools | Medicare enrollment, carrier platforms |
-| Training | 2 tools | Online courses for agents |
-| Finance & Compliance | 5 tools | Billing, compliance tracking |
+| Communication & Collaboration | 6 tools | Video calls, chat, project management |
+| Sales & Outreach | 11 tools | CRM, email campaigns, texting, calls, voicemail |
+| Marketing & Content | 11 tools | SEO, social media, content creation, landing pages |
+| Websites | 11 tools | Hosting, landing pages, forms, analytics |
+| Data & Automation | 15 tools | Databases, integrations, workflow tools |
+| Insurance-Specific | 17 tools | Medicare enrollment, carrier platforms, compliance |
+| Security & Authentication | 8 tools | MFA, endpoint security, compliance |
+| Finance & Accounting | 6 tools | Payroll, accounting, expense management |
+| Training | 5 tools | Online courses, process documentation |
+| AI Tools | 2 tools | ChatGPT, Copilot (HIPAA compliance risk!) |
+| Office & Other | 5+ tools | PDF, analytics, scheduling |
 
-**Total estimated spend: $17,784–$60,996/year** — and that grows as you add people.
+**Total estimated spend: $23,148–$83,724/year** — and that grows significantly as you add people.
 
 ---
 
@@ -94,10 +98,16 @@ You're paying for multiple tools that do the same job:
 
 | Job to Be Done | Tools You're Paying For | How Many |
 |----------------|------------------------|----------|
-| Send emails | Active Campaign, GMass, SendGrid | 3 |
-| Send texts | EZ Texting, slydial | 2 |
-| Store data | Airtable (3 separate accounts) | 3 |
+| Send emails | Active Campaign, GMass, SendGrid (x3 subscriptions!) | 5 |
+| Send texts | EZ Texting (x2 subscriptions!), various | 3+ |
+| Voicemail drops | slydial, slydocast, My Broadcast | 3 |
+| Store data | Airtable (4 separate workspaces!) | 4 |
 | Collect form responses | Gravity Forms, Fluent Forms, Forgravity | 3 |
+| Accounting | Sage, Quickbooks, BILL, Ramp | 4 |
+| Training/LMS | Cloud Academy, LearnDash, iSpring | 3 |
+| Project management | Asana, Trello | 2 |
+| AI assistants | ChatGPT, Co-pilot (compliance risk!) | 2 |
+| Chat/messaging | Crisp (3 separate listings!) | 3 |
 | Host websites | WordPress, Squarespace | 2 |
 | Train agents | Cloud Academy, LearnDash | 2 |
 | Build landing pages | Unbounce, Elementor | 2 |

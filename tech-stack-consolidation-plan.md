@@ -5,7 +5,7 @@
 
 # The Problem
 
-The Brokerage Inc. has accumulated 45+ tools across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion.
+The Brokerage Inc. has accumulated **90+ tools** across siloed departments. The previous tech lead departed without documentation. Redundancies are costing money and creating confusion.
 
 **Additionally:** The two core patient data systems — AgencyBlock and AgencyIntegrator — don't communicate with each other. Staff create manual workarounds to move information between systems. The data in these systems is messy, outdated, and contains records of deceased patients that have never been purged.
 
@@ -43,6 +43,23 @@ A process map that becomes the single source of truth for all consolidation deci
 
 All costs below are estimates based on typical published plan pricing. Actual amounts require a contract and billing audit during Phase 0.
 
+**Total tools identified: 90+** (significant expansion from initial 46-tool estimate)
+
+---
+
+## Communication / Collaboration
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| Zoom | Video meetings / phone system | $15–$20/user | Pro ~$15/user/mo; Business ~$20/user/mo | Keep — evaluate seat count |
+| OtterAI | Meeting transcription | $10–$20/user | Pro ~$10/user/mo; Business ~$20/user/mo | Evaluate — may replace with AI |
+| MS365-Teams | Team collaboration | $6–$22/user | Business Basic ~$6/user; Business Premium ~$22/user | Keep |
+| Asana | Project management | $11–$25/user | Premium ~$11/user; Business ~$25/user | Redundant — replace with Notion |
+| Trello | Task management | $5–$10/user | Standard ~$5/user; Premium ~$10/user | Redundant — replace with Notion |
+| Grasshopper | Virtual phone | $30–$80 | Solo ~$30/mo; Small Business ~$80/mo | Evaluate — Five9 may cover |
+
+**Category subtotal: ~$77–$177/mo** (single-seat estimate; scales significantly)
+
 ---
 
 ## CRM / Sales / Outreach
@@ -51,13 +68,17 @@ All costs below are estimates based on typical published plan pricing. Actual am
 |------|----------|-------------------|--------------------------|--------|
 | Active Campaign | Email marketing / CRM | $150–$500 | Tiered by contact count: Starter ~$15/mo (500 contacts), Professional scales to $500+ for large lists | Redundant — replace |
 | EZ Texting | SMS outreach | $50–$200 | Plans start ~$20/mo for 500 credits; scales by message volume | Redundant — replace |
-| slydial | Voicemail drops | $30–$100 | Per-use credits (~$0.05–$0.10/drop) or monthly subscription packs | Niche — evaluate |
+| EZ Texting (ServiceLink) | SMS messaging (separate account?) | $50–$200 | Same pricing — confirm if duplicate subscription | Investigate — likely duplicate |
+| slydial | Voicemail drops | $30–$100 | Per-use credits (~$0.05–$0.10/drop) or monthly subscription packs | Redundant — multiple VM tools |
+| slydocast | Voicemail drops | $30–$100 | Similar to slydial — confirm if same vendor/different product | Redundant — consolidate |
+| My Broadcast | Voicemail drops | $30–$100 | Another voicemail drop service | Redundant — pick one |
 | GMass | Bulk email via Gmail | $20–$50 | Standard plan ~$20/mo per Gmail account; Premium ~$30; Enterprise ~$50 | Redundant — replace |
 | Five9 | Contact center / dialer | $150–$300/seat | Core plan ~$149/seat/mo; per-minute telecom usage added on top | Core — evaluate replacement |
-| Crisp | Live chat / messaging | $25–$95 | Free basic; Pro ~$25/mo; Unlimited ~$95/mo per workspace | Redundant — replace |
-| Quo | Sales engagement | $50–$150 | Per-seat SaaS pricing; varies by plan tier | Redundant — replace |
+| Crisp | Live chat / messaging | $25–$95 | Free basic; Pro ~$25/mo; Unlimited ~$95/mo per workspace | Redundant — appears 3x |
+| Crisp - Chatbot | Website chat | $25–$95 | Same tool, different listing | Duplicate listing |
+| Quo | Sales engagement / quoting | $50–$150 | Per-seat SaaS pricing; varies by plan tier | Redundant — replace |
 
-**Category subtotal: ~$475–$1,395/mo**
+**Category subtotal: ~$610–$1,890/mo**
 
 ---
 
@@ -65,17 +86,19 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Canva | Design | $13–$30 | Pro ~$13/mo (1 user); Teams ~$30/mo per 5 users | Keep |
-| Riverside | Podcast/video recording | $15–$24 | Standard ~$15/mo; Business ~$24/mo; per-seat | Keep if podcast continues |
+| Canva | Graphic design | $13–$30 | Pro ~$13/mo (1 user); Teams ~$30/mo per 5 users | Keep |
+| Riverside | Remote recording / podcast | $15–$24 | Standard ~$15/mo; Business ~$24/mo; per-seat | Keep if podcast continues |
 | Testimonial.to | Video testimonials | $20–$50 | Starter ~$20/mo; Premium ~$50/mo; based on # of testimonials | Evaluate ROI |
 | UberSuggest | SEO research | $30–$50 | Individual ~$29/mo; Business ~$49/mo; lifetime deals available | Redundant — evaluate |
 | Unbounce | Landing pages | $90–$225 | Launch ~$90/mo; Optimize ~$225/mo; based on conversions/pages | Redundant — replace |
-| SEO articles | Content/SEO service | $200–$500+ | Vendor pricing — per article or monthly retainer | Clarify vendor vs. internal |
+| BrightFire | Insurance marketing / SEO | $100–$500 | Insurance-specific marketing packages | Evaluate ROI |
 | Liberated Syndication | Podcast hosting | $5–$20 | Classic plans $5–$20/mo based on storage per month | Keep if podcast continues |
-| YouTube Premium | Video | $14 | Fixed subscription price | Likely personal — remove |
-| BrightFire | Insurance marketing | $100–$500 | Insurance-specific marketing packages; appears duplicated in inventory — confirm one sub | Confirm single subscription |
+| YouTube Premium | Video streaming | $14 | Fixed subscription price | Likely personal — remove |
+| Link Tree | Link landing | $5–$24 | Free tier; Pro ~$5/mo; Premium ~$24/mo | Keep — low cost |
+| Forgravita LLC | Marketing services | TBD | Vendor/agency — confirm scope and cost | Investigate |
+| OptinMonster (crtrdp llc) | Lead capture | $14–$80 | Basic ~$14/mo; Pro ~$80/mo | Evaluate — GHL/Notion may cover |
 
-**Category subtotal: ~$487–$1,413/mo**
+**Category subtotal: ~$306–$1,017/mo**
 
 ---
 
@@ -83,18 +106,19 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| WordPress (main) | Primary website | $0 | Open-source CMS — free | Keep |
-| WP Engine | WordPress hosting | $20–$60 | Startup ~$20/mo (1 site, 25K visits); Growth ~$60/mo (10 sites) | Keep |
-| Staging environment TBI | Dev/staging | $0 | Included with WP Engine hosting plans | Keep |
-| Squarespace | Secondary site | $16–$49 | Personal ~$16/mo; Business ~$33/mo; Commerce ~$49/mo | Redundant — eliminate |
-| Elementor | Page builder | $5–$17 | Essential ~$5/mo (1 site); Advanced ~$17/mo (25 sites); billed annually | Keep w/ WordPress |
-| Gravity Forms | WordPress forms | $5–$20 | Basic ~$5/mo; Elite ~$20/mo; billed annually per-site license | Redundant — pick one |
-| Fluent Forms | WordPress forms | $5–$10 | Single site ~$5/mo; agency ~$10/mo; billed annually | Redundant — pick one |
-| Forgravity | Gravity Forms add-ons | $10–$20 | Annual license divided monthly; depends on add-on bundle | Eliminate if Gravity goes |
+| WordPress (main) | Primary website CMS | $0 | Open-source CMS — free | Keep |
+| wordpress - main | Website CMS (duplicate listing) | $0 | Same as above | Duplicate listing |
+| WP Engine / wpengine login | WordPress hosting | $20–$60 | Startup ~$20/mo (1 site, 25K visits); Growth ~$60/mo (10 sites) | Keep |
+| Elementor | Website builder / page builder | $5–$17 | Essential ~$5/mo (1 site); Advanced ~$17/mo (25 sites); billed annually | Keep w/ WordPress |
+| Gravity Forms | Form builder | $5–$20 | Basic ~$5/mo; Elite ~$20/mo; billed annually per-site license | Redundant — pick one |
+| Fluent Forms (wpmanageinja) | Form builder | $5–$10 | Single site ~$5/mo; agency ~$10/mo; billed annually | Redundant — pick one |
+| Forgravity (now ConnectGiant) | Gravity Forms add-ons / cloud storage | $10–$20 | Annual license divided monthly; depends on add-on bundle | Eliminate if Gravity goes |
 | Imagify | Image optimization | $5–$10 | Starter free (20MB); Growth ~$5/mo (500MB); Infinite ~$10/mo | Keep — low cost |
-| Gravatar | Profile avatars | $0 | Free service | Keep |
+| Gravatar | Avatar profiles | $0 | Free service | Keep |
+| Metabox | WordPress fields | $5–$15 | Personal ~$5/mo; Developer ~$15/mo | Keep if used |
+| perfmatters | Site performance | $3–$5 | ~$25/yr for single site | Keep — low cost |
 
-**Category subtotal: ~$66–$186/mo**
+**Category subtotal: ~$58–$157/mo**
 
 ---
 
@@ -103,17 +127,22 @@ All costs below are estimates based on typical published plan pricing. Actual am
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
 | Airtable (Admin) | Database / ops | $20–$45/seat | Team ~$20/seat/mo; Business ~$45/seat/mo; scales by seats and records | Redundant — replace |
-| Airtable | General use | $20–$45/seat | Same pricing as above — separate workspace or base | Redundant — replace |
-| Airtable OTP | Unknown use case | $20–$45/seat | Same pricing — unknown what this base serves | Investigate |
-| Zapier | Automation | $20–$100+ | Starter ~$20/mo (750 tasks); Professional ~$50/mo (2K tasks); Team ~$100/mo | Evaluate per proposal |
-| SendGrid (Twilio) | Transactional email | $15–$90 | Free tier (100/day); Essentials ~$15/mo (50K emails); Pro ~$90/mo (100K emails) | May keep for volume |
-| Amazon Web Services | Cloud infra | $50–$500+ | Usage-based: EC2 instances, S3 storage, data transfer — highly variable | Evaluate what runs here |
-| Couchdrop | File transfer / SFTP | $15–$50 | Starter ~$15/mo; Business ~$50/mo; based on storage and users | Evaluate necessity |
-| HIPAA Vault | HIPAA hosting/storage | $50–$300 | Managed HIPAA hosting; pricing by server size and compliance tier | **Keep — non-negotiable** |
-| Streamlit | Data apps / dashboards | $0–$250 | Community Cloud free; Teams ~$250/mo for private apps | Evaluate what it powers |
-| Basefront | Unknown | TBD | Cannot confirm pricing — tool needs investigation | Investigate |
+| Airtable | Database tool | $20–$45/seat | Same pricing as above — separate workspace or base | Redundant — replace |
+| Airtable OTP | Secure access / unknown | $20–$45/seat | Same pricing — unknown what this base serves | Investigate |
+| AirTable (Justin) | Database tool | $20–$45/seat | Personal workspace — confirm if needed | Investigate — likely consolidate |
+| Zapier | App automation | $20–$100+ | Starter ~$20/mo (750 tasks); Professional ~$50/mo (2K tasks); Team ~$100/mo | Replace with n8n |
+| SendGrid (Twilio) | Email delivery | $15–$90 | Free tier (100/day); Essentials ~$15/mo (50K emails); Pro ~$90/mo (100K emails) | Keep for transactional email |
+| Send Grid (ServiceLink) | Email delivery (separate account?) | $15–$90 | Same pricing — confirm if duplicate subscription | Investigate — likely duplicate |
+| Sendgrid | Email delivery (third listing) | $15–$90 | Same tool — multiple listings | Duplicate listing |
+| Amazon Web Services | Cloud hosting | $50–$500+ | Usage-based: EC2 instances, S3 storage, data transfer — highly variable | Keep — hosts n8n + AI |
+| Couchdrop | SFTP automation | $15–$50 | Starter ~$15/mo; Business ~$50/mo; based on storage and users | Evaluate necessity |
+| HIPAA Vault | Secure email / HIPAA hosting | $50–$300 | Managed HIPAA hosting; pricing by server size and compliance tier | **Keep — non-negotiable** |
+| Streamlit | Data apps | $0–$250 | Community Cloud free; Teams ~$250/mo for private apps | Evaluate what it powers |
+| Basefront | Lead management | TBD | Cannot confirm pricing — tool needs investigation | Investigate |
+| Hubsolo | Excel tools | TBD | Cannot confirm pricing — tool needs investigation | Investigate |
+| FileZilla | FTP client | $0 | Free open-source software | Keep — free |
 
-**Category subtotal: ~$210–$1,425/mo** (varies heavily by seats/usage)
+**Category subtotal: ~$260–$1,750/mo** (varies heavily by seats/usage)
 
 ---
 
@@ -121,15 +150,59 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| **AgencyBlock** | Patient records, enrollment data, policy management | Existing contract | HIPAA-compliant AMS; existing BAA in place | **KEEP — Core PHI system** |
-| **AgencyIntegrator** | Workflow automation, carrier integrations | Existing contract | HIPAA-compliant workflow platform; existing BAA in place | **KEEP — Core PHI system** |
-| Medicare Pro | Enrollment platform | $100–$300 | Industry-specific licensing; per-agent or flat monthly | **Keep — core business** |
-| Medicare Pro Test | Testing environment | $0 | Included with Medicare Pro subscription | Keep |
-| E123 | Enrollment / quoting | $50–$200 | Per-agent licensing for enrollment/quoting platform | **Keep — core business** |
+| **AgencyBloc** | Insurance CRM / patient records | Existing contract | HIPAA-compliant AMS; existing BAA in place | **KEEP — Core PHI system** |
+| **Agency Integrator (AI)** | Data integration / workflow automation | Existing contract | HIPAA-compliant workflow platform; existing BAA in place | **KEEP — Core PHI system** |
+| Agency Integrator | Data integration (duplicate listing) | Existing contract | Same tool | Duplicate listing |
+| AgencyVision | Agent analytics | $50–$150 | Insurance-specific analytics platform | Evaluate — may overlap with reporting |
+| HealthSherpa | ACA/Medicare enrollment | $0–$100 | Free for basic; premium features may have cost | **Keep — ACA enrollment** |
+| Sunfire | Medicare enrollment | $50–$150 | Medicare-specific enrollment platform | **Keep — Medicare enrollment** |
+| E123 | Medicare enrollment / commissions payouts | $50–$200 | Per-agent licensing for enrollment/quoting platform | **Keep — core business** |
+| Mojo/PaperClip | Enrollment automation | $50–$150 | Enrollment workflow automation | Evaluate — may overlap with AI |
+| Sircon | Licensing compliance | $25–$75 | Producer licensing management | **Keep — compliance required** |
+| NIPR | Producer registry | $0–$50 | National Insurance Producer Registry; per-transaction fees | **Keep — compliance required** |
+| Sunroofflex | Contracting platform | $50–$200 | Agent contracting and onboarding | Evaluate necessity |
+| BrokerLink 2.0 | Agent portal | TBD | Cannot confirm pricing | Investigate |
+| State Based Systems | Agent data (pulling new agent data) | $0–$50 | State-specific systems; may be free or per-transaction | **Keep — compliance required** |
+| State Dept of Insurance | Agent lookup / agent data | $0 | Government systems — typically free | **Keep — compliance required** |
+| DOI websites | Regulatory access | $0 | Government systems — free | **Keep — compliance required** |
+| HPMS | Medicare reporting | $0 | CMS Health Plan Management System — no direct cost | **Keep — CMS compliance** |
+| Workflex | Insurance admin | TBD | Cannot confirm pricing | Investigate |
 
-**Category subtotal: ~$150–$500/mo** (excludes AgencyBlock/AgencyIntegrator — already in budget)
+**Category subtotal: ~$275–$1,125/mo** (excludes AgencyBloc/AgencyIntegrator — already in budget)
 
-**Note:** AgencyBlock and AgencyIntegrator are the existing HIPAA-compliant patient data systems. They are NOT being replaced — they are being integrated via n8n and cleaned up via data hygiene services.
+**Note:** AgencyBloc and Agency Integrator are the existing HIPAA-compliant patient data systems. They are NOT being replaced — they are being integrated via n8n and cleaned up via data hygiene services.
+
+---
+
+## Security / Authentication / Compliance
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| DUO | Multi-factor authentication | $3–$9/user | MFA ~$3/user; Access ~$6/user; Beyond ~$9/user | **Keep — security required** |
+| Sophos | Cybersecurity / endpoint protection | $25–$50/endpoint | Intercept X ~$25–$50/endpoint/yr | **Keep — security required** |
+| KnowBe4 | Security training | $18–$30/user/yr | Security awareness training; per-user annual | **Keep — compliance training** |
+| Avenon | Email security | TBD | Cannot confirm pricing | Investigate |
+| Alarm.com | Security monitoring | $10–$30 | Physical security monitoring | Evaluate — is this office security? |
+| Checker | Background checks | Per-use | $20–$50 per background check | Keep — hiring requirement |
+| ControlMap Communications | Compliance platform | TBD | Cannot confirm pricing | Investigate |
+| Verify Comply | Compliance tracking | TBD | Cannot confirm pricing | Investigate |
+
+**Category subtotal: ~$56–$119/mo** (single-user estimate; background checks variable)
+
+---
+
+## Finance / Accounting / HR
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| Ramp | Expense management | $0–$12/user | Free tier available; Plus ~$12/user/mo | Evaluate — may overlap with accounting |
+| ADP | Payroll / HR | $50–$200+ | Base platform + per-employee fees | **Keep — payroll required** |
+| BILL | Bill payments | $45–$79 | Essentials ~$45/mo; Team ~$79/mo | Evaluate — may consolidate |
+| Sage | Accounting software | $25–$75 | Start ~$25/mo; Accounting ~$75/mo | Redundant — pick one |
+| Quickbooks | Accounting software | $30–$100 | Simple Start ~$30/mo; Plus ~$100/mo | Redundant — pick one |
+| Tax Bandits | Tax filing | ~$4/mo (~$50/yr) | Per-form pricing (e.g. $3–$5 per 1099); seasonal use | Keep |
+
+**Category subtotal: ~$154–$470/mo**
 
 ---
 
@@ -137,42 +210,73 @@ All costs below are estimates based on typical published plan pricing. Actual am
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Cloud Academy | Training platform | $40–$55/seat | Individual ~$40/seat/mo; Team ~$55/seat/mo; enterprise negotiated | Redundant — pick one |
-| LearnDash | LMS (WordPress) | $13–$30 | 1 site ~$13/mo; 10 sites ~$30/mo; billed annually | Redundant — pick one |
+| Cloud Academy | Tech training | $40–$55/seat | Individual ~$40/seat/mo; Team ~$55/seat/mo; enterprise negotiated | Redundant — pick one |
+| LearnDash | LMS platform | $13–$30 | 1 site ~$13/mo; 10 sites ~$30/mo; billed annually | Redundant — pick one |
+| iSpring | Training software | $4–$7/user | Suite ~$4/user; Max ~$7/user (billed annually) | Redundant — pick one |
+| MLN | Learning network (Medicare Learning Network) | $0 | CMS resource — free | Keep — compliance training |
+| Scribe | Process documentation | $0–$29/user | Free basic; Pro ~$29/user | Evaluate — AI may replace |
 
-**Category subtotal: ~$53–$85/mo** (single-seat estimate)
+**Category subtotal: ~$57–$121/mo** (single-seat estimate)
 
 ---
 
-## Compliance / Finance / Other
+## AI Tools
 
 | Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
 |------|----------|-------------------|--------------------------|--------|
-| Tax Bandits | Tax filing | ~$4/mo (~$50/yr) | Per-form pricing (e.g. $3–$5 per 1099); seasonal use | Keep |
-| Adobe Pro | PDF / e-sign | $23–$35 | Acrobat Pro ~$23/mo; with e-sign features ~$35/mo per license | Evaluate if CRM covers e-sign |
-| Fathom Analytics | Privacy analytics | $14–$24 | $14/mo (100K page views); $24/mo (200K); scales by traffic | Keep |
-| AddEvent | Event scheduling | $0–$16 | Free tier available; Pro ~$16/mo for custom branding and more events | Keep if used |
-| Marketing inbox | Unknown | TBD | Cannot confirm — needs investigation | Investigate |
+| ChatGPT | AI assistant | $20–$25/user | Plus ~$20/user; Team ~$25/user | Evaluate — consolidate to Bedrock |
+| Co-pilot | AI assistant (Microsoft) | $30/user | Microsoft 365 Copilot ~$30/user/mo | Evaluate — consolidate to Bedrock |
 
-**Category subtotal: ~$41–$79/mo**
+**Category subtotal: ~$50–$55/mo** (single-user)
+
+**Note:** These standalone AI subscriptions should be consolidated into AWS Bedrock for HIPAA compliance and cost efficiency. Individual ChatGPT/Copilot accounts may expose PHI to non-compliant systems.
 
 ---
 
-# Total Estimated Current Spend
+## Office / Hardware / Other
+
+| Tool | Function | Est. Monthly Cost | Where the Cost Comes From | Status |
+|------|----------|-------------------|--------------------------|--------|
+| Microsoft Office | Office productivity | Included | Often bundled with MS365 | Keep |
+| MS Office | Office productivity (duplicate listing) | Included | Same as above | Duplicate listing |
+| Adobe Pro | PDF editing | $23–$35 | Acrobat Pro ~$23/mo; with e-sign features ~$35/mo per license | Evaluate if CRM covers e-sign |
+| Zoho | Business suite / password | $3–$45/user | Varies by product; Zoho One ~$45/user/mo | Investigate scope |
+| AddEvent | Calendar links | $0–$16 | Free tier available; Pro ~$16/mo for custom branding | Keep if used |
+| CMS | Content management | TBD | Generic listing — clarify what this is | Investigate |
+| Registration Software | Event registration | TBD | Cannot confirm — clarify vendor | Investigate |
+| Brother Printers | Office printing | N/A | Hardware — not SaaS | N/A |
+
+**Category subtotal: ~$26–$96/mo** (excluding unknown tools)
+
+---
+
+# Total Estimated Current Spend (UPDATED)
 
 | Category | Low Estimate/mo | High Estimate/mo |
 |----------|----------------|-----------------|
-| CRM / Sales / Outreach | $475 | $1,395 |
-| Marketing / Content / SEO | $487 | $1,413 |
-| Website / Web Infrastructure | $66 | $186 |
-| Data / Automation / Backend | $210 | $1,425 |
-| Industry / Enrollment | $150 | $500 |
-| Learning / Training | $53 | $85 |
-| Compliance / Finance / Other | $41 | $79 |
-| **TOTAL MONTHLY** | **~$1,482/mo** | **~$5,083/mo** |
-| **TOTAL ANNUAL** | **~$17,784/yr** | **~$60,996/yr** |
+| Communication / Collaboration | $77 | $177 |
+| CRM / Sales / Outreach | $610 | $1,890 |
+| Marketing / Content / SEO | $306 | $1,017 |
+| Website / Web Infrastructure | $58 | $157 |
+| Data / Automation / Backend | $260 | $1,750 |
+| Industry / Enrollment | $275 | $1,125 |
+| Security / Authentication / Compliance | $56 | $119 |
+| Finance / Accounting / HR | $154 | $470 |
+| Learning / Training | $57 | $121 |
+| AI Tools | $50 | $55 |
+| Office / Hardware / Other | $26 | $96 |
+| **TOTAL MONTHLY** | **~$1,929/mo** | **~$6,977/mo** |
+| **TOTAL ANNUAL** | **~$23,148/yr** | **~$83,724/yr** |
 
-*Per-seat tools (Five9, Airtable, Cloud Academy) can multiply significantly with headcount. These estimates assume minimal seats — actual spend may be at or above the high end.*
+*Per-seat tools (MS365, Five9, Airtable, Zoom, ADP, etc.) can multiply significantly with headcount. These estimates assume minimal seats — actual spend may be at or above the high end.*
+
+**Key findings from expanded inventory:**
+- **Multiple duplicate subscriptions** identified (SendGrid x3, Crisp x3, Airtable x4, EZ Texting x2, voicemail drops x3)
+- **Three competing accounting systems** (Sage, Quickbooks, plus Ramp/BILL for payments)
+- **Three competing LMS/training platforms** (Cloud Academy, LearnDash, iSpring)
+- **AI tools fragmented** across ChatGPT and Copilot — consolidation to Bedrock needed for HIPAA compliance
+- **Form builders duplicated** (Gravity Forms + Fluent Forms)
+- **Project management duplicated** (Asana + Trello) — both replaceable by Notion
 
 ---
 
